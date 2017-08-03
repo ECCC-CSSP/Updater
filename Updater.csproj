@@ -64,7 +64,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Updater_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>false</DelaySign>
@@ -159,6 +160,9 @@
     <Compile Include="Contact.cs">
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="ContactLogin.cs">
+      <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="ContactPreference.cs">
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
@@ -184,6 +188,12 @@
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Email.cs">
+      <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailDistributionList.cs">
+      <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailDistributionListContact.cs">
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="HydrometricDataValue.cs">
@@ -262,6 +272,9 @@
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="PolSourceSite.cs">
+      <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RainExceedance.cs">
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="RatingCurve.cs">
@@ -386,8 +399,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Updater_1_TemporaryKey.pfx" />
-    <None Include="Updater_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

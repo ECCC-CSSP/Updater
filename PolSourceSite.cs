@@ -14,6 +14,12 @@ namespace Updater
     
     public partial class PolSourceSite
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PolSourceSite()
+        {
+            this.PolSourceObservations = new HashSet<PolSourceObservation>();
+        }
+    
         public int PolSourceSiteID { get; set; }
         public int PolSourceSiteTVItemID { get; set; }
         public string Temp_Locator_CanDelete { get; set; }
@@ -26,6 +32,8 @@ namespace Updater
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolSourceObservation> PolSourceObservations { get; set; }
         public virtual TVItem TVItem { get; set; }
     }
 }

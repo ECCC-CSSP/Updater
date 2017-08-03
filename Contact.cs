@@ -17,6 +17,7 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Contact()
         {
+            this.ContactLogins = new HashSet<ContactLogin>();
             this.ContactPreferences = new HashSet<ContactPreference>();
             this.ContactShortcuts = new HashSet<ContactShortcut>();
         }
@@ -39,6 +40,8 @@ namespace Updater
         public int LastUpdateContactTVItemID { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContactLogin> ContactLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContactPreference> ContactPreferences { get; set; }
         public virtual TVItem TVItem { get; set; }

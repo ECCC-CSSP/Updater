@@ -187,11 +187,11 @@ namespace Updater
 
                 if (sb.ToString().Contains("Normal run completion"))
                 {
-                    mikeScenarioToChange.MikeScenarioStatus = (int)ScenarioStatusEnum.Completed;
+                    mikeScenarioToChange.ScenarioStatus = (int)ScenarioStatusEnum.Completed;
                 }
                 else
                 {
-                    mikeScenarioToChange.MikeScenarioStatus = (int)ScenarioStatusEnum.Changed;
+                    mikeScenarioToChange.ScenarioStatus = (int)ScenarioStatusEnum.Changed;
                 }
 
                 try
@@ -322,7 +322,7 @@ namespace Updater
 
             if (mikeScenario != null)
             {
-                mikeScenario.MikeScenarioStatus = (int)ScenarioStatusEnum.Running;
+                mikeScenario.ScenarioStatus = (int)ScenarioStatusEnum.Running;
             }
 
             try
@@ -353,10 +353,10 @@ namespace Updater
                                from m in db.MikeScenarios
                                where c.TVItemID == t.TVItemID
                                && t.TVItemID == m.MikeScenarioTVItemID
-                               && c.Command == (int)AppTaskCommandEnum.MikeScenarioWaitingToRun
-                               && c.Status == (int)AppTaskStatusEnum.Running
+                               && c.AppTaskCommand == (int)AppTaskCommandEnum.MikeScenarioWaitingToRun
+                               && c.AppTaskStatus == (int)AppTaskStatusEnum.Running
                                && t.TVType == (int)TVTypeEnum.MikeScenario
-                               && m.MikeScenarioStatus == (int)ScenarioStatusEnum.AskToRun
+                               && m.ScenarioStatus == (int)ScenarioStatusEnum.AskToRun
                                select c).FirstOrDefault();
 
             if (appTask == null)

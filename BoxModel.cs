@@ -26,7 +26,7 @@ namespace Updater
         public double Flow_m3_day { get; set; }
         public double Depth_m { get; set; }
         public double Temperature_C { get; set; }
-        public double Dilution { get; set; }
+        public int Dilution { get; set; }
         public double DecayRate_per_day { get; set; }
         public int FCUntreated_MPN_100ml { get; set; }
         public int FCPreDisinfection_MPN_100ml { get; set; }

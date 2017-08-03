@@ -12,32 +12,23 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class AppTask
+    public partial class EmailDistributionList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AppTask()
+        public EmailDistributionList()
         {
-            this.AppTaskLanguages = new HashSet<AppTaskLanguage>();
+            this.EmailDistributionListContacts = new HashSet<EmailDistributionListContact>();
         }
     
-        public int AppTaskID { get; set; }
-        public int TVItemID { get; set; }
-        public int TVItemID2 { get; set; }
-        public int AppTaskCommand { get; set; }
-        public int AppTaskStatus { get; set; }
-        public int PercentCompleted { get; set; }
-        public string Parameters { get; set; }
-        public int Language { get; set; }
-        public System.DateTime StartDateTime_UTC { get; set; }
-        public Nullable<System.DateTime> EndDateTime_UTC { get; set; }
-        public Nullable<int> EstimatedLength_second { get; set; }
-        public Nullable<int> RemainingTime_second { get; set; }
+        public int EmailDistributionListID { get; set; }
+        public int CountryTVItemID { get; set; }
+        public string RegionName { get; set; }
+        public int Ordinal { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppTaskLanguage> AppTaskLanguages { get; set; }
+        public virtual ICollection<EmailDistributionListContact> EmailDistributionListContacts { get; set; }
         public virtual TVItem TVItem { get; set; }
-        public virtual TVItem TVItem1 { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Updater
         }
     
         public int PolSourceObservationID { get; set; }
-        public int PolSourceSiteTVItemID { get; set; }
+        public int PolSourceSiteID { get; set; }
         public System.DateTime ObservationDate_Local { get; set; }
         public int ContactTVItemID { get; set; }
         public string Observation_ToBeDeleted { get; set; }
@@ -30,7 +30,7 @@ namespace Updater
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolSourceObservationIssue> PolSourceObservationIssues { get; set; }
+        public virtual PolSourceSite PolSourceSite { get; set; }
         public virtual TVItem TVItem { get; set; }
-        public virtual TVItem TVItem1 { get; set; }
     }
 }

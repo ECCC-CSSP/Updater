@@ -14,9 +14,16 @@ namespace Updater
     
     public partial class MikeScenario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MikeScenario()
+        {
+            this.MikeScenarios1 = new HashSet<MikeScenario>();
+        }
+    
         public int MikeScenarioID { get; set; }
         public int MikeScenarioTVItemID { get; set; }
-        public int MikeScenarioStatus { get; set; }
+        public Nullable<int> ParentMikeScenarioID { get; set; }
+        public int ScenarioStatus { get; set; }
         public string ErrorInfo { get; set; }
         public System.DateTime MikeScenarioStartDateTime_Local { get; set; }
         public System.DateTime MikeScenarioEndDateTime_Local { get; set; }
@@ -42,6 +49,9 @@ namespace Updater
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MikeScenario> MikeScenarios1 { get; set; }
+        public virtual MikeScenario MikeScenario1 { get; set; }
         public virtual TVItem TVItem { get; set; }
     }
 }

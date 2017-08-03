@@ -16,7 +16,7 @@ namespace Updater
     {
         public int BoxModelResultID { get; set; }
         public int BoxModelID { get; set; }
-        public int ResultType { get; set; }
+        public int BoxModelResultType { get; set; }
         public double Volume_m3 { get; set; }
         public double Surface_m2 { get; set; }
         public double Radius_m { get; set; }
