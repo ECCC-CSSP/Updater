@@ -12,16 +12,20 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class TideLocation
+    public partial class ReportTypeLanguage
     {
-        public int TideLocationID { get; set; }
-        public int Zone { get; set; }
+        public int ReportTypeLanguageID { get; set; }
+        public int ReportTypeID { get; set; }
+        public int Language { get; set; }
         public string Name { get; set; }
-        public string Prov { get; set; }
-        public int sid { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
+        public int TranslationStatusName { get; set; }
+        public string Description { get; set; }
+        public int TranslationStatusDescription { get; set; }
+        public string StartOfFileName { get; set; }
+        public int TranslationStatusStartOfFileName { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
+    
+        public virtual ReportType ReportType { get; set; }
     }
 }

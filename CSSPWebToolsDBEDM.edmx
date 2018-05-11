@@ -141,16 +141,16 @@
           <Property Name="Volume_m3" Type="float" Nullable="false" />
           <Property Name="Surface_m2" Type="float" Nullable="false" />
           <Property Name="Radius_m" Type="float" Nullable="false" />
-          <Property Name="LeftSideDiameterLineAngle_deg" Type="float" Nullable="false" />
-          <Property Name="CircleCenterLatitude" Type="float" Nullable="false" />
-          <Property Name="CircleCenterLongitude" Type="float" Nullable="false" />
+          <Property Name="LeftSideDiameterLineAngle_deg" Type="float" />
+          <Property Name="CircleCenterLatitude" Type="float" />
+          <Property Name="CircleCenterLongitude" Type="float" />
           <Property Name="FixLength" Type="bit" Nullable="false" />
           <Property Name="FixWidth" Type="bit" Nullable="false" />
           <Property Name="RectLength_m" Type="float" Nullable="false" />
           <Property Name="RectWidth_m" Type="float" Nullable="false" />
-          <Property Name="LeftSideLineAngle_deg" Type="float" Nullable="false" />
-          <Property Name="LeftSideLineStartLatitude" Type="float" Nullable="false" />
-          <Property Name="LeftSideLineStartLongitude" Type="float" Nullable="false" />
+          <Property Name="LeftSideLineAngle_deg" Type="float" />
+          <Property Name="LeftSideLineStartLatitude" Type="float" />
+          <Property Name="LeftSideLineStartLongitude" Type="float" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -182,6 +182,7 @@
           <Property Name="DateTime_Local" Type="datetime" Nullable="false" />
           <Property Name="Keep" Type="bit" Nullable="false" />
           <Property Name="StorageDataType" Type="int" Nullable="false" />
+          <Property Name="HasBeenRead" Type="bit" Nullable="false" />
           <Property Name="Snow_cm" Type="float" />
           <Property Name="Rainfall_mm" Type="float" />
           <Property Name="RainfallEntered_mm" Type="float" />
@@ -223,18 +224,6 @@
           <Property Name="MonthlyStartDate_Local" Type="datetime" />
           <Property Name="MonthlyEndDate_Local" Type="datetime" />
           <Property Name="MonthlyNow" Type="bit" />
-          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
-          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ContactLogins">
-          <Key>
-            <PropertyRef Name="ContactLoginID" />
-          </Key>
-          <Property Name="ContactLoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ContactID" Type="int" Nullable="false" />
-          <Property Name="LoginEmail" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="PasswordHash" Type="varbinary" MaxLength="200" Nullable="false" />
-          <Property Name="PasswordSalt" Type="varbinary" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -293,6 +282,18 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmailDistributionListContactLanguages">
+          <Key>
+            <PropertyRef Name="EmailDistributionListContactLanguageID" />
+          </Key>
+          <Property Name="EmailDistributionListContactLanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailDistributionListContactID" Type="int" Nullable="false" />
+          <Property Name="Language" Type="int" Nullable="false" />
+          <Property Name="Agency" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TranslationStatus" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmailDistributionListContacts">
           <Key>
             <PropertyRef Name="EmailDistributionListContactID" />
@@ -300,7 +301,6 @@
           <Property Name="EmailDistributionListContactID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmailDistributionListID" Type="int" Nullable="false" />
           <Property Name="IsCC" Type="bit" Nullable="false" />
-          <Property Name="Agency" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CMPRainfallSeasonal" Type="bit" Nullable="false" />
@@ -311,13 +311,24 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmailDistributionListLanguages">
+          <Key>
+            <PropertyRef Name="EmailDistributionListLanguageID" />
+          </Key>
+          <Property Name="EmailDistributionListLanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailDistributionListID" Type="int" Nullable="false" />
+          <Property Name="Language" Type="int" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TranslationStatus" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmailDistributionLists">
           <Key>
             <PropertyRef Name="EmailDistributionListID" />
           </Key>
           <Property Name="EmailDistributionListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CountryTVItemID" Type="int" Nullable="false" />
-          <Property Name="RegionName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Ordinal" Type="int" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
@@ -677,6 +688,37 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MWQMAnalysisReportParameters">
+          <Key>
+            <PropertyRef Name="MWQMAnalysisReportParameterID" />
+          </Key>
+          <Property Name="MWQMAnalysisReportParameterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubsectorTVItemID" Type="int" Nullable="false" />
+          <Property Name="AnalysisName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="AnalysisReportYear" Type="int" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="AnalysisCalculationType" Type="int" Nullable="false" />
+          <Property Name="NumberOfRuns" Type="int" Nullable="false" />
+          <Property Name="FullYear" Type="bit" Nullable="false" />
+          <Property Name="SalinityHighlightDeviationFromAverage" Type="float" Nullable="false" />
+          <Property Name="ShortRangeNumberOfDays" Type="int" Nullable="false" />
+          <Property Name="MidRangeNumberOfDays" Type="int" Nullable="false" />
+          <Property Name="DryLimit24h" Type="int" Nullable="false" />
+          <Property Name="DryLimit48h" Type="int" Nullable="false" />
+          <Property Name="DryLimit72h" Type="int" Nullable="false" />
+          <Property Name="DryLimit96h" Type="int" Nullable="false" />
+          <Property Name="WetLimit24h" Type="int" Nullable="false" />
+          <Property Name="WetLimit48h" Type="int" Nullable="false" />
+          <Property Name="WetLimit72h" Type="int" Nullable="false" />
+          <Property Name="WetLimit96h" Type="int" Nullable="false" />
+          <Property Name="RunsToOmit" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="ShowDataTypes" Type="nvarchar" MaxLength="20" />
+          <Property Name="ExcelTVFileTVItemID" Type="int" />
+          <Property Name="Command" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="MWQMLookupMPNs">
           <Key>
             <PropertyRef Name="MWQMLookupMPNID" />
@@ -776,11 +818,12 @@
           <Property Name="WaterTemp_C" Type="float" />
           <Property Name="PH" Type="float" />
           <Property Name="SampleTypesText" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SampleType_old" Type="int" Nullable="false" />
+          <Property Name="SampleType_old" Type="int" />
           <Property Name="Tube_10" Type="int" />
           <Property Name="Tube_1_0" Type="int" />
           <Property Name="Tube_0_1" Type="int" />
           <Property Name="ProcessedBy" Type="nvarchar" MaxLength="10" />
+          <Property Name="UseForOpenData" Type="bit" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -816,7 +859,9 @@
           <Property Name="MWQMSubsectorID" Type="int" Nullable="false" />
           <Property Name="Language" Type="int" Nullable="false" />
           <Property Name="SubsectorDesc" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="TranslationStatus" Type="int" Nullable="false" />
+          <Property Name="TranslationStatusSubsectorDesc" Type="int" Nullable="false" />
+          <Property Name="LogBook" Type="text" />
+          <Property Name="TranslationStatusLogBook" Type="int" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -828,29 +873,6 @@
           <Property Name="MWQMSubsectorTVItemID" Type="int" Nullable="false" />
           <Property Name="SubsectorHistoricKey" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="TideLocationSIDText" Type="nvarchar" MaxLength="30" />
-          <Property Name="RainDay0Limit" Type="float" />
-          <Property Name="RainDay1Limit" Type="float" />
-          <Property Name="RainDay2Limit" Type="float" />
-          <Property Name="RainDay3Limit" Type="float" />
-          <Property Name="RainDay4Limit" Type="float" />
-          <Property Name="RainDay5Limit" Type="float" />
-          <Property Name="RainDay6Limit" Type="float" />
-          <Property Name="RainDay7Limit" Type="float" />
-          <Property Name="RainDay8Limit" Type="float" />
-          <Property Name="RainDay9Limit" Type="float" />
-          <Property Name="RainDay10Limit" Type="float" />
-          <Property Name="IncludeRainStartDate" Type="datetime" />
-          <Property Name="IncludeRainEndDate" Type="datetime" />
-          <Property Name="IncludeRainRunCount" Type="int" />
-          <Property Name="IncludeRainSelectFullYear" Type="bit" />
-          <Property Name="NoRainStartDate" Type="datetime" />
-          <Property Name="NoRainEndDate" Type="datetime" />
-          <Property Name="NoRainRunCount" Type="int" />
-          <Property Name="NoRainSelectFullYear" Type="bit" />
-          <Property Name="OnlyRainStartDate" Type="datetime" />
-          <Property Name="OnlyRainEndDate" Type="datetime" />
-          <Property Name="OnlyRainRunCount" Type="int" />
-          <Property Name="OnlyRainSelectFullYear" Type="bit" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -862,6 +884,7 @@
           <Property Name="PolSourceObservationID" Type="int" Nullable="false" />
           <Property Name="ObservationInfo" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="ExtraComment" Type="text" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -933,6 +956,63 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReportSectionLanguages">
+          <Key>
+            <PropertyRef Name="ReportSectionLanguageID" />
+          </Key>
+          <Property Name="ReportSectionLanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportSectionID" Type="int" Nullable="false" />
+          <Property Name="Language" Type="int" Nullable="false" />
+          <Property Name="ReportSectionName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TranslationStatusReportSectionName" Type="int" Nullable="false" />
+          <Property Name="ReportSectionText" Type="text" Nullable="false" />
+          <Property Name="TranslationStatusReportSectionText" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportSections">
+          <Key>
+            <PropertyRef Name="ReportSectionID" />
+          </Key>
+          <Property Name="ReportSectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportTypeID" Type="int" Nullable="false" />
+          <Property Name="TVItemID" Type="int" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="IsStatic" Type="bit" Nullable="false" />
+          <Property Name="ParentReportSectionID" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Locked" Type="bit" Nullable="false" />
+          <Property Name="TemplateReportSectionID" Type="int" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportTypeLanguages">
+          <Key>
+            <PropertyRef Name="ReportTypeLanguageID" />
+          </Key>
+          <Property Name="ReportTypeLanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportTypeID" Type="int" Nullable="false" />
+          <Property Name="Language" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TranslationStatusName" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="TranslationStatusDescription" Type="int" Nullable="false" />
+          <Property Name="StartOfFileName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TranslationStatusStartOfFileName" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportTypes">
+          <Key>
+            <PropertyRef Name="ReportTypeID" />
+          </Key>
+          <Property Name="ReportTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TVType" Type="int" Nullable="false" />
+          <Property Name="FileType" Type="int" Nullable="false" />
+          <Property Name="UniqueCode" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ResetPasswords">
           <Key>
             <PropertyRef Name="ResetPasswordID" />
@@ -944,11 +1024,28 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SamplingPlanEmails">
+          <Key>
+            <PropertyRef Name="SamplingPlanEmailID" />
+          </Key>
+          <Property Name="SamplingPlanEmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SamplingPlanID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsContractor" Type="bit" Nullable="false" />
+          <Property Name="LabSheetHasValueOver500" Type="bit" Nullable="false" />
+          <Property Name="LabSheetReceived" Type="bit" Nullable="false" />
+          <Property Name="LabSheetAccepted" Type="bit" Nullable="false" />
+          <Property Name="LabSheetRejected" Type="bit" Nullable="false" />
+          <Property Name="FridayReminderAt14h" Type="bit" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SamplingPlans">
           <Key>
             <PropertyRef Name="SamplingPlanID" />
           </Key>
           <Property Name="SamplingPlanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="SamplingPlanName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ForGroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="SampleType" Type="int" Nullable="false" />
@@ -963,6 +1060,10 @@
           <Property Name="IncludeLaboratoryQAQC" Type="bit" Nullable="false" />
           <Property Name="ApprovalCode" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="SamplingPlanFileTVItemID" Type="int" />
+          <Property Name="AnalyzeMethodDefault" Type="int" />
+          <Property Name="SampleMatrixDefault" Type="int" />
+          <Property Name="LaboratoryDefault" Type="int" />
+          <Property Name="BackupDirectory" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -1052,6 +1153,8 @@
           <Property Name="sid" Type="int" Nullable="false" />
           <Property Name="Lat" Type="float" Nullable="false" />
           <Property Name="Lng" Type="float" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TideSites">
           <Key>
@@ -1082,7 +1185,10 @@
           </Key>
           <Property Name="TVFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TVFileTVItemID" Type="int" Nullable="false" />
-          <Property Name="TemplateTVType" Type="int" Nullable="false" />
+          <Property Name="TemplateTVType" Type="int" />
+          <Property Name="ReportTypeID" Type="int" />
+          <Property Name="Parameters" Type="text" />
+          <Property Name="Year" Type="int" />
           <Property Name="Language" Type="int" Nullable="false" />
           <Property Name="FilePurpose" Type="int" Nullable="false" />
           <Property Name="FileType" Type="int" Nullable="false" />
@@ -1203,16 +1309,16 @@
           <Property Name="VPAmbientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VPScenarioID" Type="int" Nullable="false" />
           <Property Name="Row" Type="int" Nullable="false" />
-          <Property Name="MeasurementDepth_m" Type="float" Nullable="false" />
-          <Property Name="CurrentSpeed_m_s" Type="float" Nullable="false" />
-          <Property Name="CurrentDirection_deg" Type="float" Nullable="false" />
-          <Property Name="AmbientSalinity_PSU" Type="float" Nullable="false" />
-          <Property Name="AmbientTemperature_C" Type="float" Nullable="false" />
-          <Property Name="BackgroundConcentration_MPN_100ml" Type="int" Nullable="false" />
-          <Property Name="PollutantDecayRate_per_day" Type="float" Nullable="false" />
-          <Property Name="FarFieldCurrentSpeed_m_s" Type="float" Nullable="false" />
-          <Property Name="FarFieldCurrentDirection_deg" Type="float" Nullable="false" />
-          <Property Name="FarFieldDiffusionCoefficient" Type="float" Nullable="false" />
+          <Property Name="MeasurementDepth_m" Type="float" />
+          <Property Name="CurrentSpeed_m_s" Type="float" />
+          <Property Name="CurrentDirection_deg" Type="float" />
+          <Property Name="AmbientSalinity_PSU" Type="float" />
+          <Property Name="AmbientTemperature_C" Type="float" />
+          <Property Name="BackgroundConcentration_MPN_100ml" Type="int" />
+          <Property Name="PollutantDecayRate_per_day" Type="float" />
+          <Property Name="FarFieldCurrentSpeed_m_s" Type="float" />
+          <Property Name="FarFieldCurrentDirection_deg" Type="float" />
+          <Property Name="FarFieldDiffusionCoefficient" Type="float" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -1251,21 +1357,21 @@
           <Property Name="InfrastructureTVItemID" Type="int" Nullable="false" />
           <Property Name="VPScenarioStatus" Type="int" Nullable="false" />
           <Property Name="UseAsBestEstimate" Type="bit" Nullable="false" />
-          <Property Name="EffluentFlow_m3_s" Type="float" Nullable="false" />
-          <Property Name="EffluentConcentration_MPN_100ml" Type="int" Nullable="false" />
-          <Property Name="FroudeNumber" Type="float" Nullable="false" />
-          <Property Name="PortDiameter_m" Type="float" Nullable="false" />
-          <Property Name="PortDepth_m" Type="float" Nullable="false" />
-          <Property Name="PortElevation_m" Type="float" Nullable="false" />
-          <Property Name="VerticalAngle_deg" Type="float" Nullable="false" />
-          <Property Name="HorizontalAngle_deg" Type="float" Nullable="false" />
-          <Property Name="NumberOfPorts" Type="int" Nullable="false" />
-          <Property Name="PortSpacing_m" Type="float" Nullable="false" />
-          <Property Name="AcuteMixZone_m" Type="float" Nullable="false" />
-          <Property Name="ChronicMixZone_m" Type="float" Nullable="false" />
-          <Property Name="EffluentSalinity_PSU" Type="float" Nullable="false" />
-          <Property Name="EffluentTemperature_C" Type="float" Nullable="false" />
-          <Property Name="EffluentVelocity_m_s" Type="float" Nullable="false" />
+          <Property Name="EffluentFlow_m3_s" Type="float" />
+          <Property Name="EffluentConcentration_MPN_100ml" Type="int" />
+          <Property Name="FroudeNumber" Type="float" />
+          <Property Name="PortDiameter_m" Type="float" />
+          <Property Name="PortDepth_m" Type="float" />
+          <Property Name="PortElevation_m" Type="float" />
+          <Property Name="VerticalAngle_deg" Type="float" />
+          <Property Name="HorizontalAngle_deg" Type="float" />
+          <Property Name="NumberOfPorts" Type="int" />
+          <Property Name="PortSpacing_m" Type="float" />
+          <Property Name="AcuteMixZone_m" Type="float" />
+          <Property Name="ChronicMixZone_m" Type="float" />
+          <Property Name="EffluentSalinity_PSU" Type="float" />
+          <Property Name="EffluentTemperature_C" Type="float" />
+          <Property Name="EffluentVelocity_m_s" Type="float" />
           <Property Name="RawResults" Type="text" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
@@ -1424,18 +1530,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ContactLogins_Contacts">
-          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
-          <End Role="ContactLogins" Type="Self.ContactLogins" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contacts">
-              <PropertyRef Name="ContactID" />
-            </Principal>
-            <Dependent Role="ContactLogins">
-              <PropertyRef Name="ContactID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ContactPreferences_Contacts">
           <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
           <End Role="ContactPreferences" Type="Self.ContactPreferences" Multiplicity="*" />
@@ -1556,6 +1650,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
+          <End Role="EmailDistributionListContacts" Type="Self.EmailDistributionListContacts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmailDistributionListContactLanguages" Type="Self.EmailDistributionListContactLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionListContacts">
+              <PropertyRef Name="EmailDistributionListContactID" />
+            </Principal>
+            <Dependent Role="EmailDistributionListContactLanguages">
+              <PropertyRef Name="EmailDistributionListContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmailDistributionListContacts_EmailDistributionLists">
           <End Role="EmailDistributionLists" Type="Self.EmailDistributionLists" Multiplicity="1" />
           <End Role="EmailDistributionListContacts" Type="Self.EmailDistributionListContacts" Multiplicity="*" />
@@ -1564,6 +1672,20 @@
               <PropertyRef Name="EmailDistributionListID" />
             </Principal>
             <Dependent Role="EmailDistributionListContacts">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailDistributionListLanguages_EmailDistributionLists">
+          <End Role="EmailDistributionLists" Type="Self.EmailDistributionLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmailDistributionListLanguages" Type="Self.EmailDistributionListLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionLists">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Principal>
+            <Dependent Role="EmailDistributionListLanguages">
               <PropertyRef Name="EmailDistributionListID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1627,6 +1749,30 @@
             </Principal>
             <Dependent Role="InfrastructureLanguages">
               <PropertyRef Name="InfrastructureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Infrastructures_CivicAddressTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="0..1" />
+          <End Role="Infrastructures" Type="Self.Infrastructures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="Infrastructures">
+              <PropertyRef Name="CivicAddressTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Infrastructures_SeeOtherTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="0..1" />
+          <End Role="Infrastructures" Type="Self.Infrastructures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="Infrastructures">
+              <PropertyRef Name="SeeOtherTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1844,6 +1990,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="0..1" />
+          <End Role="MWQMAnalysisReportParameters" Type="Self.MWQMAnalysisReportParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="MWQMAnalysisReportParameters">
+              <PropertyRef Name="ExcelTVFileTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MWQMAnalysisReportParameters_SubsectorTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="MWQMAnalysisReportParameters" Type="Self.MWQMAnalysisReportParameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="MWQMAnalysisReportParameters">
+              <PropertyRef Name="SubsectorTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MWQMRunLanguages_MWQMRuns">
           <End Role="MWQMRuns" Type="Self.MWQMRuns" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2032,6 +2202,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PolSourceSites_TVItems1">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="0..1" />
+          <End Role="PolSourceSites" Type="Self.PolSourceSites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSites">
+              <PropertyRef Name="CivicAddressTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RatingCurves_HydrometricSites">
           <End Role="HydrometricSites" Type="Self.HydrometricSites" Multiplicity="1" />
           <End Role="RatingCurves" Type="Self.RatingCurves" Multiplicity="*" />
@@ -2055,6 +2237,94 @@
             </Principal>
             <Dependent Role="RatingCurveValues">
               <PropertyRef Name="RatingCurveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSectionLanguages_ReportSections">
+          <End Role="ReportSections" Type="Self.ReportSections" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReportSectionLanguages" Type="Self.ReportSectionLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportSections">
+              <PropertyRef Name="ReportSectionID" />
+            </Principal>
+            <Dependent Role="ReportSectionLanguages">
+              <PropertyRef Name="ReportSectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_ReportSections">
+          <End Role="ReportSections" Type="Self.ReportSections" Multiplicity="0..1" />
+          <End Role="ReportSections1" Type="Self.ReportSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportSections">
+              <PropertyRef Name="ReportSectionID" />
+            </Principal>
+            <Dependent Role="ReportSections1">
+              <PropertyRef Name="ParentReportSectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_ReportSections1">
+          <End Role="ReportSections" Type="Self.ReportSections" Multiplicity="0..1" />
+          <End Role="ReportSections1" Type="Self.ReportSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportSections">
+              <PropertyRef Name="ReportSectionID" />
+            </Principal>
+            <Dependent Role="ReportSections1">
+              <PropertyRef Name="TemplateReportSectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_ReportTypes">
+          <End Role="ReportTypes" Type="Self.ReportTypes" Multiplicity="1" />
+          <End Role="ReportSections" Type="Self.ReportSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportTypes">
+              <PropertyRef Name="ReportTypeID" />
+            </Principal>
+            <Dependent Role="ReportSections">
+              <PropertyRef Name="ReportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_TVItems">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="0..1" />
+          <End Role="ReportSections" Type="Self.ReportSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="ReportSections">
+              <PropertyRef Name="TVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportTypeLanguages_ReportTypes">
+          <End Role="ReportTypes" Type="Self.ReportTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReportTypeLanguages" Type="Self.ReportTypeLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportTypes">
+              <PropertyRef Name="ReportTypeID" />
+            </Principal>
+            <Dependent Role="ReportTypeLanguages">
+              <PropertyRef Name="ReportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamplingPlanEmails_SamplingPlans">
+          <End Role="SamplingPlans" Type="Self.SamplingPlans" Multiplicity="1" />
+          <End Role="SamplingPlanEmails" Type="Self.SamplingPlanEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SamplingPlans">
+              <PropertyRef Name="SamplingPlanID" />
+            </Principal>
+            <Dependent Role="SamplingPlanEmails">
+              <PropertyRef Name="SamplingPlanID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2455,12 +2725,13 @@
           <EntitySet Name="BoxModels" EntityType="Self.BoxModels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClimateDataValues" EntityType="Self.ClimateDataValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClimateSites" EntityType="Self.ClimateSites" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ContactLogins" EntityType="Self.ContactLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactPreferences" EntityType="Self.ContactPreferences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactShortcuts" EntityType="Self.ContactShortcuts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocTemplates" EntityType="Self.DocTemplates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailDistributionListContactLanguages" EntityType="Self.EmailDistributionListContactLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailDistributionListContacts" EntityType="Self.EmailDistributionListContacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailDistributionListLanguages" EntityType="Self.EmailDistributionListLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailDistributionLists" EntityType="Self.EmailDistributionLists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HydrometricDataValues" EntityType="Self.HydrometricDataValues" Schema="dbo" store:Type="Tables" />
@@ -2477,6 +2748,7 @@
           <EntitySet Name="MikeScenarios" EntityType="Self.MikeScenarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MikeSources" EntityType="Self.MikeSources" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MikeSourceStartEnds" EntityType="Self.MikeSourceStartEnds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MWQMAnalysisReportParameters" EntityType="Self.MWQMAnalysisReportParameters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMLookupMPNs" EntityType="Self.MWQMLookupMPNs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMRunLanguages" EntityType="Self.MWQMRunLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMRuns" EntityType="Self.MWQMRuns" Schema="dbo" store:Type="Tables" />
@@ -2492,7 +2764,12 @@
           <EntitySet Name="RainExceedances" EntityType="Self.RainExceedances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RatingCurves" EntityType="Self.RatingCurves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RatingCurveValues" EntityType="Self.RatingCurveValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportSectionLanguages" EntityType="Self.ReportSectionLanguages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportSections" EntityType="Self.ReportSections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportTypeLanguages" EntityType="Self.ReportTypeLanguages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportTypes" EntityType="Self.ReportTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResetPasswords" EntityType="Self.ResetPasswords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SamplingPlanEmails" EntityType="Self.SamplingPlanEmails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SamplingPlans" EntityType="Self.SamplingPlans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SamplingPlanSubsectors" EntityType="Self.SamplingPlanSubsectors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SamplingPlanSubsectorSites" EntityType="Self.SamplingPlanSubsectorSites" Schema="dbo" store:Type="Tables" />
@@ -2563,10 +2840,6 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="ClimateSites" EntitySet="ClimateSites" />
           </AssociationSet>
-          <AssociationSet Name="FK_ContactLogins_Contacts" Association="Self.FK_ContactLogins_Contacts">
-            <End Role="Contacts" EntitySet="Contacts" />
-            <End Role="ContactLogins" EntitySet="ContactLogins" />
-          </AssociationSet>
           <AssociationSet Name="FK_ContactPreferences_Contacts" Association="Self.FK_ContactPreferences_Contacts">
             <End Role="Contacts" EntitySet="Contacts" />
             <End Role="ContactPreferences" EntitySet="ContactPreferences" />
@@ -2603,9 +2876,17 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="DocTemplates" EntitySet="DocTemplates" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts" Association="Self.FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
+            <End Role="EmailDistributionListContacts" EntitySet="EmailDistributionListContacts" />
+            <End Role="EmailDistributionListContactLanguages" EntitySet="EmailDistributionListContactLanguages" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmailDistributionListContacts_EmailDistributionLists" Association="Self.FK_EmailDistributionListContacts_EmailDistributionLists">
             <End Role="EmailDistributionLists" EntitySet="EmailDistributionLists" />
             <End Role="EmailDistributionListContacts" EntitySet="EmailDistributionListContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailDistributionListLanguages_EmailDistributionLists" Association="Self.FK_EmailDistributionListLanguages_EmailDistributionLists">
+            <End Role="EmailDistributionLists" EntitySet="EmailDistributionLists" />
+            <End Role="EmailDistributionListLanguages" EntitySet="EmailDistributionListLanguages" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailDistributionLists_TVItems" Association="Self.FK_EmailDistributionLists_TVItems">
             <End Role="TVItems" EntitySet="TVItems" />
@@ -2626,6 +2907,14 @@
           <AssociationSet Name="FK_InfrastructureLanguages_Infrastructures" Association="Self.FK_InfrastructureLanguages_Infrastructures">
             <End Role="Infrastructures" EntitySet="Infrastructures" />
             <End Role="InfrastructureLanguages" EntitySet="InfrastructureLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Infrastructures_CivicAddressTVItemID" Association="Self.FK_Infrastructures_CivicAddressTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="Infrastructures" EntitySet="Infrastructures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Infrastructures_SeeOtherTVItemID" Association="Self.FK_Infrastructures_SeeOtherTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="Infrastructures" EntitySet="Infrastructures" />
           </AssociationSet>
           <AssociationSet Name="FK_Infrastructures_TVItems" Association="Self.FK_Infrastructures_TVItems">
             <End Role="TVItems" EntitySet="TVItems" />
@@ -2695,6 +2984,14 @@
             <End Role="MikeSources" EntitySet="MikeSources" />
             <End Role="MikeSourceStartEnds" EntitySet="MikeSourceStartEnds" />
           </AssociationSet>
+          <AssociationSet Name="FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID" Association="Self.FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="MWQMAnalysisReportParameters" EntitySet="MWQMAnalysisReportParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MWQMAnalysisReportParameters_SubsectorTVItemID" Association="Self.FK_MWQMAnalysisReportParameters_SubsectorTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="MWQMAnalysisReportParameters" EntitySet="MWQMAnalysisReportParameters" />
+          </AssociationSet>
           <AssociationSet Name="FK_MWQMRunLanguages_MWQMRuns" Association="Self.FK_MWQMRunLanguages_MWQMRuns">
             <End Role="MWQMRuns" EntitySet="MWQMRuns" />
             <End Role="MWQMRunLanguages" EntitySet="MWQMRunLanguages" />
@@ -2755,6 +3052,10 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="PolSourceSites" EntitySet="PolSourceSites" />
           </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSites_TVItems1" Association="Self.FK_PolSourceSites_TVItems1">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="PolSourceSites" EntitySet="PolSourceSites" />
+          </AssociationSet>
           <AssociationSet Name="FK_RatingCurves_HydrometricSites" Association="Self.FK_RatingCurves_HydrometricSites">
             <End Role="HydrometricSites" EntitySet="HydrometricSites" />
             <End Role="RatingCurves" EntitySet="RatingCurves" />
@@ -2762,6 +3063,34 @@
           <AssociationSet Name="FK_RatingCurveValues_RatingCurves" Association="Self.FK_RatingCurveValues_RatingCurves">
             <End Role="RatingCurves" EntitySet="RatingCurves" />
             <End Role="RatingCurveValues" EntitySet="RatingCurveValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSectionLanguages_ReportSections" Association="Self.FK_ReportSectionLanguages_ReportSections">
+            <End Role="ReportSections" EntitySet="ReportSections" />
+            <End Role="ReportSectionLanguages" EntitySet="ReportSectionLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_ReportSections" Association="Self.FK_ReportSections_ReportSections">
+            <End Role="ReportSections" EntitySet="ReportSections" />
+            <End Role="ReportSections1" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_ReportSections1" Association="Self.FK_ReportSections_ReportSections1">
+            <End Role="ReportSections" EntitySet="ReportSections" />
+            <End Role="ReportSections1" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_ReportTypes" Association="Self.FK_ReportSections_ReportTypes">
+            <End Role="ReportTypes" EntitySet="ReportTypes" />
+            <End Role="ReportSections" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_TVItems" Association="Self.FK_ReportSections_TVItems">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="ReportSections" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportTypeLanguages_ReportTypes" Association="Self.FK_ReportTypeLanguages_ReportTypes">
+            <End Role="ReportTypes" EntitySet="ReportTypes" />
+            <End Role="ReportTypeLanguages" EntitySet="ReportTypeLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamplingPlanEmails_SamplingPlans" Association="Self.FK_SamplingPlanEmails_SamplingPlans">
+            <End Role="SamplingPlans" EntitySet="SamplingPlans" />
+            <End Role="SamplingPlanEmails" EntitySet="SamplingPlanEmails" />
           </AssociationSet>
           <AssociationSet Name="FK_SamplingPlans_CreatorTVItemID" Association="Self.FK_SamplingPlans_CreatorTVItemID">
             <End Role="TVItems" EntitySet="TVItems" />
@@ -2902,12 +3231,13 @@
           <EntitySet Name="BoxModels" EntityType="CSSPWebToolsDBModel.BoxModel" />
           <EntitySet Name="ClimateDataValues" EntityType="CSSPWebToolsDBModel.ClimateDataValue" />
           <EntitySet Name="ClimateSites" EntityType="CSSPWebToolsDBModel.ClimateSite" />
-          <EntitySet Name="ContactLogins" EntityType="CSSPWebToolsDBModel.ContactLogin" />
           <EntitySet Name="ContactPreferences" EntityType="CSSPWebToolsDBModel.ContactPreference" />
           <EntitySet Name="Contacts" EntityType="CSSPWebToolsDBModel.Contact" />
           <EntitySet Name="ContactShortcuts" EntityType="CSSPWebToolsDBModel.ContactShortcut" />
           <EntitySet Name="DocTemplates" EntityType="CSSPWebToolsDBModel.DocTemplate" />
+          <EntitySet Name="EmailDistributionListContactLanguages" EntityType="CSSPWebToolsDBModel.EmailDistributionListContactLanguage" />
           <EntitySet Name="EmailDistributionListContacts" EntityType="CSSPWebToolsDBModel.EmailDistributionListContact" />
+          <EntitySet Name="EmailDistributionListLanguages" EntityType="CSSPWebToolsDBModel.EmailDistributionListLanguage" />
           <EntitySet Name="EmailDistributionLists" EntityType="CSSPWebToolsDBModel.EmailDistributionList" />
           <EntitySet Name="Emails" EntityType="CSSPWebToolsDBModel.Email" />
           <EntitySet Name="HydrometricDataValues" EntityType="CSSPWebToolsDBModel.HydrometricDataValue" />
@@ -2924,6 +3254,7 @@
           <EntitySet Name="MikeScenarios" EntityType="CSSPWebToolsDBModel.MikeScenario" />
           <EntitySet Name="MikeSources" EntityType="CSSPWebToolsDBModel.MikeSource" />
           <EntitySet Name="MikeSourceStartEnds" EntityType="CSSPWebToolsDBModel.MikeSourceStartEnd" />
+          <EntitySet Name="MWQMAnalysisReportParameters" EntityType="CSSPWebToolsDBModel.MWQMAnalysisReportParameter" />
           <EntitySet Name="MWQMLookupMPNs" EntityType="CSSPWebToolsDBModel.MWQMLookupMPN" />
           <EntitySet Name="MWQMRunLanguages" EntityType="CSSPWebToolsDBModel.MWQMRunLanguage" />
           <EntitySet Name="MWQMRuns" EntityType="CSSPWebToolsDBModel.MWQMRun" />
@@ -2939,7 +3270,12 @@
           <EntitySet Name="RainExceedances" EntityType="CSSPWebToolsDBModel.RainExceedance" />
           <EntitySet Name="RatingCurves" EntityType="CSSPWebToolsDBModel.RatingCurve" />
           <EntitySet Name="RatingCurveValues" EntityType="CSSPWebToolsDBModel.RatingCurveValue" />
+          <EntitySet Name="ReportSectionLanguages" EntityType="CSSPWebToolsDBModel.ReportSectionLanguage" />
+          <EntitySet Name="ReportSections" EntityType="CSSPWebToolsDBModel.ReportSection" />
+          <EntitySet Name="ReportTypeLanguages" EntityType="CSSPWebToolsDBModel.ReportTypeLanguage" />
+          <EntitySet Name="ReportTypes" EntityType="CSSPWebToolsDBModel.ReportType" />
           <EntitySet Name="ResetPasswords" EntityType="CSSPWebToolsDBModel.ResetPassword" />
+          <EntitySet Name="SamplingPlanEmails" EntityType="CSSPWebToolsDBModel.SamplingPlanEmail" />
           <EntitySet Name="SamplingPlans" EntityType="CSSPWebToolsDBModel.SamplingPlan" />
           <EntitySet Name="SamplingPlanSubsectors" EntityType="CSSPWebToolsDBModel.SamplingPlanSubsector" />
           <EntitySet Name="SamplingPlanSubsectorSites" EntityType="CSSPWebToolsDBModel.SamplingPlanSubsectorSite" />
@@ -3022,10 +3358,6 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="ClimateSite" EntitySet="ClimateSites" />
           </AssociationSet>
-          <AssociationSet Name="FK_ContactLogins_Contacts" Association="CSSPWebToolsDBModel.FK_ContactLogins_Contacts">
-            <End Role="Contact" EntitySet="Contacts" />
-            <End Role="ContactLogin" EntitySet="ContactLogins" />
-          </AssociationSet>
           <AssociationSet Name="FK_ContactPreferences_Contacts" Association="CSSPWebToolsDBModel.FK_ContactPreferences_Contacts">
             <End Role="Contact" EntitySet="Contacts" />
             <End Role="ContactPreference" EntitySet="ContactPreferences" />
@@ -3042,9 +3374,17 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="DocTemplate" EntitySet="DocTemplates" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts" Association="CSSPWebToolsDBModel.FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
+            <End Role="EmailDistributionListContact" EntitySet="EmailDistributionListContacts" />
+            <End Role="EmailDistributionListContactLanguage" EntitySet="EmailDistributionListContactLanguages" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmailDistributionListContacts_EmailDistributionLists" Association="CSSPWebToolsDBModel.FK_EmailDistributionListContacts_EmailDistributionLists">
             <End Role="EmailDistributionList" EntitySet="EmailDistributionLists" />
             <End Role="EmailDistributionListContact" EntitySet="EmailDistributionListContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailDistributionListLanguages_EmailDistributionLists" Association="CSSPWebToolsDBModel.FK_EmailDistributionListLanguages_EmailDistributionLists">
+            <End Role="EmailDistributionList" EntitySet="EmailDistributionLists" />
+            <End Role="EmailDistributionListLanguage" EntitySet="EmailDistributionListLanguages" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailDistributionLists_TVItems" Association="CSSPWebToolsDBModel.FK_EmailDistributionLists_TVItems">
             <End Role="TVItem" EntitySet="TVItems" />
@@ -3069,6 +3409,14 @@
           <AssociationSet Name="FK_InfrastructureLanguages_Infrastructures" Association="CSSPWebToolsDBModel.FK_InfrastructureLanguages_Infrastructures">
             <End Role="Infrastructure" EntitySet="Infrastructures" />
             <End Role="InfrastructureLanguage" EntitySet="InfrastructureLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Infrastructures_CivicAddressTVItemID" Association="CSSPWebToolsDBModel.FK_Infrastructures_CivicAddressTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="Infrastructure" EntitySet="Infrastructures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Infrastructures_SeeOtherTVItemID" Association="CSSPWebToolsDBModel.FK_Infrastructures_SeeOtherTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="Infrastructure" EntitySet="Infrastructures" />
           </AssociationSet>
           <AssociationSet Name="FK_Infrastructures_TVItems" Association="CSSPWebToolsDBModel.FK_Infrastructures_TVItems">
             <End Role="TVItem" EntitySet="TVItems" />
@@ -3138,6 +3486,14 @@
             <End Role="MikeSource" EntitySet="MikeSources" />
             <End Role="MikeSourceStartEnd" EntitySet="MikeSourceStartEnds" />
           </AssociationSet>
+          <AssociationSet Name="FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID" Association="CSSPWebToolsDBModel.FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="MWQMAnalysisReportParameter" EntitySet="MWQMAnalysisReportParameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MWQMAnalysisReportParameters_SubsectorTVItemID" Association="CSSPWebToolsDBModel.FK_MWQMAnalysisReportParameters_SubsectorTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="MWQMAnalysisReportParameter" EntitySet="MWQMAnalysisReportParameters" />
+          </AssociationSet>
           <AssociationSet Name="FK_MWQMRunLanguages_MWQMRuns" Association="CSSPWebToolsDBModel.FK_MWQMRunLanguages_MWQMRuns">
             <End Role="MWQMRun" EntitySet="MWQMRuns" />
             <End Role="MWQMRunLanguage" EntitySet="MWQMRunLanguages" />
@@ -3198,9 +3554,41 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="PolSourceSite" EntitySet="PolSourceSites" />
           </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSites_TVItems1" Association="CSSPWebToolsDBModel.FK_PolSourceSites_TVItems1">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="PolSourceSite" EntitySet="PolSourceSites" />
+          </AssociationSet>
           <AssociationSet Name="FK_RatingCurveValues_RatingCurves" Association="CSSPWebToolsDBModel.FK_RatingCurveValues_RatingCurves">
             <End Role="RatingCurve" EntitySet="RatingCurves" />
             <End Role="RatingCurveValue" EntitySet="RatingCurveValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSectionLanguages_ReportSections" Association="CSSPWebToolsDBModel.FK_ReportSectionLanguages_ReportSections">
+            <End Role="ReportSection" EntitySet="ReportSections" />
+            <End Role="ReportSectionLanguage" EntitySet="ReportSectionLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_ReportSections" Association="CSSPWebToolsDBModel.FK_ReportSections_ReportSections">
+            <End Role="ReportSection" EntitySet="ReportSections" />
+            <End Role="ReportSection1" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_ReportSections1" Association="CSSPWebToolsDBModel.FK_ReportSections_ReportSections1">
+            <End Role="ReportSection" EntitySet="ReportSections" />
+            <End Role="ReportSection1" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_ReportTypes" Association="CSSPWebToolsDBModel.FK_ReportSections_ReportTypes">
+            <End Role="ReportType" EntitySet="ReportTypes" />
+            <End Role="ReportSection" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportSections_TVItems" Association="CSSPWebToolsDBModel.FK_ReportSections_TVItems">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="ReportSection" EntitySet="ReportSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportTypeLanguages_ReportTypes" Association="CSSPWebToolsDBModel.FK_ReportTypeLanguages_ReportTypes">
+            <End Role="ReportType" EntitySet="ReportTypes" />
+            <End Role="ReportTypeLanguage" EntitySet="ReportTypeLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamplingPlanEmails_SamplingPlans" Association="CSSPWebToolsDBModel.FK_SamplingPlanEmails_SamplingPlans">
+            <End Role="SamplingPlan" EntitySet="SamplingPlans" />
+            <End Role="SamplingPlanEmail" EntitySet="SamplingPlanEmails" />
           </AssociationSet>
           <AssociationSet Name="FK_SamplingPlans_CreatorTVItemID" Association="CSSPWebToolsDBModel.FK_SamplingPlans_CreatorTVItemID">
             <End Role="TVItem" EntitySet="TVItems" />
@@ -3471,16 +3859,16 @@
           <Property Name="Volume_m3" Type="Double" Nullable="false" />
           <Property Name="Surface_m2" Type="Double" Nullable="false" />
           <Property Name="Radius_m" Type="Double" Nullable="false" />
-          <Property Name="LeftSideDiameterLineAngle_deg" Type="Double" Nullable="false" />
-          <Property Name="CircleCenterLatitude" Type="Double" Nullable="false" />
-          <Property Name="CircleCenterLongitude" Type="Double" Nullable="false" />
+          <Property Name="LeftSideDiameterLineAngle_deg" Type="Double" />
+          <Property Name="CircleCenterLatitude" Type="Double" />
+          <Property Name="CircleCenterLongitude" Type="Double" />
           <Property Name="FixLength" Type="Boolean" Nullable="false" />
           <Property Name="FixWidth" Type="Boolean" Nullable="false" />
           <Property Name="RectLength_m" Type="Double" Nullable="false" />
           <Property Name="RectWidth_m" Type="Double" Nullable="false" />
-          <Property Name="LeftSideLineAngle_deg" Type="Double" Nullable="false" />
-          <Property Name="LeftSideLineStartLatitude" Type="Double" Nullable="false" />
-          <Property Name="LeftSideLineStartLongitude" Type="Double" Nullable="false" />
+          <Property Name="LeftSideLineAngle_deg" Type="Double" />
+          <Property Name="LeftSideLineStartLatitude" Type="Double" />
+          <Property Name="LeftSideLineStartLongitude" Type="Double" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BoxModel" Relationship="CSSPWebToolsDBModel.FK_BoxModelResults_BoxModels" FromRole="BoxModelResult" ToRole="BoxModel" />
@@ -3516,6 +3904,7 @@
           <Property Name="DateTime_Local" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Keep" Type="Boolean" Nullable="false" />
           <Property Name="StorageDataType" Type="Int32" Nullable="false" />
+          <Property Name="HasBeenRead" Type="Boolean" Nullable="false" />
           <Property Name="Snow_cm" Type="Double" />
           <Property Name="Rainfall_mm" Type="Double" />
           <Property Name="RainfallEntered_mm" Type="Double" />
@@ -3563,19 +3952,6 @@
           <NavigationProperty Name="ClimateDataValues" Relationship="CSSPWebToolsDBModel.FK_ClimateDataValues_ClimateSites" FromRole="ClimateSite" ToRole="ClimateDataValue" />
           <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_ClimateSites_TVItems" FromRole="ClimateSite" ToRole="TVItem" />
         </EntityType>
-        <EntityType Name="ContactLogin">
-          <Key>
-            <PropertyRef Name="ContactLoginID" />
-          </Key>
-          <Property Name="ContactLoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ContactID" Type="Int32" Nullable="false" />
-          <Property Name="LoginEmail" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordHash" Type="Binary" Nullable="false" MaxLength="200" FixedLength="false" />
-          <Property Name="PasswordSalt" Type="Binary" Nullable="false" MaxLength="200" FixedLength="false" />
-          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Contact" Relationship="CSSPWebToolsDBModel.FK_ContactLogins_Contacts" FromRole="ContactLogin" ToRole="Contact" />
-        </EntityType>
         <EntityType Name="ContactPreference">
           <Key>
             <PropertyRef Name="ContactPreferenceID" />
@@ -3609,7 +3985,6 @@
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="CSSPWebToolsDBModel.FK_Contacts_AspNetUsers" FromRole="Contact" ToRole="AspNetUser" />
-          <NavigationProperty Name="ContactLogins" Relationship="CSSPWebToolsDBModel.FK_ContactLogins_Contacts" FromRole="Contact" ToRole="ContactLogin" />
           <NavigationProperty Name="ContactPreferences" Relationship="CSSPWebToolsDBModel.FK_ContactPreferences_Contacts" FromRole="Contact" ToRole="ContactPreference" />
           <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_Contacts_TVItems" FromRole="Contact" ToRole="TVItem" />
           <NavigationProperty Name="ContactShortcuts" Relationship="CSSPWebToolsDBModel.FK_ContactShortcuts_Contacts" FromRole="Contact" ToRole="ContactShortcut" />
@@ -3639,6 +4014,19 @@
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_DocTemplates_TVItems" FromRole="DocTemplate" ToRole="TVItem" />
         </EntityType>
+        <EntityType Name="EmailDistributionListContactLanguage">
+          <Key>
+            <PropertyRef Name="EmailDistributionListContactLanguageID" />
+          </Key>
+          <Property Name="EmailDistributionListContactLanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailDistributionListContactID" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="Int32" Nullable="false" />
+          <Property Name="Agency" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TranslationStatus" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EmailDistributionListContact" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionListContactLanguages_EmailDistributionListContacts" FromRole="EmailDistributionListContactLanguage" ToRole="EmailDistributionListContact" />
+        </EntityType>
         <EntityType Name="EmailDistributionListContact">
           <Key>
             <PropertyRef Name="EmailDistributionListContactID" />
@@ -3646,7 +4034,6 @@
           <Property Name="EmailDistributionListContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmailDistributionListID" Type="Int32" Nullable="false" />
           <Property Name="IsCC" Type="Boolean" Nullable="false" />
-          <Property Name="Agency" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CMPRainfallSeasonal" Type="Boolean" Nullable="false" />
@@ -3656,7 +4043,21 @@
           <Property Name="ReopeningAllTypes" Type="Boolean" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EmailDistributionListContactLanguages" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionListContactLanguages_EmailDistributionListContacts" FromRole="EmailDistributionListContact" ToRole="EmailDistributionListContactLanguage" />
           <NavigationProperty Name="EmailDistributionList" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionListContacts_EmailDistributionLists" FromRole="EmailDistributionListContact" ToRole="EmailDistributionList" />
+        </EntityType>
+        <EntityType Name="EmailDistributionListLanguage">
+          <Key>
+            <PropertyRef Name="EmailDistributionListLanguageID" />
+          </Key>
+          <Property Name="EmailDistributionListLanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailDistributionListID" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="Int32" Nullable="false" />
+          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TranslationStatus" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EmailDistributionList" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionListLanguages_EmailDistributionLists" FromRole="EmailDistributionListLanguage" ToRole="EmailDistributionList" />
         </EntityType>
         <EntityType Name="EmailDistributionList">
           <Key>
@@ -3664,11 +4065,11 @@
           </Key>
           <Property Name="EmailDistributionListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CountryTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Ordinal" Type="Int32" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmailDistributionListContacts" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionListContacts_EmailDistributionLists" FromRole="EmailDistributionList" ToRole="EmailDistributionListContact" />
+          <NavigationProperty Name="EmailDistributionListLanguages" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionListLanguages_EmailDistributionLists" FromRole="EmailDistributionList" ToRole="EmailDistributionListLanguage" />
           <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionLists_TVItems" FromRole="EmailDistributionList" ToRole="TVItem" />
         </EntityType>
         <EntityType Name="Email">
@@ -3792,7 +4193,9 @@
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="InfrastructureLanguages" Relationship="CSSPWebToolsDBModel.FK_InfrastructureLanguages_Infrastructures" FromRole="Infrastructure" ToRole="InfrastructureLanguage" />
-          <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_TVItems" FromRole="Infrastructure" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_CivicAddressTVItemID" FromRole="Infrastructure" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem1" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_SeeOtherTVItemID" FromRole="Infrastructure" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem2" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_TVItems" FromRole="Infrastructure" ToRole="TVItem" />
         </EntityType>
         <EntityType Name="LabSheetDetail">
           <Key>
@@ -4055,6 +4458,39 @@
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MikeSource" Relationship="CSSPWebToolsDBModel.FK_MikeSourceStartEnds_MikeSources" FromRole="MikeSourceStartEnd" ToRole="MikeSource" />
         </EntityType>
+        <EntityType Name="MWQMAnalysisReportParameter">
+          <Key>
+            <PropertyRef Name="MWQMAnalysisReportParameterID" />
+          </Key>
+          <Property Name="MWQMAnalysisReportParameterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubsectorTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="AnalysisName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AnalysisReportYear" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AnalysisCalculationType" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfRuns" Type="Int32" Nullable="false" />
+          <Property Name="FullYear" Type="Boolean" Nullable="false" />
+          <Property Name="SalinityHighlightDeviationFromAverage" Type="Double" Nullable="false" />
+          <Property Name="ShortRangeNumberOfDays" Type="Int32" Nullable="false" />
+          <Property Name="MidRangeNumberOfDays" Type="Int32" Nullable="false" />
+          <Property Name="DryLimit24h" Type="Int32" Nullable="false" />
+          <Property Name="DryLimit48h" Type="Int32" Nullable="false" />
+          <Property Name="DryLimit72h" Type="Int32" Nullable="false" />
+          <Property Name="DryLimit96h" Type="Int32" Nullable="false" />
+          <Property Name="WetLimit24h" Type="Int32" Nullable="false" />
+          <Property Name="WetLimit48h" Type="Int32" Nullable="false" />
+          <Property Name="WetLimit72h" Type="Int32" Nullable="false" />
+          <Property Name="WetLimit96h" Type="Int32" Nullable="false" />
+          <Property Name="RunsToOmit" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ShowDataTypes" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ExcelTVFileTVItemID" Type="Int32" />
+          <Property Name="Command" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID" FromRole="MWQMAnalysisReportParameter" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem1" Relationship="CSSPWebToolsDBModel.FK_MWQMAnalysisReportParameters_SubsectorTVItemID" FromRole="MWQMAnalysisReportParameter" ToRole="TVItem" />
+        </EntityType>
         <EntityType Name="MWQMLookupMPN">
           <Key>
             <PropertyRef Name="MWQMLookupMPNID" />
@@ -4160,11 +4596,12 @@
           <Property Name="WaterTemp_C" Type="Double" />
           <Property Name="PH" Type="Double" />
           <Property Name="SampleTypesText" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SampleType_old" Type="Int32" Nullable="false" />
+          <Property Name="SampleType_old" Type="Int32" />
           <Property Name="Tube_10" Type="Int32" />
           <Property Name="Tube_1_0" Type="Int32" />
           <Property Name="Tube_0_1" Type="Int32" />
           <Property Name="ProcessedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UseForOpenData" Type="Boolean" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MWQMSampleLanguages" Relationship="CSSPWebToolsDBModel.FK_MWQMSampleLanguages_MWQMSamples" FromRole="MWQMSample" ToRole="MWQMSampleLanguage" />
@@ -4205,7 +4642,9 @@
           <Property Name="MWQMSubsectorID" Type="Int32" Nullable="false" />
           <Property Name="Language" Type="Int32" Nullable="false" />
           <Property Name="SubsectorDesc" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="TranslationStatus" Type="Int32" Nullable="false" />
+          <Property Name="TranslationStatusSubsectorDesc" Type="Int32" Nullable="false" />
+          <Property Name="LogBook" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TranslationStatusLogBook" Type="Int32" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MWQMSubsector" Relationship="CSSPWebToolsDBModel.FK_MWQMSubsectorLanguages_MWQMSubsectors" FromRole="MWQMSubsectorLanguage" ToRole="MWQMSubsector" />
@@ -4218,29 +4657,6 @@
           <Property Name="MWQMSubsectorTVItemID" Type="Int32" Nullable="false" />
           <Property Name="SubsectorHistoricKey" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="TideLocationSIDText" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="RainDay0Limit" Type="Double" />
-          <Property Name="RainDay1Limit" Type="Double" />
-          <Property Name="RainDay2Limit" Type="Double" />
-          <Property Name="RainDay3Limit" Type="Double" />
-          <Property Name="RainDay4Limit" Type="Double" />
-          <Property Name="RainDay5Limit" Type="Double" />
-          <Property Name="RainDay6Limit" Type="Double" />
-          <Property Name="RainDay7Limit" Type="Double" />
-          <Property Name="RainDay8Limit" Type="Double" />
-          <Property Name="RainDay9Limit" Type="Double" />
-          <Property Name="RainDay10Limit" Type="Double" />
-          <Property Name="IncludeRainStartDate" Type="DateTime" Precision="3" />
-          <Property Name="IncludeRainEndDate" Type="DateTime" Precision="3" />
-          <Property Name="IncludeRainRunCount" Type="Int32" />
-          <Property Name="IncludeRainSelectFullYear" Type="Boolean" />
-          <Property Name="NoRainStartDate" Type="DateTime" Precision="3" />
-          <Property Name="NoRainEndDate" Type="DateTime" Precision="3" />
-          <Property Name="NoRainRunCount" Type="Int32" />
-          <Property Name="NoRainSelectFullYear" Type="Boolean" />
-          <Property Name="OnlyRainStartDate" Type="DateTime" Precision="3" />
-          <Property Name="OnlyRainEndDate" Type="DateTime" Precision="3" />
-          <Property Name="OnlyRainRunCount" Type="Int32" />
-          <Property Name="OnlyRainSelectFullYear" Type="Boolean" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MWQMSubsectorLanguages" Relationship="CSSPWebToolsDBModel.FK_MWQMSubsectorLanguages_MWQMSubsectors" FromRole="MWQMSubsector" ToRole="MWQMSubsectorLanguage" />
@@ -4254,6 +4670,7 @@
           <Property Name="PolSourceObservationID" Type="Int32" Nullable="false" />
           <Property Name="ObservationInfo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="ExtraComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PolSourceObservation" Relationship="CSSPWebToolsDBModel.FK_PolSourceObservationIssues_PolSourceObservations" FromRole="PolSourceObservationIssue" ToRole="PolSourceObservation" />
@@ -4290,6 +4707,7 @@
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PolSourceObservations" Relationship="CSSPWebToolsDBModel.FK_PolSourceObservations_PolSourceSites" FromRole="PolSourceSite" ToRole="PolSourceObservation" />
           <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_PolSourceSites_TVItems" FromRole="PolSourceSite" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem1" Relationship="CSSPWebToolsDBModel.FK_PolSourceSites_TVItems1" FromRole="PolSourceSite" ToRole="TVItem" />
         </EntityType>
         <EntityType Name="RainExceedance">
           <Key>
@@ -4334,6 +4752,74 @@
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RatingCurve" Relationship="CSSPWebToolsDBModel.FK_RatingCurveValues_RatingCurves" FromRole="RatingCurveValue" ToRole="RatingCurve" />
         </EntityType>
+        <EntityType Name="ReportSectionLanguage">
+          <Key>
+            <PropertyRef Name="ReportSectionLanguageID" />
+          </Key>
+          <Property Name="ReportSectionLanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportSectionID" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="Int32" Nullable="false" />
+          <Property Name="ReportSectionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TranslationStatusReportSectionName" Type="Int32" Nullable="false" />
+          <Property Name="ReportSectionText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TranslationStatusReportSectionText" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReportSection" Relationship="CSSPWebToolsDBModel.FK_ReportSectionLanguages_ReportSections" FromRole="ReportSectionLanguage" ToRole="ReportSection" />
+        </EntityType>
+        <EntityType Name="ReportSection">
+          <Key>
+            <PropertyRef Name="ReportSectionID" />
+          </Key>
+          <Property Name="ReportSectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportTypeID" Type="Int32" Nullable="false" />
+          <Property Name="TVItemID" Type="Int32" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="IsStatic" Type="Boolean" Nullable="false" />
+          <Property Name="ParentReportSectionID" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Locked" Type="Boolean" Nullable="false" />
+          <Property Name="TemplateReportSectionID" Type="Int32" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReportSectionLanguages" Relationship="CSSPWebToolsDBModel.FK_ReportSectionLanguages_ReportSections" FromRole="ReportSection" ToRole="ReportSectionLanguage" />
+          <NavigationProperty Name="ReportSections1" Relationship="CSSPWebToolsDBModel.FK_ReportSections_ReportSections" FromRole="ReportSection" ToRole="ReportSection1" />
+          <NavigationProperty Name="ReportSection1" Relationship="CSSPWebToolsDBModel.FK_ReportSections_ReportSections" FromRole="ReportSection1" ToRole="ReportSection" />
+          <NavigationProperty Name="ReportSections11" Relationship="CSSPWebToolsDBModel.FK_ReportSections_ReportSections1" FromRole="ReportSection" ToRole="ReportSection1" />
+          <NavigationProperty Name="ReportSection2" Relationship="CSSPWebToolsDBModel.FK_ReportSections_ReportSections1" FromRole="ReportSection1" ToRole="ReportSection" />
+          <NavigationProperty Name="ReportType" Relationship="CSSPWebToolsDBModel.FK_ReportSections_ReportTypes" FromRole="ReportSection" ToRole="ReportType" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_ReportSections_TVItems" FromRole="ReportSection" ToRole="TVItem" />
+        </EntityType>
+        <EntityType Name="ReportTypeLanguage">
+          <Key>
+            <PropertyRef Name="ReportTypeLanguageID" />
+          </Key>
+          <Property Name="ReportTypeLanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TranslationStatusName" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TranslationStatusDescription" Type="Int32" Nullable="false" />
+          <Property Name="StartOfFileName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TranslationStatusStartOfFileName" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReportType" Relationship="CSSPWebToolsDBModel.FK_ReportTypeLanguages_ReportTypes" FromRole="ReportTypeLanguage" ToRole="ReportType" />
+        </EntityType>
+        <EntityType Name="ReportType">
+          <Key>
+            <PropertyRef Name="ReportTypeID" />
+          </Key>
+          <Property Name="ReportTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TVType" Type="Int32" Nullable="false" />
+          <Property Name="FileType" Type="Int32" Nullable="false" />
+          <Property Name="UniqueCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReportSections" Relationship="CSSPWebToolsDBModel.FK_ReportSections_ReportTypes" FromRole="ReportType" ToRole="ReportSection" />
+          <NavigationProperty Name="ReportTypeLanguages" Relationship="CSSPWebToolsDBModel.FK_ReportTypeLanguages_ReportTypes" FromRole="ReportType" ToRole="ReportTypeLanguage" />
+        </EntityType>
         <EntityType Name="ResetPassword">
           <Key>
             <PropertyRef Name="ResetPasswordID" />
@@ -4345,11 +4831,29 @@
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="SamplingPlanEmail">
+          <Key>
+            <PropertyRef Name="SamplingPlanEmailID" />
+          </Key>
+          <Property Name="SamplingPlanEmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SamplingPlanID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsContractor" Type="Boolean" Nullable="false" />
+          <Property Name="LabSheetHasValueOver500" Type="Boolean" Nullable="false" />
+          <Property Name="LabSheetReceived" Type="Boolean" Nullable="false" />
+          <Property Name="LabSheetAccepted" Type="Boolean" Nullable="false" />
+          <Property Name="LabSheetRejected" Type="Boolean" Nullable="false" />
+          <Property Name="FridayReminderAt14h" Type="Boolean" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SamplingPlan" Relationship="CSSPWebToolsDBModel.FK_SamplingPlanEmails_SamplingPlans" FromRole="SamplingPlanEmail" ToRole="SamplingPlan" />
+        </EntityType>
         <EntityType Name="SamplingPlan">
           <Key>
             <PropertyRef Name="SamplingPlanID" />
           </Key>
           <Property Name="SamplingPlanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="SamplingPlanName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ForGroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SampleType" Type="Int32" Nullable="false" />
@@ -4364,10 +4868,15 @@
           <Property Name="IncludeLaboratoryQAQC" Type="Boolean" Nullable="false" />
           <Property Name="ApprovalCode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="SamplingPlanFileTVItemID" Type="Int32" />
+          <Property Name="AnalyzeMethodDefault" Type="Int32" />
+          <Property Name="SampleMatrixDefault" Type="Int32" />
+          <Property Name="LaboratoryDefault" Type="Int32" />
+          <Property Name="BackupDirectory" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="LabSheetDetails" Relationship="CSSPWebToolsDBModel.FK_LabSheetDetails_SamplingPlans" FromRole="SamplingPlan" ToRole="LabSheetDetail" />
           <NavigationProperty Name="LabSheets" Relationship="CSSPWebToolsDBModel.FK_LabSheets_SamplingPlans" FromRole="SamplingPlan" ToRole="LabSheet" />
+          <NavigationProperty Name="SamplingPlanEmails" Relationship="CSSPWebToolsDBModel.FK_SamplingPlanEmails_SamplingPlans" FromRole="SamplingPlan" ToRole="SamplingPlanEmail" />
           <NavigationProperty Name="TVItem" Relationship="CSSPWebToolsDBModel.FK_SamplingPlans_CreatorTVItemID" FromRole="SamplingPlan" ToRole="TVItem" />
           <NavigationProperty Name="TVItem1" Relationship="CSSPWebToolsDBModel.FK_SamplingPlans_ProvinceTVItemID" FromRole="SamplingPlan" ToRole="TVItem" />
           <NavigationProperty Name="TVItem2" Relationship="CSSPWebToolsDBModel.FK_SamplingPlans_SamplingPlanFileTVItemID" FromRole="SamplingPlan" ToRole="TVItem" />
@@ -4470,6 +4979,8 @@
           <Property Name="sid" Type="Int32" Nullable="false" />
           <Property Name="Lat" Type="Double" Nullable="false" />
           <Property Name="Lng" Type="Double" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="TideSite">
           <Key>
@@ -4502,7 +5013,10 @@
           </Key>
           <Property Name="TVFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TVFileTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="TemplateTVType" Type="Int32" Nullable="false" />
+          <Property Name="TemplateTVType" Type="Int32" />
+          <Property Name="ReportTypeID" Type="Int32" />
+          <Property Name="Parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
           <Property Name="Language" Type="Int32" Nullable="false" />
           <Property Name="FilePurpose" Type="Int32" Nullable="false" />
           <Property Name="FileType" Type="Int32" Nullable="false" />
@@ -4578,7 +5092,9 @@
           <NavigationProperty Name="EmailDistributionLists" Relationship="CSSPWebToolsDBModel.FK_EmailDistributionLists_TVItems" FromRole="TVItem" ToRole="EmailDistributionList" />
           <NavigationProperty Name="Emails" Relationship="CSSPWebToolsDBModel.FK_EmailTVItemID_TVItems" FromRole="TVItem" ToRole="Email" />
           <NavigationProperty Name="HydrometricSites" Relationship="CSSPWebToolsDBModel.FK_HydrometricSites_TVItems" FromRole="TVItem" ToRole="HydrometricSite" />
-          <NavigationProperty Name="Infrastructures" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_TVItems" FromRole="TVItem" ToRole="Infrastructure" />
+          <NavigationProperty Name="Infrastructures" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_CivicAddressTVItemID" FromRole="TVItem" ToRole="Infrastructure" />
+          <NavigationProperty Name="Infrastructures1" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_SeeOtherTVItemID" FromRole="TVItem" ToRole="Infrastructure" />
+          <NavigationProperty Name="Infrastructures2" Relationship="CSSPWebToolsDBModel.FK_Infrastructures_TVItems" FromRole="TVItem" ToRole="Infrastructure" />
           <NavigationProperty Name="LabSheetDetails" Relationship="CSSPWebToolsDBModel.FK_LabSheetDetails_SubsectorTVItemID" FromRole="TVItem" ToRole="LabSheetDetail" />
           <NavigationProperty Name="LabSheets" Relationship="CSSPWebToolsDBModel.FK_LabSheets_ApprovedByContactTVItemID" FromRole="TVItem" ToRole="LabSheet" />
           <NavigationProperty Name="LabSheets1" Relationship="CSSPWebToolsDBModel.FK_LabSheets_MWQMRunTVItemID" FromRole="TVItem" ToRole="LabSheet" />
@@ -4588,6 +5104,8 @@
           <NavigationProperty Name="MikeBoundaryConditions" Relationship="CSSPWebToolsDBModel.FK_MikeBoundaryConditions_TVItems" FromRole="TVItem" ToRole="MikeBoundaryCondition" />
           <NavigationProperty Name="MikeScenarios" Relationship="CSSPWebToolsDBModel.FK_MikeScenarios_TVItems" FromRole="TVItem" ToRole="MikeScenario" />
           <NavigationProperty Name="MikeSources" Relationship="CSSPWebToolsDBModel.FK_MikeSources_TVItems" FromRole="TVItem" ToRole="MikeSource" />
+          <NavigationProperty Name="MWQMAnalysisReportParameters" Relationship="CSSPWebToolsDBModel.FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID" FromRole="TVItem" ToRole="MWQMAnalysisReportParameter" />
+          <NavigationProperty Name="MWQMAnalysisReportParameters1" Relationship="CSSPWebToolsDBModel.FK_MWQMAnalysisReportParameters_SubsectorTVItemID" FromRole="TVItem" ToRole="MWQMAnalysisReportParameter" />
           <NavigationProperty Name="MWQMRuns" Relationship="CSSPWebToolsDBModel.FK_MWQMRuns_MWQMSiteTVItems" FromRole="TVItem" ToRole="MWQMRun" />
           <NavigationProperty Name="MWQMRuns1" Relationship="CSSPWebToolsDBModel.FK_MWQMRuns_TVItems" FromRole="TVItem" ToRole="MWQMRun" />
           <NavigationProperty Name="MWQMRuns2" Relationship="CSSPWebToolsDBModel.FK_MWQMRuns_ValidatorTVItemContacts" FromRole="TVItem" ToRole="MWQMRun" />
@@ -4598,6 +5116,8 @@
           <NavigationProperty Name="MWQMSubsectors" Relationship="CSSPWebToolsDBModel.FK_MWQMSubsectors_TVItems" FromRole="TVItem" ToRole="MWQMSubsector" />
           <NavigationProperty Name="PolSourceObservations" Relationship="CSSPWebToolsDBModel.FK_PolSourceObservations_TVItemContact" FromRole="TVItem" ToRole="PolSourceObservation" />
           <NavigationProperty Name="PolSourceSites" Relationship="CSSPWebToolsDBModel.FK_PolSourceSites_TVItems" FromRole="TVItem" ToRole="PolSourceSite" />
+          <NavigationProperty Name="PolSourceSites1" Relationship="CSSPWebToolsDBModel.FK_PolSourceSites_TVItems1" FromRole="TVItem" ToRole="PolSourceSite" />
+          <NavigationProperty Name="ReportSections" Relationship="CSSPWebToolsDBModel.FK_ReportSections_TVItems" FromRole="TVItem" ToRole="ReportSection" />
           <NavigationProperty Name="SamplingPlans" Relationship="CSSPWebToolsDBModel.FK_SamplingPlans_CreatorTVItemID" FromRole="TVItem" ToRole="SamplingPlan" />
           <NavigationProperty Name="SamplingPlans1" Relationship="CSSPWebToolsDBModel.FK_SamplingPlans_ProvinceTVItemID" FromRole="TVItem" ToRole="SamplingPlan" />
           <NavigationProperty Name="SamplingPlans2" Relationship="CSSPWebToolsDBModel.FK_SamplingPlans_SamplingPlanFileTVItemID" FromRole="TVItem" ToRole="SamplingPlan" />
@@ -4692,16 +5212,16 @@
           <Property Name="VPAmbientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VPScenarioID" Type="Int32" Nullable="false" />
           <Property Name="Row" Type="Int32" Nullable="false" />
-          <Property Name="MeasurementDepth_m" Type="Double" Nullable="false" />
-          <Property Name="CurrentSpeed_m_s" Type="Double" Nullable="false" />
-          <Property Name="CurrentDirection_deg" Type="Double" Nullable="false" />
-          <Property Name="AmbientSalinity_PSU" Type="Double" Nullable="false" />
-          <Property Name="AmbientTemperature_C" Type="Double" Nullable="false" />
-          <Property Name="BackgroundConcentration_MPN_100ml" Type="Int32" Nullable="false" />
-          <Property Name="PollutantDecayRate_per_day" Type="Double" Nullable="false" />
-          <Property Name="FarFieldCurrentSpeed_m_s" Type="Double" Nullable="false" />
-          <Property Name="FarFieldCurrentDirection_deg" Type="Double" Nullable="false" />
-          <Property Name="FarFieldDiffusionCoefficient" Type="Double" Nullable="false" />
+          <Property Name="MeasurementDepth_m" Type="Double" />
+          <Property Name="CurrentSpeed_m_s" Type="Double" />
+          <Property Name="CurrentDirection_deg" Type="Double" />
+          <Property Name="AmbientSalinity_PSU" Type="Double" />
+          <Property Name="AmbientTemperature_C" Type="Double" />
+          <Property Name="BackgroundConcentration_MPN_100ml" Type="Int32" />
+          <Property Name="PollutantDecayRate_per_day" Type="Double" />
+          <Property Name="FarFieldCurrentSpeed_m_s" Type="Double" />
+          <Property Name="FarFieldCurrentDirection_deg" Type="Double" />
+          <Property Name="FarFieldDiffusionCoefficient" Type="Double" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="VPScenario" Relationship="CSSPWebToolsDBModel.FK_VPAmbients_VPScenarios" FromRole="VPAmbient" ToRole="VPScenario" />
@@ -4743,21 +5263,21 @@
           <Property Name="InfrastructureTVItemID" Type="Int32" Nullable="false" />
           <Property Name="VPScenarioStatus" Type="Int32" Nullable="false" />
           <Property Name="UseAsBestEstimate" Type="Boolean" Nullable="false" />
-          <Property Name="EffluentFlow_m3_s" Type="Double" Nullable="false" />
-          <Property Name="EffluentConcentration_MPN_100ml" Type="Int32" Nullable="false" />
-          <Property Name="FroudeNumber" Type="Double" Nullable="false" />
-          <Property Name="PortDiameter_m" Type="Double" Nullable="false" />
-          <Property Name="PortDepth_m" Type="Double" Nullable="false" />
-          <Property Name="PortElevation_m" Type="Double" Nullable="false" />
-          <Property Name="VerticalAngle_deg" Type="Double" Nullable="false" />
-          <Property Name="HorizontalAngle_deg" Type="Double" Nullable="false" />
-          <Property Name="NumberOfPorts" Type="Int32" Nullable="false" />
-          <Property Name="PortSpacing_m" Type="Double" Nullable="false" />
-          <Property Name="AcuteMixZone_m" Type="Double" Nullable="false" />
-          <Property Name="ChronicMixZone_m" Type="Double" Nullable="false" />
-          <Property Name="EffluentSalinity_PSU" Type="Double" Nullable="false" />
-          <Property Name="EffluentTemperature_C" Type="Double" Nullable="false" />
-          <Property Name="EffluentVelocity_m_s" Type="Double" Nullable="false" />
+          <Property Name="EffluentFlow_m3_s" Type="Double" />
+          <Property Name="EffluentConcentration_MPN_100ml" Type="Int32" />
+          <Property Name="FroudeNumber" Type="Double" />
+          <Property Name="PortDiameter_m" Type="Double" />
+          <Property Name="PortDepth_m" Type="Double" />
+          <Property Name="PortElevation_m" Type="Double" />
+          <Property Name="VerticalAngle_deg" Type="Double" />
+          <Property Name="HorizontalAngle_deg" Type="Double" />
+          <Property Name="NumberOfPorts" Type="Int32" />
+          <Property Name="PortSpacing_m" Type="Double" />
+          <Property Name="AcuteMixZone_m" Type="Double" />
+          <Property Name="ChronicMixZone_m" Type="Double" />
+          <Property Name="EffluentSalinity_PSU" Type="Double" />
+          <Property Name="EffluentTemperature_C" Type="Double" />
+          <Property Name="EffluentVelocity_m_s" Type="Double" />
           <Property Name="RawResults" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
@@ -4962,18 +5482,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ContactLogins_Contacts">
-          <End Type="CSSPWebToolsDBModel.Contact" Role="Contact" Multiplicity="1" />
-          <End Type="CSSPWebToolsDBModel.ContactLogin" Role="ContactLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contact">
-              <PropertyRef Name="ContactID" />
-            </Principal>
-            <Dependent Role="ContactLogin">
-              <PropertyRef Name="ContactID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ContactPreferences_Contacts">
           <End Type="CSSPWebToolsDBModel.Contact" Role="Contact" Multiplicity="1" />
           <End Type="CSSPWebToolsDBModel.ContactPreference" Role="ContactPreference" Multiplicity="*" />
@@ -5024,6 +5532,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
+          <End Type="CSSPWebToolsDBModel.EmailDistributionListContact" Role="EmailDistributionListContact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CSSPWebToolsDBModel.EmailDistributionListContactLanguage" Role="EmailDistributionListContactLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionListContact">
+              <PropertyRef Name="EmailDistributionListContactID" />
+            </Principal>
+            <Dependent Role="EmailDistributionListContactLanguage">
+              <PropertyRef Name="EmailDistributionListContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmailDistributionListContacts_EmailDistributionLists">
           <End Type="CSSPWebToolsDBModel.EmailDistributionList" Role="EmailDistributionList" Multiplicity="1" />
           <End Type="CSSPWebToolsDBModel.EmailDistributionListContact" Role="EmailDistributionListContact" Multiplicity="*" />
@@ -5032,6 +5554,20 @@
               <PropertyRef Name="EmailDistributionListID" />
             </Principal>
             <Dependent Role="EmailDistributionListContact">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailDistributionListLanguages_EmailDistributionLists">
+          <End Type="CSSPWebToolsDBModel.EmailDistributionList" Role="EmailDistributionList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CSSPWebToolsDBModel.EmailDistributionListLanguage" Role="EmailDistributionListLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionList">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Principal>
+            <Dependent Role="EmailDistributionListLanguage">
               <PropertyRef Name="EmailDistributionListID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5107,6 +5643,30 @@
             </Principal>
             <Dependent Role="InfrastructureLanguage">
               <PropertyRef Name="InfrastructureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Infrastructures_CivicAddressTVItemID">
+          <End Type="CSSPWebToolsDBModel.TVItem" Role="TVItem" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.Infrastructure" Role="Infrastructure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="Infrastructure">
+              <PropertyRef Name="CivicAddressTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Infrastructures_SeeOtherTVItemID">
+          <End Type="CSSPWebToolsDBModel.TVItem" Role="TVItem" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.Infrastructure" Role="Infrastructure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="Infrastructure">
+              <PropertyRef Name="SeeOtherTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5324,6 +5884,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MWQMAnalysisReportParameters_ExcelTVFileTVItemID">
+          <End Type="CSSPWebToolsDBModel.TVItem" Role="TVItem" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.MWQMAnalysisReportParameter" Role="MWQMAnalysisReportParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="MWQMAnalysisReportParameter">
+              <PropertyRef Name="ExcelTVFileTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MWQMAnalysisReportParameters_SubsectorTVItemID">
+          <End Type="CSSPWebToolsDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPWebToolsDBModel.MWQMAnalysisReportParameter" Role="MWQMAnalysisReportParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="MWQMAnalysisReportParameter">
+              <PropertyRef Name="SubsectorTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MWQMRunLanguages_MWQMRuns">
           <End Type="CSSPWebToolsDBModel.MWQMRun" Role="MWQMRun" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -5512,6 +6096,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PolSourceSites_TVItems1">
+          <End Type="CSSPWebToolsDBModel.TVItem" Role="TVItem" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.PolSourceSite" Role="PolSourceSite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSite">
+              <PropertyRef Name="CivicAddressTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RatingCurveValues_RatingCurves">
           <End Type="CSSPWebToolsDBModel.RatingCurve" Role="RatingCurve" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -5523,6 +6119,94 @@
             </Principal>
             <Dependent Role="RatingCurveValue">
               <PropertyRef Name="RatingCurveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSectionLanguages_ReportSections">
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CSSPWebToolsDBModel.ReportSectionLanguage" Role="ReportSectionLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportSection">
+              <PropertyRef Name="ReportSectionID" />
+            </Principal>
+            <Dependent Role="ReportSectionLanguage">
+              <PropertyRef Name="ReportSectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_ReportSections">
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportSection">
+              <PropertyRef Name="ReportSectionID" />
+            </Principal>
+            <Dependent Role="ReportSection1">
+              <PropertyRef Name="ParentReportSectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_ReportSections1">
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportSection">
+              <PropertyRef Name="ReportSectionID" />
+            </Principal>
+            <Dependent Role="ReportSection1">
+              <PropertyRef Name="TemplateReportSectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_ReportTypes">
+          <End Type="CSSPWebToolsDBModel.ReportType" Role="ReportType" Multiplicity="1" />
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportType">
+              <PropertyRef Name="ReportTypeID" />
+            </Principal>
+            <Dependent Role="ReportSection">
+              <PropertyRef Name="ReportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportSections_TVItems">
+          <End Type="CSSPWebToolsDBModel.TVItem" Role="TVItem" Multiplicity="0..1" />
+          <End Type="CSSPWebToolsDBModel.ReportSection" Role="ReportSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="ReportSection">
+              <PropertyRef Name="TVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportTypeLanguages_ReportTypes">
+          <End Type="CSSPWebToolsDBModel.ReportType" Role="ReportType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CSSPWebToolsDBModel.ReportTypeLanguage" Role="ReportTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportType">
+              <PropertyRef Name="ReportTypeID" />
+            </Principal>
+            <Dependent Role="ReportTypeLanguage">
+              <PropertyRef Name="ReportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamplingPlanEmails_SamplingPlans">
+          <End Type="CSSPWebToolsDBModel.SamplingPlan" Role="SamplingPlan" Multiplicity="1" />
+          <End Type="CSSPWebToolsDBModel.SamplingPlanEmail" Role="SamplingPlanEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SamplingPlan">
+              <PropertyRef Name="SamplingPlanID" />
+            </Principal>
+            <Dependent Role="SamplingPlanEmail">
+              <PropertyRef Name="SamplingPlanID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5912,7 +6596,7 @@
           <End Type="CSSPWebToolsDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="CSSPWebToolsDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -6104,6 +6788,7 @@
                 <ScalarProperty Name="RainfallEntered_mm" ColumnName="RainfallEntered_mm" />
                 <ScalarProperty Name="Rainfall_mm" ColumnName="Rainfall_mm" />
                 <ScalarProperty Name="Snow_cm" ColumnName="Snow_cm" />
+                <ScalarProperty Name="HasBeenRead" ColumnName="HasBeenRead" />
                 <ScalarProperty Name="StorageDataType" ColumnName="StorageDataType" />
                 <ScalarProperty Name="Keep" ColumnName="Keep" />
                 <ScalarProperty Name="DateTime_Local" ColumnName="DateTime_Local" />
@@ -6139,19 +6824,6 @@
                 <ScalarProperty Name="ECDBID" ColumnName="ECDBID" />
                 <ScalarProperty Name="ClimateSiteTVItemID" ColumnName="ClimateSiteTVItemID" />
                 <ScalarProperty Name="ClimateSiteID" ColumnName="ClimateSiteID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ContactLogins">
-            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.ContactLogin">
-              <MappingFragment StoreEntitySet="ContactLogins">
-                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
-                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="LoginEmail" ColumnName="LoginEmail" />
-                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
-                <ScalarProperty Name="ContactLoginID" ColumnName="ContactLoginID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6214,6 +6886,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EmailDistributionListContactLanguages">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.EmailDistributionListContactLanguage">
+              <MappingFragment StoreEntitySet="EmailDistributionListContactLanguages">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="TranslationStatus" ColumnName="TranslationStatus" />
+                <ScalarProperty Name="Agency" ColumnName="Agency" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="EmailDistributionListContactID" ColumnName="EmailDistributionListContactID" />
+                <ScalarProperty Name="EmailDistributionListContactLanguageID" ColumnName="EmailDistributionListContactLanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EmailDistributionListContacts">
             <EntityTypeMapping TypeName="CSSPWebToolsDBModel.EmailDistributionListContact">
               <MappingFragment StoreEntitySet="EmailDistributionListContacts">
@@ -6226,10 +6911,22 @@
                 <ScalarProperty Name="CMPRainfallSeasonal" ColumnName="CMPRainfallSeasonal" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Agency" ColumnName="Agency" />
                 <ScalarProperty Name="IsCC" ColumnName="IsCC" />
                 <ScalarProperty Name="EmailDistributionListID" ColumnName="EmailDistributionListID" />
                 <ScalarProperty Name="EmailDistributionListContactID" ColumnName="EmailDistributionListContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailDistributionListLanguages">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.EmailDistributionListLanguage">
+              <MappingFragment StoreEntitySet="EmailDistributionListLanguages">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="TranslationStatus" ColumnName="TranslationStatus" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="EmailDistributionListID" ColumnName="EmailDistributionListID" />
+                <ScalarProperty Name="EmailDistributionListLanguageID" ColumnName="EmailDistributionListLanguageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6239,7 +6936,6 @@
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
                 <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="CountryTVItemID" ColumnName="CountryTVItemID" />
                 <ScalarProperty Name="EmailDistributionListID" ColumnName="EmailDistributionListID" />
               </MappingFragment>
@@ -6615,6 +7311,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MWQMAnalysisReportParameters">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.MWQMAnalysisReportParameter">
+              <MappingFragment StoreEntitySet="MWQMAnalysisReportParameters">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="Command" ColumnName="Command" />
+                <ScalarProperty Name="ExcelTVFileTVItemID" ColumnName="ExcelTVFileTVItemID" />
+                <ScalarProperty Name="ShowDataTypes" ColumnName="ShowDataTypes" />
+                <ScalarProperty Name="RunsToOmit" ColumnName="RunsToOmit" />
+                <ScalarProperty Name="WetLimit96h" ColumnName="WetLimit96h" />
+                <ScalarProperty Name="WetLimit72h" ColumnName="WetLimit72h" />
+                <ScalarProperty Name="WetLimit48h" ColumnName="WetLimit48h" />
+                <ScalarProperty Name="WetLimit24h" ColumnName="WetLimit24h" />
+                <ScalarProperty Name="DryLimit96h" ColumnName="DryLimit96h" />
+                <ScalarProperty Name="DryLimit72h" ColumnName="DryLimit72h" />
+                <ScalarProperty Name="DryLimit48h" ColumnName="DryLimit48h" />
+                <ScalarProperty Name="DryLimit24h" ColumnName="DryLimit24h" />
+                <ScalarProperty Name="MidRangeNumberOfDays" ColumnName="MidRangeNumberOfDays" />
+                <ScalarProperty Name="ShortRangeNumberOfDays" ColumnName="ShortRangeNumberOfDays" />
+                <ScalarProperty Name="SalinityHighlightDeviationFromAverage" ColumnName="SalinityHighlightDeviationFromAverage" />
+                <ScalarProperty Name="FullYear" ColumnName="FullYear" />
+                <ScalarProperty Name="NumberOfRuns" ColumnName="NumberOfRuns" />
+                <ScalarProperty Name="AnalysisCalculationType" ColumnName="AnalysisCalculationType" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="AnalysisReportYear" ColumnName="AnalysisReportYear" />
+                <ScalarProperty Name="AnalysisName" ColumnName="AnalysisName" />
+                <ScalarProperty Name="SubsectorTVItemID" ColumnName="SubsectorTVItemID" />
+                <ScalarProperty Name="MWQMAnalysisReportParameterID" ColumnName="MWQMAnalysisReportParameterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MWQMLookupMPNs">
             <EntityTypeMapping TypeName="CSSPWebToolsDBModel.MWQMLookupMPN">
               <MappingFragment StoreEntitySet="MWQMLookupMPNs">
@@ -6709,6 +7437,7 @@
               <MappingFragment StoreEntitySet="MWQMSamples">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="UseForOpenData" ColumnName="UseForOpenData" />
                 <ScalarProperty Name="ProcessedBy" ColumnName="ProcessedBy" />
                 <ScalarProperty Name="Tube_0_1" ColumnName="Tube_0_1" />
                 <ScalarProperty Name="Tube_1_0" ColumnName="Tube_1_0" />
@@ -6758,7 +7487,9 @@
               <MappingFragment StoreEntitySet="MWQMSubsectorLanguages">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
-                <ScalarProperty Name="TranslationStatus" ColumnName="TranslationStatus" />
+                <ScalarProperty Name="TranslationStatusLogBook" ColumnName="TranslationStatusLogBook" />
+                <ScalarProperty Name="LogBook" ColumnName="LogBook" />
+                <ScalarProperty Name="TranslationStatusSubsectorDesc" ColumnName="TranslationStatusSubsectorDesc" />
                 <ScalarProperty Name="SubsectorDesc" ColumnName="SubsectorDesc" />
                 <ScalarProperty Name="Language" ColumnName="Language" />
                 <ScalarProperty Name="MWQMSubsectorID" ColumnName="MWQMSubsectorID" />
@@ -6771,29 +7502,6 @@
               <MappingFragment StoreEntitySet="MWQMSubsectors">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
-                <ScalarProperty Name="OnlyRainSelectFullYear" ColumnName="OnlyRainSelectFullYear" />
-                <ScalarProperty Name="OnlyRainRunCount" ColumnName="OnlyRainRunCount" />
-                <ScalarProperty Name="OnlyRainEndDate" ColumnName="OnlyRainEndDate" />
-                <ScalarProperty Name="OnlyRainStartDate" ColumnName="OnlyRainStartDate" />
-                <ScalarProperty Name="NoRainSelectFullYear" ColumnName="NoRainSelectFullYear" />
-                <ScalarProperty Name="NoRainRunCount" ColumnName="NoRainRunCount" />
-                <ScalarProperty Name="NoRainEndDate" ColumnName="NoRainEndDate" />
-                <ScalarProperty Name="NoRainStartDate" ColumnName="NoRainStartDate" />
-                <ScalarProperty Name="IncludeRainSelectFullYear" ColumnName="IncludeRainSelectFullYear" />
-                <ScalarProperty Name="IncludeRainRunCount" ColumnName="IncludeRainRunCount" />
-                <ScalarProperty Name="IncludeRainEndDate" ColumnName="IncludeRainEndDate" />
-                <ScalarProperty Name="IncludeRainStartDate" ColumnName="IncludeRainStartDate" />
-                <ScalarProperty Name="RainDay10Limit" ColumnName="RainDay10Limit" />
-                <ScalarProperty Name="RainDay9Limit" ColumnName="RainDay9Limit" />
-                <ScalarProperty Name="RainDay8Limit" ColumnName="RainDay8Limit" />
-                <ScalarProperty Name="RainDay7Limit" ColumnName="RainDay7Limit" />
-                <ScalarProperty Name="RainDay6Limit" ColumnName="RainDay6Limit" />
-                <ScalarProperty Name="RainDay5Limit" ColumnName="RainDay5Limit" />
-                <ScalarProperty Name="RainDay4Limit" ColumnName="RainDay4Limit" />
-                <ScalarProperty Name="RainDay3Limit" ColumnName="RainDay3Limit" />
-                <ScalarProperty Name="RainDay2Limit" ColumnName="RainDay2Limit" />
-                <ScalarProperty Name="RainDay1Limit" ColumnName="RainDay1Limit" />
-                <ScalarProperty Name="RainDay0Limit" ColumnName="RainDay0Limit" />
                 <ScalarProperty Name="TideLocationSIDText" ColumnName="TideLocationSIDText" />
                 <ScalarProperty Name="SubsectorHistoricKey" ColumnName="SubsectorHistoricKey" />
                 <ScalarProperty Name="MWQMSubsectorTVItemID" ColumnName="MWQMSubsectorTVItemID" />
@@ -6806,6 +7514,7 @@
               <MappingFragment StoreEntitySet="PolSourceObservationIssues">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="ExtraComment" ColumnName="ExtraComment" />
                 <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
                 <ScalarProperty Name="ObservationInfo" ColumnName="ObservationInfo" />
                 <ScalarProperty Name="PolSourceObservationID" ColumnName="PolSourceObservationID" />
@@ -6886,6 +7595,67 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ReportSectionLanguages">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.ReportSectionLanguage">
+              <MappingFragment StoreEntitySet="ReportSectionLanguages">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="TranslationStatusReportSectionText" ColumnName="TranslationStatusReportSectionText" />
+                <ScalarProperty Name="ReportSectionText" ColumnName="ReportSectionText" />
+                <ScalarProperty Name="TranslationStatusReportSectionName" ColumnName="TranslationStatusReportSectionName" />
+                <ScalarProperty Name="ReportSectionName" ColumnName="ReportSectionName" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="ReportSectionID" ColumnName="ReportSectionID" />
+                <ScalarProperty Name="ReportSectionLanguageID" ColumnName="ReportSectionLanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSections">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.ReportSection">
+              <MappingFragment StoreEntitySet="ReportSections">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="TemplateReportSectionID" ColumnName="TemplateReportSectionID" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ParentReportSectionID" ColumnName="ParentReportSectionID" />
+                <ScalarProperty Name="IsStatic" ColumnName="IsStatic" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="TVItemID" ColumnName="TVItemID" />
+                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
+                <ScalarProperty Name="ReportSectionID" ColumnName="ReportSectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportTypeLanguages">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.ReportTypeLanguage">
+              <MappingFragment StoreEntitySet="ReportTypeLanguages">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="TranslationStatusStartOfFileName" ColumnName="TranslationStatusStartOfFileName" />
+                <ScalarProperty Name="StartOfFileName" ColumnName="StartOfFileName" />
+                <ScalarProperty Name="TranslationStatusDescription" ColumnName="TranslationStatusDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TranslationStatusName" ColumnName="TranslationStatusName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
+                <ScalarProperty Name="ReportTypeLanguageID" ColumnName="ReportTypeLanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportTypes">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.ReportType">
+              <MappingFragment StoreEntitySet="ReportTypes">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="TVType" ColumnName="TVType" />
+                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ResetPasswords">
             <EntityTypeMapping TypeName="CSSPWebToolsDBModel.ResetPassword">
               <MappingFragment StoreEntitySet="ResetPasswords">
@@ -6898,11 +7668,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SamplingPlanEmails">
+            <EntityTypeMapping TypeName="CSSPWebToolsDBModel.SamplingPlanEmail">
+              <MappingFragment StoreEntitySet="SamplingPlanEmails">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="FridayReminderAt14h" ColumnName="FridayReminderAt14h" />
+                <ScalarProperty Name="LabSheetRejected" ColumnName="LabSheetRejected" />
+                <ScalarProperty Name="LabSheetAccepted" ColumnName="LabSheetAccepted" />
+                <ScalarProperty Name="LabSheetReceived" ColumnName="LabSheetReceived" />
+                <ScalarProperty Name="LabSheetHasValueOver500" ColumnName="LabSheetHasValueOver500" />
+                <ScalarProperty Name="IsContractor" ColumnName="IsContractor" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SamplingPlanID" ColumnName="SamplingPlanID" />
+                <ScalarProperty Name="SamplingPlanEmailID" ColumnName="SamplingPlanEmailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SamplingPlans">
             <EntityTypeMapping TypeName="CSSPWebToolsDBModel.SamplingPlan">
               <MappingFragment StoreEntitySet="SamplingPlans">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="BackupDirectory" ColumnName="BackupDirectory" />
+                <ScalarProperty Name="LaboratoryDefault" ColumnName="LaboratoryDefault" />
+                <ScalarProperty Name="SampleMatrixDefault" ColumnName="SampleMatrixDefault" />
+                <ScalarProperty Name="AnalyzeMethodDefault" ColumnName="AnalyzeMethodDefault" />
                 <ScalarProperty Name="SamplingPlanFileTVItemID" ColumnName="SamplingPlanFileTVItemID" />
                 <ScalarProperty Name="ApprovalCode" ColumnName="ApprovalCode" />
                 <ScalarProperty Name="IncludeLaboratoryQAQC" ColumnName="IncludeLaboratoryQAQC" />
@@ -6917,6 +7708,7 @@
                 <ScalarProperty Name="SampleType" ColumnName="SampleType" />
                 <ScalarProperty Name="ForGroupName" ColumnName="ForGroupName" />
                 <ScalarProperty Name="SamplingPlanName" ColumnName="SamplingPlanName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="SamplingPlanID" ColumnName="SamplingPlanID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7005,6 +7797,8 @@
           <EntitySetMapping Name="TideLocations">
             <EntityTypeMapping TypeName="CSSPWebToolsDBModel.TideLocation">
               <MappingFragment StoreEntitySet="TideLocations">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
                 <ScalarProperty Name="Lng" ColumnName="Lng" />
                 <ScalarProperty Name="Lat" ColumnName="Lat" />
                 <ScalarProperty Name="sid" ColumnName="sid" />
@@ -7055,6 +7849,9 @@
                 <ScalarProperty Name="FileType" ColumnName="FileType" />
                 <ScalarProperty Name="FilePurpose" ColumnName="FilePurpose" />
                 <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
                 <ScalarProperty Name="TemplateTVType" ColumnName="TemplateTVType" />
                 <ScalarProperty Name="TVFileTVItemID" ColumnName="TVFileTVItemID" />
                 <ScalarProperty Name="TVFileID" ColumnName="TVFileID" />

@@ -30,11 +30,12 @@ namespace Updater
         public Nullable<double> WaterTemp_C { get; set; }
         public Nullable<double> PH { get; set; }
         public string SampleTypesText { get; set; }
-        public int SampleType_old { get; set; }
+        public Nullable<int> SampleType_old { get; set; }
         public Nullable<int> Tube_10 { get; set; }
         public Nullable<int> Tube_1_0 { get; set; }
         public Nullable<int> Tube_0_1 { get; set; }
         public string ProcessedBy { get; set; }
+        public bool UseForOpenData { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     

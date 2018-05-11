@@ -12,16 +12,16 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class TideLocation
+    public partial class EmailDistributionListContactLanguage
     {
-        public int TideLocationID { get; set; }
-        public int Zone { get; set; }
-        public string Name { get; set; }
-        public string Prov { get; set; }
-        public int sid { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
+        public int EmailDistributionListContactLanguageID { get; set; }
+        public int EmailDistributionListContactID { get; set; }
+        public int Language { get; set; }
+        public string Agency { get; set; }
+        public int TranslationStatus { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
+    
+        public virtual EmailDistributionListContact EmailDistributionListContact { get; set; }
     }
 }

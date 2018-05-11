@@ -18,7 +18,9 @@ namespace Updater
         public int MWQMSubsectorID { get; set; }
         public int Language { get; set; }
         public string SubsectorDesc { get; set; }
-        public int TranslationStatus { get; set; }
+        public int TranslationStatusSubsectorDesc { get; set; }
+        public string LogBook { get; set; }
+        public Nullable<int> TranslationStatusLogBook { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     

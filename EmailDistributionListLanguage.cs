@@ -12,16 +12,16 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class ContactLogin
+    public partial class EmailDistributionListLanguage
     {
-        public int ContactLoginID { get; set; }
-        public int ContactID { get; set; }
-        public string LoginEmail { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public int EmailDistributionListLanguageID { get; set; }
+        public int EmailDistributionListID { get; set; }
+        public int Language { get; set; }
+        public string RegionName { get; set; }
+        public int TranslationStatus { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
-        public virtual Contact Contact { get; set; }
+        public virtual EmailDistributionList EmailDistributionList { get; set; }
     }
 }

@@ -12,16 +12,20 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class TideLocation
+    public partial class SamplingPlanEmail
     {
-        public int TideLocationID { get; set; }
-        public int Zone { get; set; }
-        public string Name { get; set; }
-        public string Prov { get; set; }
-        public int sid { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
+        public int SamplingPlanEmailID { get; set; }
+        public int SamplingPlanID { get; set; }
+        public string Email { get; set; }
+        public bool IsContractor { get; set; }
+        public bool LabSheetHasValueOver500 { get; set; }
+        public bool LabSheetReceived { get; set; }
+        public bool LabSheetAccepted { get; set; }
+        public bool LabSheetRejected { get; set; }
+        public bool FridayReminderAt14h { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
+    
+        public virtual SamplingPlan SamplingPlan { get; set; }
     }
 }

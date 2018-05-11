@@ -38,12 +38,13 @@ namespace Updater
         public virtual DbSet<BoxModel> BoxModels { get; set; }
         public virtual DbSet<ClimateDataValue> ClimateDataValues { get; set; }
         public virtual DbSet<ClimateSite> ClimateSites { get; set; }
-        public virtual DbSet<ContactLogin> ContactLogins { get; set; }
         public virtual DbSet<ContactPreference> ContactPreferences { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<ContactShortcut> ContactShortcuts { get; set; }
         public virtual DbSet<DocTemplate> DocTemplates { get; set; }
+        public virtual DbSet<EmailDistributionListContactLanguage> EmailDistributionListContactLanguages { get; set; }
         public virtual DbSet<EmailDistributionListContact> EmailDistributionListContacts { get; set; }
+        public virtual DbSet<EmailDistributionListLanguage> EmailDistributionListLanguages { get; set; }
         public virtual DbSet<EmailDistributionList> EmailDistributionLists { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<HydrometricDataValue> HydrometricDataValues { get; set; }
@@ -60,6 +61,7 @@ namespace Updater
         public virtual DbSet<MikeScenario> MikeScenarios { get; set; }
         public virtual DbSet<MikeSource> MikeSources { get; set; }
         public virtual DbSet<MikeSourceStartEnd> MikeSourceStartEnds { get; set; }
+        public virtual DbSet<MWQMAnalysisReportParameter> MWQMAnalysisReportParameters { get; set; }
         public virtual DbSet<MWQMLookupMPN> MWQMLookupMPNs { get; set; }
         public virtual DbSet<MWQMRunLanguage> MWQMRunLanguages { get; set; }
         public virtual DbSet<MWQMRun> MWQMRuns { get; set; }
@@ -75,7 +77,12 @@ namespace Updater
         public virtual DbSet<RainExceedance> RainExceedances { get; set; }
         public virtual DbSet<RatingCurve> RatingCurves { get; set; }
         public virtual DbSet<RatingCurveValue> RatingCurveValues { get; set; }
+        public virtual DbSet<ReportSectionLanguage> ReportSectionLanguages { get; set; }
+        public virtual DbSet<ReportSection> ReportSections { get; set; }
+        public virtual DbSet<ReportTypeLanguage> ReportTypeLanguages { get; set; }
+        public virtual DbSet<ReportType> ReportTypes { get; set; }
         public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
+        public virtual DbSet<SamplingPlanEmail> SamplingPlanEmails { get; set; }
         public virtual DbSet<SamplingPlan> SamplingPlans { get; set; }
         public virtual DbSet<SamplingPlanSubsector> SamplingPlanSubsectors { get; set; }
         public virtual DbSet<SamplingPlanSubsectorSite> SamplingPlanSubsectorSites { get; set; }

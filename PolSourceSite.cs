@@ -35,5 +35,6 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolSourceObservation> PolSourceObservations { get; set; }
         public virtual TVItem TVItem { get; set; }
+        public virtual TVItem TVItem1 { get; set; }
     }
 }

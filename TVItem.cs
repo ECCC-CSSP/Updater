@@ -31,6 +31,8 @@ namespace Updater
             this.Emails = new HashSet<Email>();
             this.HydrometricSites = new HashSet<HydrometricSite>();
             this.Infrastructures = new HashSet<Infrastructure>();
+            this.Infrastructures1 = new HashSet<Infrastructure>();
+            this.Infrastructures2 = new HashSet<Infrastructure>();
             this.LabSheetDetails = new HashSet<LabSheetDetail>();
             this.LabSheets = new HashSet<LabSheet>();
             this.LabSheets1 = new HashSet<LabSheet>();
@@ -40,6 +42,8 @@ namespace Updater
             this.MikeBoundaryConditions = new HashSet<MikeBoundaryCondition>();
             this.MikeScenarios = new HashSet<MikeScenario>();
             this.MikeSources = new HashSet<MikeSource>();
+            this.MWQMAnalysisReportParameters = new HashSet<MWQMAnalysisReportParameter>();
+            this.MWQMAnalysisReportParameters1 = new HashSet<MWQMAnalysisReportParameter>();
             this.MWQMRuns = new HashSet<MWQMRun>();
             this.MWQMRuns1 = new HashSet<MWQMRun>();
             this.MWQMRuns2 = new HashSet<MWQMRun>();
@@ -50,6 +54,8 @@ namespace Updater
             this.MWQMSubsectors = new HashSet<MWQMSubsector>();
             this.PolSourceObservations = new HashSet<PolSourceObservation>();
             this.PolSourceSites = new HashSet<PolSourceSite>();
+            this.PolSourceSites1 = new HashSet<PolSourceSite>();
+            this.ReportSections = new HashSet<ReportSection>();
             this.SamplingPlans = new HashSet<SamplingPlan>();
             this.SamplingPlans1 = new HashSet<SamplingPlan>();
             this.SamplingPlans2 = new HashSet<SamplingPlan>();
@@ -112,6 +118,10 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Infrastructure> Infrastructures { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Infrastructure> Infrastructures1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Infrastructure> Infrastructures2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabSheetDetail> LabSheetDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabSheet> LabSheets { get; set; }
@@ -129,6 +139,10 @@ namespace Updater
         public virtual ICollection<MikeScenario> MikeScenarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MikeSource> MikeSources { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MWQMAnalysisReportParameter> MWQMAnalysisReportParameters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MWQMAnalysisReportParameter> MWQMAnalysisReportParameters1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMRun> MWQMRuns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -149,6 +163,10 @@ namespace Updater
         public virtual ICollection<PolSourceObservation> PolSourceObservations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolSourceSite> PolSourceSites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolSourceSite> PolSourceSites1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReportSection> ReportSections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SamplingPlan> SamplingPlans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

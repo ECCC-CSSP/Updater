@@ -72,5 +72,7 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InfrastructureLanguage> InfrastructureLanguages { get; set; }
         public virtual TVItem TVItem { get; set; }
+        public virtual TVItem TVItem1 { get; set; }
+        public virtual TVItem TVItem2 { get; set; }
     }
 }

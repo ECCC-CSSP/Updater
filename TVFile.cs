@@ -22,7 +22,10 @@ namespace Updater
     
         public int TVFileID { get; set; }
         public int TVFileTVItemID { get; set; }
-        public int TemplateTVType { get; set; }
+        public Nullable<int> TemplateTVType { get; set; }
+        public Nullable<int> ReportTypeID { get; set; }
+        public string Parameters { get; set; }
+        public Nullable<int> Year { get; set; }
         public int Language { get; set; }
         public int FilePurpose { get; set; }
         public int FileType { get; set; }

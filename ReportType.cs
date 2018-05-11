@@ -12,23 +12,25 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class MWQMSubsector
+    public partial class ReportType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MWQMSubsector()
+        public ReportType()
         {
-            this.MWQMSubsectorLanguages = new HashSet<MWQMSubsectorLanguage>();
+            this.ReportSections = new HashSet<ReportSection>();
+            this.ReportTypeLanguages = new HashSet<ReportTypeLanguage>();
         }
     
-        public int MWQMSubsectorID { get; set; }
-        public int MWQMSubsectorTVItemID { get; set; }
-        public string SubsectorHistoricKey { get; set; }
-        public string TideLocationSIDText { get; set; }
+        public int ReportTypeID { get; set; }
+        public int TVType { get; set; }
+        public int FileType { get; set; }
+        public string UniqueCode { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MWQMSubsectorLanguage> MWQMSubsectorLanguages { get; set; }
-        public virtual TVItem TVItem { get; set; }
+        public virtual ICollection<ReportSection> ReportSections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReportTypeLanguage> ReportTypeLanguages { get; set; }
     }
 }

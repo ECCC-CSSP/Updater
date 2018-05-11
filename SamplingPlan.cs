@@ -19,10 +19,12 @@ namespace Updater
         {
             this.LabSheetDetails = new HashSet<LabSheetDetail>();
             this.LabSheets = new HashSet<LabSheet>();
+            this.SamplingPlanEmails = new HashSet<SamplingPlanEmail>();
             this.SamplingPlanSubsectors = new HashSet<SamplingPlanSubsector>();
         }
     
         public int SamplingPlanID { get; set; }
+        public bool IsActive { get; set; }
         public string SamplingPlanName { get; set; }
         public string ForGroupName { get; set; }
         public int SampleType { get; set; }
@@ -37,6 +39,10 @@ namespace Updater
         public bool IncludeLaboratoryQAQC { get; set; }
         public string ApprovalCode { get; set; }
         public Nullable<int> SamplingPlanFileTVItemID { get; set; }
+        public Nullable<int> AnalyzeMethodDefault { get; set; }
+        public Nullable<int> SampleMatrixDefault { get; set; }
+        public Nullable<int> LaboratoryDefault { get; set; }
+        public string BackupDirectory { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
@@ -44,6 +50,8 @@ namespace Updater
         public virtual ICollection<LabSheetDetail> LabSheetDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabSheet> LabSheets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SamplingPlanEmail> SamplingPlanEmails { get; set; }
         public virtual TVItem TVItem { get; set; }
         public virtual TVItem TVItem1 { get; set; }
         public virtual TVItem TVItem2 { get; set; }

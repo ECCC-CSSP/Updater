@@ -14,10 +14,15 @@ namespace Updater
     
     public partial class EmailDistributionListContact
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EmailDistributionListContact()
+        {
+            this.EmailDistributionListContactLanguages = new HashSet<EmailDistributionListContactLanguage>();
+        }
+    
         public int EmailDistributionListContactID { get; set; }
         public int EmailDistributionListID { get; set; }
         public bool IsCC { get; set; }
-        public string Agency { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public bool CMPRainfallSeasonal { get; set; }
@@ -28,6 +33,8 @@ namespace Updater
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailDistributionListContactLanguage> EmailDistributionListContactLanguages { get; set; }
         public virtual EmailDistributionList EmailDistributionList { get; set; }
     }
 }

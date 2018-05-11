@@ -18,17 +18,19 @@ namespace Updater
         public EmailDistributionList()
         {
             this.EmailDistributionListContacts = new HashSet<EmailDistributionListContact>();
+            this.EmailDistributionListLanguages = new HashSet<EmailDistributionListLanguage>();
         }
     
         public int EmailDistributionListID { get; set; }
         public int CountryTVItemID { get; set; }
-        public string RegionName { get; set; }
         public int Ordinal { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmailDistributionListContact> EmailDistributionListContacts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailDistributionListLanguage> EmailDistributionListLanguages { get; set; }
         public virtual TVItem TVItem { get; set; }
     }
 }
