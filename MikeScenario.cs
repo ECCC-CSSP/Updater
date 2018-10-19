@@ -37,6 +37,10 @@ namespace Updater
         public int ResultFrequency_min { get; set; }
         public double AmbientTemperature_C { get; set; }
         public double AmbientSalinity_PSU { get; set; }
+        public Nullable<bool> GenerateDecouplingFiles { get; set; }
+        public Nullable<bool> UseDecouplingFiles { get; set; }
+        public Nullable<int> UseSalinityAndTemperatureInitialConditionFromTVFileTVItemID { get; set; }
+        public Nullable<int> ForSimulatingMWQMRunTVItemID { get; set; }
         public double ManningNumber { get; set; }
         public Nullable<int> NumberOfElements { get; set; }
         public Nullable<int> NumberOfTimeSteps { get; set; }

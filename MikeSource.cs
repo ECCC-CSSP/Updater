@@ -25,11 +25,16 @@ namespace Updater
         public bool IsContinuous { get; set; }
         public bool Include { get; set; }
         public bool IsRiver { get; set; }
+        public bool UseHydrometric { get; set; }
+        public Nullable<int> HydrometricTVItemID { get; set; }
+        public Nullable<double> DrainageArea_km2 { get; set; }
+        public Nullable<double> Factor { get; set; }
         public string SourceNumberString { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         public virtual TVItem TVItem { get; set; }
+        public virtual TVItem TVItem1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MikeSourceStartEnd> MikeSourceStartEnds { get; set; }
     }

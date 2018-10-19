@@ -12,19 +12,17 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class SamplingPlanEmail
+    public partial class MWQMSitePolSourceSite
     {
-        public int SamplingPlanEmailID { get; set; }
-        public int SamplingPlanID { get; set; }
-        public string Email { get; set; }
-        public bool IsContractor { get; set; }
-        public bool LabSheetHasValueOver500 { get; set; }
-        public bool LabSheetReceived { get; set; }
-        public bool LabSheetAccepted { get; set; }
-        public bool LabSheetRejected { get; set; }
+        public int MWQMSitePolSourceSiteID { get; set; }
+        public int MWQMSiteTVItemID { get; set; }
+        public int PolSourceSiteTVItemID { get; set; }
+        public int TVType { get; set; }
+        public string LinkReasons { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
-        public virtual SamplingPlan SamplingPlan { get; set; }
+        public virtual TVItem TVItem { get; set; }
+        public virtual TVItem TVItem1 { get; set; }
     }
 }

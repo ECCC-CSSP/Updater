@@ -24,6 +24,7 @@ namespace Updater
             this.AppTasks = new HashSet<AppTask>();
             this.AppTasks1 = new HashSet<AppTask>();
             this.BoxModels = new HashSet<BoxModel>();
+            this.Classifications = new HashSet<Classification>();
             this.ClimateSites = new HashSet<ClimateSite>();
             this.Contacts = new HashSet<Contact>();
             this.DocTemplates = new HashSet<DocTemplate>();
@@ -42,6 +43,7 @@ namespace Updater
             this.MikeBoundaryConditions = new HashSet<MikeBoundaryCondition>();
             this.MikeScenarios = new HashSet<MikeScenario>();
             this.MikeSources = new HashSet<MikeSource>();
+            this.MikeSources1 = new HashSet<MikeSource>();
             this.MWQMAnalysisReportParameters = new HashSet<MWQMAnalysisReportParameter>();
             this.MWQMAnalysisReportParameters1 = new HashSet<MWQMAnalysisReportParameter>();
             this.MWQMRuns = new HashSet<MWQMRun>();
@@ -49,6 +51,8 @@ namespace Updater
             this.MWQMRuns2 = new HashSet<MWQMRun>();
             this.MWQMSamples = new HashSet<MWQMSample>();
             this.MWQMSamples1 = new HashSet<MWQMSample>();
+            this.MWQMSitePolSourceSites = new HashSet<MWQMSitePolSourceSite>();
+            this.MWQMSitePolSourceSites1 = new HashSet<MWQMSitePolSourceSite>();
             this.MWQMSites = new HashSet<MWQMSite>();
             this.MWQMSiteStartEndDates = new HashSet<MWQMSiteStartEndDate>();
             this.MWQMSubsectors = new HashSet<MWQMSubsector>();
@@ -104,6 +108,8 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoxModel> BoxModels { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Classification> Classifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClimateSite> ClimateSites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Contacts { get; set; }
@@ -140,6 +146,8 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MikeSource> MikeSources { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MikeSource> MikeSources1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMAnalysisReportParameter> MWQMAnalysisReportParameters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMAnalysisReportParameter> MWQMAnalysisReportParameters1 { get; set; }
@@ -153,6 +161,10 @@ namespace Updater
         public virtual ICollection<MWQMSample> MWQMSamples { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMSample> MWQMSamples1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MWQMSitePolSourceSite> MWQMSitePolSourceSites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MWQMSitePolSourceSite> MWQMSitePolSourceSites1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMSite> MWQMSites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

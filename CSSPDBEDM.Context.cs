@@ -36,6 +36,7 @@ namespace Updater
         public virtual DbSet<BoxModelLanguage> BoxModelLanguages { get; set; }
         public virtual DbSet<BoxModelResult> BoxModelResults { get; set; }
         public virtual DbSet<BoxModel> BoxModels { get; set; }
+        public virtual DbSet<Classification> Classifications { get; set; }
         public virtual DbSet<ClimateDataValue> ClimateDataValues { get; set; }
         public virtual DbSet<ClimateSite> ClimateSites { get; set; }
         public virtual DbSet<ContactPreference> ContactPreferences { get; set; }
@@ -67,6 +68,7 @@ namespace Updater
         public virtual DbSet<MWQMRun> MWQMRuns { get; set; }
         public virtual DbSet<MWQMSampleLanguage> MWQMSampleLanguages { get; set; }
         public virtual DbSet<MWQMSample> MWQMSamples { get; set; }
+        public virtual DbSet<MWQMSitePolSourceSite> MWQMSitePolSourceSites { get; set; }
         public virtual DbSet<MWQMSite> MWQMSites { get; set; }
         public virtual DbSet<MWQMSiteStartEndDate> MWQMSiteStartEndDates { get; set; }
         public virtual DbSet<MWQMSubsectorLanguage> MWQMSubsectorLanguages { get; set; }

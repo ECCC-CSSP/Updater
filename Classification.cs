@@ -12,19 +12,15 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class SamplingPlanEmail
+    public partial class Classification
     {
-        public int SamplingPlanEmailID { get; set; }
-        public int SamplingPlanID { get; set; }
-        public string Email { get; set; }
-        public bool IsContractor { get; set; }
-        public bool LabSheetHasValueOver500 { get; set; }
-        public bool LabSheetReceived { get; set; }
-        public bool LabSheetAccepted { get; set; }
-        public bool LabSheetRejected { get; set; }
+        public int ClassificationID { get; set; }
+        public int ClassificationTVItemID { get; set; }
+        public int ClassificationType { get; set; }
+        public int Ordinal { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
-        public virtual SamplingPlan SamplingPlan { get; set; }
+        public virtual TVItem TVItem { get; set; }
     }
 }

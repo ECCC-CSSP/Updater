@@ -38,6 +38,8 @@ namespace Updater
         public Nullable<bool> Sediment { get; set; }
         public Nullable<bool> RHBN { get; set; }
         public Nullable<bool> RealTime { get; set; }
+        public Nullable<bool> HasDischarge { get; set; }
+        public Nullable<bool> HasLevel { get; set; }
         public Nullable<bool> HasRatingCurve { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
