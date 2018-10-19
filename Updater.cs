@@ -31,7 +31,7 @@ namespace Updater
         private long EstimatedHydroFileSize;
         private long EstimatedTransFileSize;
         private int ContactTVItemID;
-        private CSSPWebToolsDBEntities db = new CSSPWebToolsDBEntities();
+        private CSSPDBEntities db = new CSSPDBEntities();
         #endregion Variables
 
         #region Properties

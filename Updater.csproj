@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -174,10 +174,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="CSSPWebToolsDBEDM.Designer.cs">
+    <Compile Include="CSSPDBEDM.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CSSPWebToolsDBEDM.edmx</DependentUpon>
+      <DependentUpon>CSSPDBEDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="DocTemplate.cs">
       <DependentUpon>CSSPWebToolsDBEDM.tt</DependentUpon>
@@ -401,12 +401,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EntityDeploy Include="CSSPWebToolsDBEDM.edmx">
+    <EntityDeploy Include="CSSPDBEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CSSPWebToolsDBEDM.Designer.cs</LastGenOutput>
+      <LastGenOutput>CSSPDBEDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CSSPWebToolsDBEDM.edmx.diagram">
-      <DependentUpon>CSSPWebToolsDBEDM.edmx</DependentUpon>
+    <None Include="CSSPDBEDM.edmx.diagram">
+      <DependentUpon>CSSPDBEDM.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -445,12 +445,12 @@
   <ItemGroup>
     <Content Include="CSSPWebToolsDBEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CSSPWebToolsDBEDM.edmx</DependentUpon>
+      <DependentUpon>CSSPDBEDM.edmx</DependentUpon>
       <LastGenOutput>CSSPWebToolsDBEDM.Context.cs</LastGenOutput>
     </Content>
     <Content Include="CSSPWebToolsDBEDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CSSPWebToolsDBEDM.edmx</DependentUpon>
+      <DependentUpon>CSSPDBEDM.edmx</DependentUpon>
       <LastGenOutput>CSSPWebToolsDBEDM.cs</LastGenOutput>
     </Content>
   </ItemGroup>
