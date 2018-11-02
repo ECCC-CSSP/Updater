@@ -294,7 +294,26 @@ namespace Updater
         {
             // starting MzLaunch.exe application
             ProcessStartInfo pInfoMz = new ProcessStartInfo();
-            pInfoMz.Arguments = " \"" + FileNameM21_3fm + "\" " + "-x";
+
+            MikeScenario mikeScenario = (from c in db.MikeScenarios
+                                         where c.MikeScenarioTVItemID == MikeScenarioTVItemID
+                                         select c).FirstOrDefault();
+
+            if (mikeScenario == null)
+            {
+                string errStr = "Error: Could not find MikeScenario with MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n";
+                UpdateTaskError(AppTaskID, errStr);
+                richTextBoxStatus.AppendText(errStr);
+                return errStr;
+            }
+
+            string FileNameToRun = FileNameM21_3fm;
+            if (mikeScenario.UseDecouplingFiles == true)
+            {
+                FileNameToRun = FileNameM21_3fm.Replace(".m21fm", "_Decoupled.m21fm").Replace(".3fm", "_Decoupled.3fm");
+            }
+
+            pInfoMz.Arguments = " \"" + FileNameToRun + "\" " + "-x";
             pInfoMz.WindowStyle = ProcessWindowStyle.Minimized;
             pInfoMz.UseShellExecute = true;
 
@@ -316,14 +335,7 @@ namespace Updater
             UpdateTaskError(AppTaskID, "");
             UpdateTaskPercent(AppTaskID, 5);
 
-            MikeScenario mikeScenario = (from c in db.MikeScenarios
-                                         where c.MikeScenarioTVItemID == MikeScenarioTVItemID
-                                         select c).FirstOrDefault();
-
-            if (mikeScenario != null)
-            {
-                mikeScenario.ScenarioStatus = (int)ScenarioStatusEnum.Running;
-            }
+            mikeScenario.ScenarioStatus = (int)ScenarioStatusEnum.Running;
 
             try
             {
@@ -672,6 +684,157 @@ namespace Updater
                 UpdateTaskError(AppTaskID, "Error: Could not save modified transport result file belonging to the excecuted MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]");
                 richTextBoxStatus.AppendText("Error: Could not save transport result file belonging to the excecuted MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]\r\n");
                 return;
+            }
+
+            MikeScenario mikeScenario = (from c in db.MikeScenarios
+                                         where c.MikeScenarioTVItemID == MikeScenarioTVItemID
+                                         select c).FirstOrDefault();
+
+            if (mikeScenario == null)
+            {
+                UpdateTaskError(AppTaskID, "Error: Could not find MikeScenario with MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                richTextBoxStatus.AppendText("Error: Could not find MikeScenario with MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                return;
+            }
+
+            if (mikeScenario.GenerateDecouplingFiles == true)
+            {
+                string TVTextMikeScenario = (from c in db.TVItemLanguages
+                                             where c.TVItemID == MikeScenarioTVItemID
+                                             && c.Language == (int)LanguageEnum.en
+                                             select c.TVText).FirstOrDefault();
+
+                if (string.IsNullOrWhiteSpace(TVTextMikeScenario))
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not find TVTextMikeScenario with MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    richTextBoxStatus.AppendText("Error: Could not find TVTextMikeScenario with MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    return;
+                }
+
+
+
+                // doing the {TVTextMikeScenario}_Decoupled.m21fm or .m3fm
+                FileInfo fiDecoupled = new FileInfo(FileNameM21_3fm.Replace(".m21fm", "_Decoupled.m21fm").Replace(".m3fm", "_Decoupled.m3fm"));
+
+                FileTypeEnum fileType = (FileNameM21_3fm.EndsWith(".m21fm") ? FileTypeEnum.M21FM : FileTypeEnum.M3FM);
+
+                TVFile tvFileDecoupled = (from c in db.TVItems
+                                          from ms in db.MikeScenarios
+                                          from f in db.TVFiles
+                                          from cc in db.TVItems
+                                          where c.TVItemID == ms.MikeScenarioTVItemID
+                                          && f.TVFileTVItemID == cc.TVItemID
+                                          && cc.ParentID == c.TVItemID
+                                          && f.FileType == (int)fileType
+                                          && f.ServerFileName == fiDecoupled.Name
+                                          && ms.MikeScenarioTVItemID == MikeScenarioTVItemID
+                                          select f).FirstOrDefault<TVFile>();
+
+                if (tvFileDecoupled == null)
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not find file [" + fiDecoupled.FullName + " under MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    richTextBoxStatus.AppendText("Error: Could not find file [" + fiDecoupled.FullName + " under MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    return;
+                }
+
+                fiDecoupled = new FileInfo(fiDecoupled.FullName);
+
+                tvFileDecoupled.FileSize_kb = (int)(fiDecoupled.Length / 1024);
+                tvFileDecoupled.FileCreatedDate_UTC = DateTime.UtcNow;
+                tvFileDecoupled.LastUpdateDate_UTC = DateTime.UtcNow;
+                tvFileDecoupled.LastUpdateContactTVItemID = ContactTVItemID;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not save TVFile info of [" + fiDecoupled.FullName + "] MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]");
+                    richTextBoxStatus.AppendText("Error: Could not save TVFile info of [" + fiDecoupled.FullName + "] MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]\r\n");
+                    return;
+                }
+
+                // doing the {TVTextMikeScenario}_DecouplingArea.dfsu
+                FileInfo fiDecouplingArea = new FileInfo(FileNameM21_3fm.Replace(".m21fm", "_DecouplingArea.dfsu").Replace(".m3fm", "_DecouplingArea.dfsu"));
+
+                TVFile tvFileDecouplingArea = (from c in db.TVItems
+                                               from ms in db.MikeScenarios
+                                               from f in db.TVFiles
+                                               from cc in db.TVItems
+                                               where c.TVItemID == ms.MikeScenarioTVItemID
+                                               && f.TVFileTVItemID == cc.TVItemID
+                                               && cc.ParentID == c.TVItemID
+                                               && f.FileType == (int)FileTypeEnum.DFSU
+                                               && f.ServerFileName == fiDecouplingArea.Name
+                                               && ms.MikeScenarioTVItemID == MikeScenarioTVItemID
+                                               select f).FirstOrDefault<TVFile>();
+
+                if (fiDecouplingArea == null)
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not find file [" + fiDecouplingArea.FullName + " under MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    richTextBoxStatus.AppendText("Error: Could not find file [" + fiDecouplingArea.FullName + " under MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    return;
+                }
+
+                fiDecouplingArea = new FileInfo(fiDecouplingArea.FullName);
+
+                tvFileDecouplingArea.FileSize_kb = (int)(fiDecouplingArea.Length / 1024);
+                tvFileDecouplingArea.FileCreatedDate_UTC = DateTime.UtcNow;
+                tvFileDecouplingArea.LastUpdateDate_UTC = DateTime.UtcNow;
+                tvFileDecouplingArea.LastUpdateContactTVItemID = ContactTVItemID;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not save TVFile info of [" + fiDecouplingArea.FullName + "] MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]");
+                    richTextBoxStatus.AppendText("Error: Could not save TVFile info of [" + fiDecouplingArea.FullName + "] MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]\r\n");
+                    return;
+                }
+
+                // doing the {TVTextMikeScenario}_DecouplingFlux.dfsu
+                FileInfo fiDecouplingFlux = new FileInfo(FileNameM21_3fm.Replace(".m21fm", "_DecouplingFlux.dfsu").Replace(".m3fm", "_DecouplingFlux.dfsu"));
+
+                TVFile tvFileDecouplingFlux = (from c in db.TVItems
+                                               from ms in db.MikeScenarios
+                                               from f in db.TVFiles
+                                               from cc in db.TVItems
+                                               where c.TVItemID == ms.MikeScenarioTVItemID
+                                               && f.TVFileTVItemID == cc.TVItemID
+                                               && cc.ParentID == c.TVItemID
+                                               && f.FileType == (int)FileTypeEnum.DFSU
+                                               && f.ServerFileName == fiDecouplingFlux.Name
+                                               && ms.MikeScenarioTVItemID == MikeScenarioTVItemID
+                                               select f).FirstOrDefault<TVFile>();
+
+                if (fiDecouplingFlux == null)
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not find file [" + fiDecouplingFlux.FullName + " under MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    richTextBoxStatus.AppendText("Error: Could not find file [" + fiDecouplingFlux.FullName + " under MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n");
+                    return;
+                }
+
+                fiDecouplingFlux = new FileInfo(fiDecouplingFlux.FullName);
+
+                tvFileDecouplingFlux.FileSize_kb = (int)(fiDecouplingFlux.Length / 1024);
+                tvFileDecouplingFlux.FileCreatedDate_UTC = DateTime.UtcNow;
+                tvFileDecouplingFlux.LastUpdateDate_UTC = DateTime.UtcNow;
+                tvFileDecouplingFlux.LastUpdateContactTVItemID = ContactTVItemID;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    UpdateTaskError(AppTaskID, "Error: Could not save TVFile info of [" + fiDecouplingFlux.FullName + "] MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]");
+                    richTextBoxStatus.AppendText("Error: Could not save TVFile info of [" + fiDecouplingFlux.FullName + "] MikeScenarioID [" + MikeScenarioTVItemID + "]. \r\n Error Message: [" + ex.Message + "]\r\n");
+                    return;
+                }
+
             }
         }
         private void UpdateTaskError(int AppTaskID, string AppTaskError)
