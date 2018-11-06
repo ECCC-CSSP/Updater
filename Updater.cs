@@ -308,10 +308,10 @@ namespace Updater
             }
 
             string FileNameToRun = FileNameM21_3fm;
-            if (mikeScenario.UseDecouplingFiles == true)
-            {
-                FileNameToRun = FileNameM21_3fm.Replace(".m21fm", "_Decoupled.m21fm").Replace(".3fm", "_Decoupled.3fm");
-            }
+            //if (mikeScenario.UseDecouplingFiles == true)
+            //{
+            //    FileNameToRun = FileNameM21_3fm.Replace(".m21fm", "_Decoupled.m21fm").Replace(".3fm", "_Decoupled.3fm");
+            //}
 
             pInfoMz.Arguments = " \"" + FileNameToRun + "\" " + "-x";
             pInfoMz.WindowStyle = ProcessWindowStyle.Minimized;
@@ -425,16 +425,43 @@ namespace Updater
 
             // should get m21fm or m3fm file name
 
-            TVFile tvFilem21_3fm = (from c in db.TVItems
-                                    from ms in db.MikeScenarios
-                                    from f in db.TVFiles
-                                    from cc in db.TVItems
-                                    where c.TVItemID == ms.MikeScenarioTVItemID
-                                    && f.TVFileTVItemID == cc.TVItemID
-                                    && cc.ParentID == c.TVItemID
-                                    && (f.FileType == (int)FileTypeEnum.M21FM || f.FileType == (int)FileTypeEnum.M3FM)
-                                    && ms.MikeScenarioTVItemID == MikeScenarioTVItemID
-                                    select f).FirstOrDefault<TVFile>();
+            List<TVFile> tvFilem21_3fmList = (from c in db.TVItems
+                                              from ms in db.MikeScenarios
+                                              from f in db.TVFiles
+                                              from cc in db.TVItems
+                                              where c.TVItemID == ms.MikeScenarioTVItemID
+                                              && f.TVFileTVItemID == cc.TVItemID
+                                              && cc.ParentID == c.TVItemID
+                                              && (f.FileType == (int)FileTypeEnum.M21FM || f.FileType == (int)FileTypeEnum.M3FM)
+                                              && ms.MikeScenarioTVItemID == MikeScenarioTVItemID
+                                              select f).ToList<TVFile>();
+
+            if (tvFilem21_3fmList.Count == 0)
+            {
+                retStr = "Error: Could not find CSSPFile of type .m21fm or .m3fm and MikeScenarioID [" + MikeScenarioTVItemID + "]";
+                UpdateTaskError(AppTaskID, retStr);
+                richTextBoxStatus.AppendText(retStr + "\r\n");
+                return retStr;
+            }
+
+            TVFile tvFilem21_3fm = null;
+            foreach (TVFile tvFile in tvFilem21_3fmList)
+            {
+                if (mikeScenario.UseDecouplingFiles == true)
+                {
+                    if (tvFile.ServerFileName.Contains("_Decoupled"))
+                    {
+                        tvFilem21_3fm = tvFile;
+                    }
+                }
+                else
+                {
+                    if (!tvFile.ServerFileName.Contains("_Decoupled"))
+                    {
+                        tvFilem21_3fm = tvFile;
+                    }
+                }
+            }
 
             if (tvFilem21_3fm == null)
             {
