@@ -257,7 +257,7 @@ namespace Updater
                 {
                     try
                     {
-                        FileName = keyword.GetParameter(1).ToString();
+                        FileName = keyword.GetParameter(1).ToFileName();
                     }
                     catch (Exception ex)
                     {
