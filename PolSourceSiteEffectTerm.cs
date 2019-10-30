@@ -12,26 +12,24 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class PolSourceObservation
+    public partial class PolSourceSiteEffectTerm
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PolSourceObservation()
+        public PolSourceSiteEffectTerm()
         {
-            this.PolSourceObservationIssues = new HashSet<PolSourceObservationIssue>();
+            this.PolSourceSiteEffectTerms1 = new HashSet<PolSourceSiteEffectTerm>();
         }
     
-        public int PolSourceObservationID { get; set; }
-        public int PolSourceSiteID { get; set; }
-        public System.DateTime ObservationDate_Local { get; set; }
-        public int ContactTVItemID { get; set; }
-        public bool DesktopReviewed { get; set; }
-        public string Observation_ToBeDeleted { get; set; }
+        public int PolSourceSiteEffectTermID { get; set; }
+        public bool IsGroup { get; set; }
+        public Nullable<int> UnderGroupID { get; set; }
+        public string EffectTermEN { get; set; }
+        public string EffectTermFR { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PolSourceObservationIssue> PolSourceObservationIssues { get; set; }
-        public virtual PolSourceSite PolSourceSite { get; set; }
-        public virtual TVItem TVItem { get; set; }
+        public virtual ICollection<PolSourceSiteEffectTerm> PolSourceSiteEffectTerms1 { get; set; }
+        public virtual PolSourceSiteEffectTerm PolSourceSiteEffectTerm1 { get; set; }
     }
 }

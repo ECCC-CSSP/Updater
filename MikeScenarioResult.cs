@@ -12,14 +12,11 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class TideSite
+    public partial class MikeScenarioResult
     {
-        public int TideSiteID { get; set; }
-        public int TideSiteTVItemID { get; set; }
-        public string TideSiteName { get; set; }
-        public string Province { get; set; }
-        public int sid { get; set; }
-        public int Zone { get; set; }
+        public int MikeScenarioResultID { get; set; }
+        public int MikeScenarioTVItemID { get; set; }
+        public string MikeResultsJSON { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     

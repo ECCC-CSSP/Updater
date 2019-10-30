@@ -28,6 +28,7 @@ namespace Updater
             this.ClimateSites = new HashSet<ClimateSite>();
             this.Contacts = new HashSet<Contact>();
             this.DocTemplates = new HashSet<DocTemplate>();
+            this.DrogueRuns = new HashSet<DrogueRun>();
             this.EmailDistributionLists = new HashSet<EmailDistributionList>();
             this.Emails = new HashSet<Email>();
             this.HydrometricSites = new HashSet<HydrometricSite>();
@@ -41,6 +42,7 @@ namespace Updater
             this.LabSheetTubeMPNDetails = new HashSet<LabSheetTubeMPNDetail>();
             this.MapInfos = new HashSet<MapInfo>();
             this.MikeBoundaryConditions = new HashSet<MikeBoundaryCondition>();
+            this.MikeScenarioResults = new HashSet<MikeScenarioResult>();
             this.MikeScenarios = new HashSet<MikeScenario>();
             this.MikeSources = new HashSet<MikeSource>();
             this.MikeSources1 = new HashSet<MikeSource>();
@@ -51,14 +53,18 @@ namespace Updater
             this.MWQMRuns2 = new HashSet<MWQMRun>();
             this.MWQMSamples = new HashSet<MWQMSample>();
             this.MWQMSamples1 = new HashSet<MWQMSample>();
-            this.MWQMSitePolSourceSites = new HashSet<MWQMSitePolSourceSite>();
-            this.MWQMSitePolSourceSites1 = new HashSet<MWQMSitePolSourceSite>();
             this.MWQMSites = new HashSet<MWQMSite>();
             this.MWQMSiteStartEndDates = new HashSet<MWQMSiteStartEndDate>();
             this.MWQMSubsectors = new HashSet<MWQMSubsector>();
             this.PolSourceObservations = new HashSet<PolSourceObservation>();
+            this.PolSourceSiteEffects = new HashSet<PolSourceSiteEffect>();
+            this.PolSourceSiteEffects1 = new HashSet<PolSourceSiteEffect>();
+            this.PolSourceSiteEffects2 = new HashSet<PolSourceSiteEffect>();
             this.PolSourceSites = new HashSet<PolSourceSite>();
             this.PolSourceSites1 = new HashSet<PolSourceSite>();
+            this.RainExceedanceClimateSites = new HashSet<RainExceedanceClimateSite>();
+            this.RainExceedanceClimateSites1 = new HashSet<RainExceedanceClimateSite>();
+            this.RainExceedances = new HashSet<RainExceedance>();
             this.ReportSections = new HashSet<ReportSection>();
             this.SamplingPlans = new HashSet<SamplingPlan>();
             this.SamplingPlans1 = new HashSet<SamplingPlan>();
@@ -116,6 +122,8 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DocTemplate> DocTemplates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DrogueRun> DrogueRuns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmailDistributionList> EmailDistributionLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Email> Emails { get; set; }
@@ -142,6 +150,8 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MikeBoundaryCondition> MikeBoundaryConditions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MikeScenarioResult> MikeScenarioResults { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MikeScenario> MikeScenarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MikeSource> MikeSources { get; set; }
@@ -162,10 +172,6 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMSample> MWQMSamples1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MWQMSitePolSourceSite> MWQMSitePolSourceSites { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MWQMSitePolSourceSite> MWQMSitePolSourceSites1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMSite> MWQMSites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MWQMSiteStartEndDate> MWQMSiteStartEndDates { get; set; }
@@ -174,9 +180,21 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolSourceObservation> PolSourceObservations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolSourceSiteEffect> PolSourceSiteEffects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolSourceSiteEffect> PolSourceSiteEffects1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolSourceSiteEffect> PolSourceSiteEffects2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolSourceSite> PolSourceSites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolSourceSite> PolSourceSites1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RainExceedanceClimateSite> RainExceedanceClimateSites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RainExceedanceClimateSite> RainExceedanceClimateSites1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RainExceedance> RainExceedances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReportSection> ReportSections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

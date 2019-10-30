@@ -185,6 +185,12 @@
     <Compile Include="DocTemplate.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="DrogueRun.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DrogueRunPosition.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Email.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
@@ -198,6 +204,9 @@
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailDistributionListLanguage.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDoc.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="HydrometricDataValue.cs">
@@ -236,6 +245,9 @@
     <Compile Include="MikeScenario.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="MikeScenarioResult.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="MikeSource.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
@@ -263,9 +275,6 @@
     <Compile Include="MWQMSite.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="MWQMSitePolSourceSite.cs">
-      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
-    </Compile>
     <Compile Include="MWQMSiteStartEndDate.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
@@ -284,7 +293,16 @@
     <Compile Include="PolSourceSite.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="PolSourceSiteEffect.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PolSourceSiteEffectTerm.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="RainExceedance.cs">
+      <DependentUpon>CSSPDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RainExceedanceClimateSite.cs">
       <DependentUpon>CSSPDBEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="RatingCurve.cs">

@@ -19,10 +19,12 @@ namespace Updater
         {
             this.EmailDistributionListContacts = new HashSet<EmailDistributionListContact>();
             this.EmailDistributionListLanguages = new HashSet<EmailDistributionListLanguage>();
+            this.RainExceedances = new HashSet<RainExceedance>();
+            this.RainExceedances1 = new HashSet<RainExceedance>();
         }
     
         public int EmailDistributionListID { get; set; }
-        public int CountryTVItemID { get; set; }
+        public int ParentTVItemID { get; set; }
         public int Ordinal { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
@@ -32,5 +34,9 @@ namespace Updater
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmailDistributionListLanguage> EmailDistributionListLanguages { get; set; }
         public virtual TVItem TVItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RainExceedance> RainExceedances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RainExceedance> RainExceedances1 { get; set; }
     }
 }

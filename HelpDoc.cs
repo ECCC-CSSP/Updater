@@ -12,17 +12,13 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class TideSite
+    public partial class HelpDoc
     {
-        public int TideSiteID { get; set; }
-        public int TideSiteTVItemID { get; set; }
-        public string TideSiteName { get; set; }
-        public string Province { get; set; }
-        public int sid { get; set; }
-        public int Zone { get; set; }
+        public int HelpDocID { get; set; }
+        public string DocKey { get; set; }
+        public int Language { get; set; }
+        public string DocHTMLText { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
-    
-        public virtual TVItem TVItem { get; set; }
     }
 }

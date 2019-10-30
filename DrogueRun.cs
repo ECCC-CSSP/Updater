@@ -12,26 +12,25 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class PolSourceObservation
+    public partial class DrogueRun
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PolSourceObservation()
+        public DrogueRun()
         {
-            this.PolSourceObservationIssues = new HashSet<PolSourceObservationIssue>();
+            this.DrogueRunPositions = new HashSet<DrogueRunPosition>();
         }
     
-        public int PolSourceObservationID { get; set; }
-        public int PolSourceSiteID { get; set; }
-        public System.DateTime ObservationDate_Local { get; set; }
-        public int ContactTVItemID { get; set; }
-        public bool DesktopReviewed { get; set; }
-        public string Observation_ToBeDeleted { get; set; }
+        public int DrogueRunID { get; set; }
+        public int SubsectorTVItemID { get; set; }
+        public int DrogueNumber { get; set; }
+        public int DrogueType { get; set; }
+        public System.DateTime RunStartDateTime { get; set; }
+        public bool IsRisingTide { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PolSourceObservationIssue> PolSourceObservationIssues { get; set; }
-        public virtual PolSourceSite PolSourceSite { get; set; }
+        public virtual ICollection<DrogueRunPosition> DrogueRunPositions { get; set; }
         public virtual TVItem TVItem { get; set; }
     }
 }

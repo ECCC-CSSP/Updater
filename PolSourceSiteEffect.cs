@@ -12,17 +12,19 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class TideSite
+    public partial class PolSourceSiteEffect
     {
-        public int TideSiteID { get; set; }
-        public int TideSiteTVItemID { get; set; }
-        public string TideSiteName { get; set; }
-        public string Province { get; set; }
-        public int sid { get; set; }
-        public int Zone { get; set; }
+        public int PolSourceSiteEffectID { get; set; }
+        public int PolSourceSiteOrInfrastructureTVItemID { get; set; }
+        public int MWQMSiteTVItemID { get; set; }
+        public string PolSourceSiteEffectTermIDs { get; set; }
+        public string Comments { get; set; }
+        public Nullable<int> AnalysisDocumentTVItemID { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
         public virtual TVItem TVItem { get; set; }
+        public virtual TVItem TVItem1 { get; set; }
+        public virtual TVItem TVItem2 { get; set; }
     }
 }

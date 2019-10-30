@@ -43,11 +43,14 @@ namespace Updater
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<ContactShortcut> ContactShortcuts { get; set; }
         public virtual DbSet<DocTemplate> DocTemplates { get; set; }
+        public virtual DbSet<DrogueRunPosition> DrogueRunPositions { get; set; }
+        public virtual DbSet<DrogueRun> DrogueRuns { get; set; }
         public virtual DbSet<EmailDistributionListContactLanguage> EmailDistributionListContactLanguages { get; set; }
         public virtual DbSet<EmailDistributionListContact> EmailDistributionListContacts { get; set; }
         public virtual DbSet<EmailDistributionListLanguage> EmailDistributionListLanguages { get; set; }
         public virtual DbSet<EmailDistributionList> EmailDistributionLists { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<HelpDoc> HelpDocs { get; set; }
         public virtual DbSet<HydrometricDataValue> HydrometricDataValues { get; set; }
         public virtual DbSet<HydrometricSite> HydrometricSites { get; set; }
         public virtual DbSet<InfrastructureLanguage> InfrastructureLanguages { get; set; }
@@ -59,6 +62,7 @@ namespace Updater
         public virtual DbSet<MapInfoPoint> MapInfoPoints { get; set; }
         public virtual DbSet<MapInfo> MapInfos { get; set; }
         public virtual DbSet<MikeBoundaryCondition> MikeBoundaryConditions { get; set; }
+        public virtual DbSet<MikeScenarioResult> MikeScenarioResults { get; set; }
         public virtual DbSet<MikeScenario> MikeScenarios { get; set; }
         public virtual DbSet<MikeSource> MikeSources { get; set; }
         public virtual DbSet<MikeSourceStartEnd> MikeSourceStartEnds { get; set; }
@@ -68,14 +72,16 @@ namespace Updater
         public virtual DbSet<MWQMRun> MWQMRuns { get; set; }
         public virtual DbSet<MWQMSampleLanguage> MWQMSampleLanguages { get; set; }
         public virtual DbSet<MWQMSample> MWQMSamples { get; set; }
-        public virtual DbSet<MWQMSitePolSourceSite> MWQMSitePolSourceSites { get; set; }
         public virtual DbSet<MWQMSite> MWQMSites { get; set; }
         public virtual DbSet<MWQMSiteStartEndDate> MWQMSiteStartEndDates { get; set; }
         public virtual DbSet<MWQMSubsectorLanguage> MWQMSubsectorLanguages { get; set; }
         public virtual DbSet<MWQMSubsector> MWQMSubsectors { get; set; }
         public virtual DbSet<PolSourceObservationIssue> PolSourceObservationIssues { get; set; }
         public virtual DbSet<PolSourceObservation> PolSourceObservations { get; set; }
+        public virtual DbSet<PolSourceSiteEffect> PolSourceSiteEffects { get; set; }
+        public virtual DbSet<PolSourceSiteEffectTerm> PolSourceSiteEffectTerms { get; set; }
         public virtual DbSet<PolSourceSite> PolSourceSites { get; set; }
+        public virtual DbSet<RainExceedanceClimateSite> RainExceedanceClimateSites { get; set; }
         public virtual DbSet<RainExceedance> RainExceedances { get; set; }
         public virtual DbSet<RatingCurve> RatingCurves { get; set; }
         public virtual DbSet<RatingCurveValue> RatingCurveValues { get; set; }

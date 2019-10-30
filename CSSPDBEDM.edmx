@@ -215,15 +215,15 @@
           </Key>
           <Property Name="ClimateSiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClimateSiteTVItemID" Type="int" Nullable="false" />
-          <Property Name="ECDBID" Type="int" Nullable="false" />
+          <Property Name="ECDBID" Type="int" />
           <Property Name="ClimateSiteName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Province" Type="nvarchar" MaxLength="4" Nullable="false" />
           <Property Name="Elevation_m" Type="float" />
           <Property Name="ClimateID" Type="nvarchar" MaxLength="10" />
           <Property Name="WMOID" Type="int" />
           <Property Name="TCID" Type="nvarchar" MaxLength="3" />
-          <Property Name="IsProvincial" Type="bit" />
-          <Property Name="ProvSiteID" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsQuebecSite" Type="bit" />
+          <Property Name="IsCoCoRaHS" Type="bit" />
           <Property Name="TimeOffset_hour" Type="float" />
           <Property Name="File_desc" Type="nvarchar" MaxLength="50" />
           <Property Name="HourlyStartDate_Local" Type="datetime" />
@@ -293,6 +293,34 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DrogueRunPositions">
+          <Key>
+            <PropertyRef Name="DrogueRunPositionID" />
+          </Key>
+          <Property Name="DrogueRunPositionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DrogueRunID" Type="int" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="StepLat" Type="float" Nullable="false" />
+          <Property Name="StepLng" Type="float" Nullable="false" />
+          <Property Name="StepDateTime_Local" Type="datetime" Nullable="false" />
+          <Property Name="CalculatedSpeed_m_s" Type="float" Nullable="false" />
+          <Property Name="CalculatedDirection_deg" Type="float" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DrogueRuns">
+          <Key>
+            <PropertyRef Name="DrogueRunID" />
+          </Key>
+          <Property Name="DrogueRunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubsectorTVItemID" Type="int" Nullable="false" />
+          <Property Name="DrogueNumber" Type="int" Nullable="false" />
+          <Property Name="DrogueType" Type="int" Nullable="false" />
+          <Property Name="RunStartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsRisingTide" Type="bit" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmailDistributionListContactLanguages">
           <Key>
             <PropertyRef Name="EmailDistributionListContactLanguageID" />
@@ -329,7 +357,7 @@
           <Property Name="EmailDistributionListLanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmailDistributionListID" Type="int" Nullable="false" />
           <Property Name="Language" Type="int" Nullable="false" />
-          <Property Name="RegionName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailListName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="TranslationStatus" Type="int" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
@@ -339,7 +367,7 @@
             <PropertyRef Name="EmailDistributionListID" />
           </Key>
           <Property Name="EmailDistributionListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CountryTVItemID" Type="int" Nullable="false" />
+          <Property Name="ParentTVItemID" Type="int" Nullable="false" />
           <Property Name="Ordinal" Type="int" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
@@ -352,6 +380,17 @@
           <Property Name="EmailTVItemID" Type="int" Nullable="false" />
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="EmailType" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HelpDocs">
+          <Key>
+            <PropertyRef Name="HelpDocID" />
+          </Key>
+          <Property Name="HelpDocID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocKey" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Language" Type="int" Nullable="false" />
+          <Property Name="DocHTMLText" Type="text" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -459,7 +498,7 @@
           <Property Name="ReceivingWaterTemperature_C" Type="float" />
           <Property Name="ReceivingWater_MPN_per_100ml" Type="int" />
           <Property Name="DistanceFromShore_m" Type="float" />
-          <Property Name="SeeOtherTVItemID" Type="int" />
+          <Property Name="SeeOtherMunicipalityTVItemID" Type="int" />
           <Property Name="CivicAddressTVItemID" Type="int" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
@@ -636,6 +675,16 @@
           <Property Name="NumberOfWebTideNodes" Type="int" Nullable="false" />
           <Property Name="WebTideDataFromStartToEndDate" Type="text" Nullable="false" />
           <Property Name="TVType" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MikeScenarioResults">
+          <Key>
+            <PropertyRef Name="MikeScenarioResultID" />
+          </Key>
+          <Property Name="MikeScenarioResultID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MikeScenarioTVItemID" Type="int" Nullable="false" />
+          <Property Name="MikeResultsJSON" Type="text" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -836,6 +885,7 @@
           <Property Name="MWQMSiteTVItemID" Type="int" Nullable="false" />
           <Property Name="MWQMRunTVItemID" Type="int" Nullable="false" />
           <Property Name="SampleDateTime_Local" Type="datetime" Nullable="false" />
+          <Property Name="TimeText" Type="nvarchar" MaxLength="6" />
           <Property Name="Depth_m" Type="float" />
           <Property Name="FecCol_MPN_100ml" Type="int" Nullable="false" />
           <Property Name="Salinity_PPT" Type="float" />
@@ -848,18 +898,6 @@
           <Property Name="Tube_0_1" Type="int" />
           <Property Name="ProcessedBy" Type="nvarchar" MaxLength="10" />
           <Property Name="UseForOpenData" Type="bit" Nullable="false" />
-          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
-          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MWQMSitePolSourceSites">
-          <Key>
-            <PropertyRef Name="MWQMSitePolSourceSiteID" />
-          </Key>
-          <Property Name="MWQMSitePolSourceSiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MWQMSiteTVItemID" Type="int" Nullable="false" />
-          <Property Name="PolSourceSiteTVItemID" Type="int" Nullable="false" />
-          <Property Name="TVType" Type="int" Nullable="false" />
-          <Property Name="LinkReasons" Type="nvarchar" MaxLength="4000" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -932,7 +970,33 @@
           <Property Name="PolSourceSiteID" Type="int" Nullable="false" />
           <Property Name="ObservationDate_Local" Type="datetime" Nullable="false" />
           <Property Name="ContactTVItemID" Type="int" Nullable="false" />
+          <Property Name="DesktopReviewed" Type="bit" Nullable="false" />
           <Property Name="Observation_ToBeDeleted" Type="text" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PolSourceSiteEffects">
+          <Key>
+            <PropertyRef Name="PolSourceSiteEffectID" />
+          </Key>
+          <Property Name="PolSourceSiteEffectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PolSourceSiteOrInfrastructureTVItemID" Type="int" Nullable="false" />
+          <Property Name="MWQMSiteTVItemID" Type="int" Nullable="false" />
+          <Property Name="PolSourceSiteEffectTermIDs" Type="nvarchar" MaxLength="250" />
+          <Property Name="Comments" Type="text" />
+          <Property Name="AnalysisDocumentTVItemID" Type="int" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PolSourceSiteEffectTerms">
+          <Key>
+            <PropertyRef Name="PolSourceSiteEffectTermID" />
+          </Key>
+          <Property Name="PolSourceSiteEffectTermID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsGroup" Type="bit" Nullable="false" />
+          <Property Name="UnderGroupID" Type="int" />
+          <Property Name="EffectTermEN" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EffectTermFR" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -952,22 +1016,30 @@
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="RainExceedanceClimateSites">
+          <Key>
+            <PropertyRef Name="RainExceedanceClimateSiteID" />
+          </Key>
+          <Property Name="RainExceedanceClimateSiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RainExceedanceTVItemID" Type="int" Nullable="false" />
+          <Property Name="ClimateSiteTVItemID" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RainExceedances">
           <Key>
             <PropertyRef Name="RainExceedanceID" />
           </Key>
           <Property Name="RainExceedanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="YearRound" Type="bit" Nullable="false" />
-          <Property Name="StartDate_Local" Type="datetime" />
-          <Property Name="EndDate_Local" Type="datetime" />
-          <Property Name="RainMaximum_mm" Type="float" />
-          <Property Name="RainExtreme_mm" Type="float" />
-          <Property Name="DaysPriorToStart" Type="int" Nullable="false" />
-          <Property Name="RepeatEveryYear" Type="bit" Nullable="false" />
-          <Property Name="ProvinceTVItemIDs" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="SubsectorTVItemIDs" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="ClimateSiteTVItemIDs" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="EmailDistributionListIDs" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="RainExceedanceTVItemID" Type="int" Nullable="false" />
+          <Property Name="StartMonth" Type="int" Nullable="false" />
+          <Property Name="StartDay" Type="int" Nullable="false" />
+          <Property Name="EndMonth" Type="int" Nullable="false" />
+          <Property Name="EndDay" Type="int" Nullable="false" />
+          <Property Name="RainMaximum_mm" Type="float" Nullable="false" />
+          <Property Name="StakeholdersEmailDistributionListID" Type="int" />
+          <Property Name="OnlyStaffEmailDistributionListID" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -1197,8 +1269,10 @@
           </Key>
           <Property Name="TideSiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TideSiteTVItemID" Type="int" Nullable="false" />
-          <Property Name="WebTideModel" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="WebTideDatum_m" Type="float" Nullable="false" />
+          <Property Name="TideSiteName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Province" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="sid" Type="int" Nullable="false" />
+          <Property Name="Zone" Type="int" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateContactTVItemID" Type="int" Nullable="false" />
         </EntityType>
@@ -1323,7 +1397,7 @@
           <Property Name="UseOfSiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiteTVItemID" Type="int" Nullable="false" />
           <Property Name="SubsectorTVItemID" Type="int" Nullable="false" />
-          <Property Name="SiteType" Type="int" Nullable="false" />
+          <Property Name="TVType" Type="int" Nullable="false" />
           <Property Name="Ordinal" Type="int" Nullable="false" />
           <Property Name="StartYear" Type="int" Nullable="false" />
           <Property Name="EndYear" Type="int" />
@@ -1699,6 +1773,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DrogueRunPositions_DrogueRuns">
+          <End Role="DrogueRuns" Type="Self.DrogueRuns" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DrogueRunPositions" Type="Self.DrogueRunPositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DrogueRuns">
+              <PropertyRef Name="DrogueRunID" />
+            </Principal>
+            <Dependent Role="DrogueRunPositions">
+              <PropertyRef Name="DrogueRunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrogueRuns_TVItems">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="DrogueRuns" Type="Self.DrogueRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="DrogueRuns">
+              <PropertyRef Name="SubsectorTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
           <End Role="EmailDistributionListContacts" Type="Self.EmailDistributionListContacts" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1747,7 +1847,7 @@
               <PropertyRef Name="TVItemID" />
             </Principal>
             <Dependent Role="EmailDistributionLists">
-              <PropertyRef Name="CountryTVItemID" />
+              <PropertyRef Name="ParentTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1821,7 +1921,7 @@
               <PropertyRef Name="TVItemID" />
             </Principal>
             <Dependent Role="Infrastructures">
-              <PropertyRef Name="SeeOtherTVItemID" />
+              <PropertyRef Name="SeeOtherMunicipalityTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1984,6 +2084,18 @@
             </Principal>
             <Dependent Role="MikeBoundaryConditions">
               <PropertyRef Name="MikeBoundaryConditionTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MikeScenarioResults_TVItems">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="MikeScenarioResults" Type="Self.MikeScenarioResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="MikeScenarioResults">
+              <PropertyRef Name="MikeScenarioTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2163,30 +2275,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MWQMSitePolSourceSites_TVItems">
-          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
-          <End Role="MWQMSitePolSourceSites" Type="Self.MWQMSitePolSourceSites" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TVItems">
-              <PropertyRef Name="TVItemID" />
-            </Principal>
-            <Dependent Role="MWQMSitePolSourceSites">
-              <PropertyRef Name="MWQMSiteTVItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MWQMSitePolSourceSites_TVItems1">
-          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
-          <End Role="MWQMSitePolSourceSites" Type="Self.MWQMSitePolSourceSites" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TVItems">
-              <PropertyRef Name="TVItemID" />
-            </Principal>
-            <Dependent Role="MWQMSitePolSourceSites">
-              <PropertyRef Name="PolSourceSiteTVItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MWQMSites_TVItems">
           <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
           <End Role="MWQMSites" Type="Self.MWQMSites" Multiplicity="*" />
@@ -2277,6 +2365,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PolSourceSiteEffects_AnalysisDocumentTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="0..1" />
+          <End Role="PolSourceSiteEffects" Type="Self.PolSourceSiteEffects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffects">
+              <PropertyRef Name="AnalysisDocumentTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolSourceSiteEffects_MWQMSiteTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="PolSourceSiteEffects" Type="Self.PolSourceSiteEffects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffects">
+              <PropertyRef Name="MWQMSiteTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="PolSourceSiteEffects" Type="Self.PolSourceSiteEffects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffects">
+              <PropertyRef Name="PolSourceSiteOrInfrastructureTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms">
+          <End Role="PolSourceSiteEffectTerms" Type="Self.PolSourceSiteEffectTerms" Multiplicity="0..1" />
+          <End Role="PolSourceSiteEffectTerms1" Type="Self.PolSourceSiteEffectTerms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolSourceSiteEffectTerms">
+              <PropertyRef Name="PolSourceSiteEffectTermID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffectTerms1">
+              <PropertyRef Name="UnderGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PolSourceSites_TVItems">
           <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
           <End Role="PolSourceSites" Type="Self.PolSourceSites" Multiplicity="*" />
@@ -2298,6 +2434,68 @@
             </Principal>
             <Dependent Role="PolSourceSites">
               <PropertyRef Name="CivicAddressTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedance_ClimateSiteTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="RainExceedanceClimateSites" Type="Self.RainExceedanceClimateSites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="RainExceedanceClimateSites">
+              <PropertyRef Name="ClimateSiteTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedance_RainExceedanceTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RainExceedanceClimateSites" Type="Self.RainExceedanceClimateSites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="RainExceedanceClimateSites">
+              <PropertyRef Name="RainExceedanceTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedances_OnlyStaffEmailDistributionLists1">
+          <End Role="EmailDistributionLists" Type="Self.EmailDistributionLists" Multiplicity="0..1" />
+          <End Role="RainExceedances" Type="Self.RainExceedances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionLists">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Principal>
+            <Dependent Role="RainExceedances">
+              <PropertyRef Name="OnlyStaffEmailDistributionListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedances_RainExceedanceTVItemID">
+          <End Role="TVItems" Type="Self.TVItems" Multiplicity="1" />
+          <End Role="RainExceedances" Type="Self.RainExceedances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItems">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="RainExceedances">
+              <PropertyRef Name="RainExceedanceTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedances_StakeholdersEmailDistributionLists">
+          <End Role="EmailDistributionLists" Type="Self.EmailDistributionLists" Multiplicity="0..1" />
+          <End Role="RainExceedances" Type="Self.RainExceedances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionLists">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Principal>
+            <Dependent Role="RainExceedances">
+              <PropertyRef Name="StakeholdersEmailDistributionListID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2817,11 +3015,14 @@
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactShortcuts" EntityType="Self.ContactShortcuts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocTemplates" EntityType="Self.DocTemplates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrogueRunPositions" EntityType="Self.DrogueRunPositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrogueRuns" EntityType="Self.DrogueRuns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailDistributionListContactLanguages" EntityType="Self.EmailDistributionListContactLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailDistributionListContacts" EntityType="Self.EmailDistributionListContacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailDistributionListLanguages" EntityType="Self.EmailDistributionListLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailDistributionLists" EntityType="Self.EmailDistributionLists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HelpDocs" EntityType="Self.HelpDocs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HydrometricDataValues" EntityType="Self.HydrometricDataValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HydrometricSites" EntityType="Self.HydrometricSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InfrastructureLanguages" EntityType="Self.InfrastructureLanguages" Schema="dbo" store:Type="Tables" />
@@ -2833,6 +3034,7 @@
           <EntitySet Name="MapInfoPoints" EntityType="Self.MapInfoPoints" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MapInfos" EntityType="Self.MapInfos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MikeBoundaryConditions" EntityType="Self.MikeBoundaryConditions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MikeScenarioResults" EntityType="Self.MikeScenarioResults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MikeScenarios" EntityType="Self.MikeScenarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MikeSources" EntityType="Self.MikeSources" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MikeSourceStartEnds" EntityType="Self.MikeSourceStartEnds" Schema="dbo" store:Type="Tables" />
@@ -2842,14 +3044,16 @@
           <EntitySet Name="MWQMRuns" EntityType="Self.MWQMRuns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMSampleLanguages" EntityType="Self.MWQMSampleLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMSamples" EntityType="Self.MWQMSamples" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MWQMSitePolSourceSites" EntityType="Self.MWQMSitePolSourceSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMSites" EntityType="Self.MWQMSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMSiteStartEndDates" EntityType="Self.MWQMSiteStartEndDates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMSubsectorLanguages" EntityType="Self.MWQMSubsectorLanguages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MWQMSubsectors" EntityType="Self.MWQMSubsectors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PolSourceObservationIssues" EntityType="Self.PolSourceObservationIssues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PolSourceObservations" EntityType="Self.PolSourceObservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PolSourceSiteEffects" EntityType="Self.PolSourceSiteEffects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PolSourceSiteEffectTerms" EntityType="Self.PolSourceSiteEffectTerms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PolSourceSites" EntityType="Self.PolSourceSites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RainExceedanceClimateSites" EntityType="Self.RainExceedanceClimateSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RainExceedances" EntityType="Self.RainExceedances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RatingCurves" EntityType="Self.RatingCurves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RatingCurveValues" EntityType="Self.RatingCurveValues" Schema="dbo" store:Type="Tables" />
@@ -2969,6 +3173,14 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="DocTemplates" EntitySet="DocTemplates" />
           </AssociationSet>
+          <AssociationSet Name="FK_DrogueRunPositions_DrogueRuns" Association="Self.FK_DrogueRunPositions_DrogueRuns">
+            <End Role="DrogueRuns" EntitySet="DrogueRuns" />
+            <End Role="DrogueRunPositions" EntitySet="DrogueRunPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrogueRuns_TVItems" Association="Self.FK_DrogueRuns_TVItems">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="DrogueRuns" EntitySet="DrogueRuns" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts" Association="Self.FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
             <End Role="EmailDistributionListContacts" EntitySet="EmailDistributionListContacts" />
             <End Role="EmailDistributionListContactLanguages" EntitySet="EmailDistributionListContactLanguages" />
@@ -3061,6 +3273,10 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="MikeBoundaryConditions" EntitySet="MikeBoundaryConditions" />
           </AssociationSet>
+          <AssociationSet Name="FK_MikeScenarioResults_TVItems" Association="Self.FK_MikeScenarioResults_TVItems">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="MikeScenarioResults" EntitySet="MikeScenarioResults" />
+          </AssociationSet>
           <AssociationSet Name="FK_MikeScenarios_MikeScenarios" Association="Self.FK_MikeScenarios_MikeScenarios">
             <End Role="MikeScenarios" EntitySet="MikeScenarios" />
             <End Role="MikeScenarios1" EntitySet="MikeScenarios" />
@@ -3117,14 +3333,6 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="MWQMSamples" EntitySet="MWQMSamples" />
           </AssociationSet>
-          <AssociationSet Name="FK_MWQMSitePolSourceSites_TVItems" Association="Self.FK_MWQMSitePolSourceSites_TVItems">
-            <End Role="TVItems" EntitySet="TVItems" />
-            <End Role="MWQMSitePolSourceSites" EntitySet="MWQMSitePolSourceSites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MWQMSitePolSourceSites_TVItems1" Association="Self.FK_MWQMSitePolSourceSites_TVItems1">
-            <End Role="TVItems" EntitySet="TVItems" />
-            <End Role="MWQMSitePolSourceSites" EntitySet="MWQMSitePolSourceSites" />
-          </AssociationSet>
           <AssociationSet Name="FK_MWQMSites_TVItems" Association="Self.FK_MWQMSites_TVItems">
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="MWQMSites" EntitySet="MWQMSites" />
@@ -3153,6 +3361,22 @@
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="PolSourceObservations" EntitySet="PolSourceObservations" />
           </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffects_AnalysisDocumentTVItemID" Association="Self.FK_PolSourceSiteEffects_AnalysisDocumentTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="PolSourceSiteEffects" EntitySet="PolSourceSiteEffects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffects_MWQMSiteTVItemID" Association="Self.FK_PolSourceSiteEffects_MWQMSiteTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="PolSourceSiteEffects" EntitySet="PolSourceSiteEffects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID" Association="Self.FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="PolSourceSiteEffects" EntitySet="PolSourceSiteEffects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms" Association="Self.FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms">
+            <End Role="PolSourceSiteEffectTerms" EntitySet="PolSourceSiteEffectTerms" />
+            <End Role="PolSourceSiteEffectTerms1" EntitySet="PolSourceSiteEffectTerms" />
+          </AssociationSet>
           <AssociationSet Name="FK_PolSourceSites_TVItems" Association="Self.FK_PolSourceSites_TVItems">
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="PolSourceSites" EntitySet="PolSourceSites" />
@@ -3160,6 +3384,26 @@
           <AssociationSet Name="FK_PolSourceSites_TVItems1" Association="Self.FK_PolSourceSites_TVItems1">
             <End Role="TVItems" EntitySet="TVItems" />
             <End Role="PolSourceSites" EntitySet="PolSourceSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedance_ClimateSiteTVItemID" Association="Self.FK_RainExceedance_ClimateSiteTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="RainExceedanceClimateSites" EntitySet="RainExceedanceClimateSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedance_RainExceedanceTVItemID" Association="Self.FK_RainExceedance_RainExceedanceTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="RainExceedanceClimateSites" EntitySet="RainExceedanceClimateSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedances_OnlyStaffEmailDistributionLists1" Association="Self.FK_RainExceedances_OnlyStaffEmailDistributionLists1">
+            <End Role="EmailDistributionLists" EntitySet="EmailDistributionLists" />
+            <End Role="RainExceedances" EntitySet="RainExceedances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedances_RainExceedanceTVItemID" Association="Self.FK_RainExceedances_RainExceedanceTVItemID">
+            <End Role="TVItems" EntitySet="TVItems" />
+            <End Role="RainExceedances" EntitySet="RainExceedances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedances_StakeholdersEmailDistributionLists" Association="Self.FK_RainExceedances_StakeholdersEmailDistributionLists">
+            <End Role="EmailDistributionLists" EntitySet="EmailDistributionLists" />
+            <End Role="RainExceedances" EntitySet="RainExceedances" />
           </AssociationSet>
           <AssociationSet Name="FK_RatingCurves_HydrometricSites" Association="Self.FK_RatingCurves_HydrometricSites">
             <End Role="HydrometricSites" EntitySet="HydrometricSites" />
@@ -3341,11 +3585,14 @@
           <EntitySet Name="Contacts" EntityType="CSSPDBModel.Contact" />
           <EntitySet Name="ContactShortcuts" EntityType="CSSPDBModel.ContactShortcut" />
           <EntitySet Name="DocTemplates" EntityType="CSSPDBModel.DocTemplate" />
+          <EntitySet Name="DrogueRunPositions" EntityType="CSSPDBModel.DrogueRunPosition" />
+          <EntitySet Name="DrogueRuns" EntityType="CSSPDBModel.DrogueRun" />
           <EntitySet Name="EmailDistributionListContactLanguages" EntityType="CSSPDBModel.EmailDistributionListContactLanguage" />
           <EntitySet Name="EmailDistributionListContacts" EntityType="CSSPDBModel.EmailDistributionListContact" />
           <EntitySet Name="EmailDistributionListLanguages" EntityType="CSSPDBModel.EmailDistributionListLanguage" />
           <EntitySet Name="EmailDistributionLists" EntityType="CSSPDBModel.EmailDistributionList" />
           <EntitySet Name="Emails" EntityType="CSSPDBModel.Email" />
+          <EntitySet Name="HelpDocs" EntityType="CSSPDBModel.HelpDoc" />
           <EntitySet Name="HydrometricDataValues" EntityType="CSSPDBModel.HydrometricDataValue" />
           <EntitySet Name="HydrometricSites" EntityType="CSSPDBModel.HydrometricSite" />
           <EntitySet Name="InfrastructureLanguages" EntityType="CSSPDBModel.InfrastructureLanguage" />
@@ -3357,6 +3604,7 @@
           <EntitySet Name="MapInfoPoints" EntityType="CSSPDBModel.MapInfoPoint" />
           <EntitySet Name="MapInfos" EntityType="CSSPDBModel.MapInfo" />
           <EntitySet Name="MikeBoundaryConditions" EntityType="CSSPDBModel.MikeBoundaryCondition" />
+          <EntitySet Name="MikeScenarioResults" EntityType="CSSPDBModel.MikeScenarioResult" />
           <EntitySet Name="MikeScenarios" EntityType="CSSPDBModel.MikeScenario" />
           <EntitySet Name="MikeSources" EntityType="CSSPDBModel.MikeSource" />
           <EntitySet Name="MikeSourceStartEnds" EntityType="CSSPDBModel.MikeSourceStartEnd" />
@@ -3366,14 +3614,16 @@
           <EntitySet Name="MWQMRuns" EntityType="CSSPDBModel.MWQMRun" />
           <EntitySet Name="MWQMSampleLanguages" EntityType="CSSPDBModel.MWQMSampleLanguage" />
           <EntitySet Name="MWQMSamples" EntityType="CSSPDBModel.MWQMSample" />
-          <EntitySet Name="MWQMSitePolSourceSites" EntityType="CSSPDBModel.MWQMSitePolSourceSite" />
           <EntitySet Name="MWQMSites" EntityType="CSSPDBModel.MWQMSite" />
           <EntitySet Name="MWQMSiteStartEndDates" EntityType="CSSPDBModel.MWQMSiteStartEndDate" />
           <EntitySet Name="MWQMSubsectorLanguages" EntityType="CSSPDBModel.MWQMSubsectorLanguage" />
           <EntitySet Name="MWQMSubsectors" EntityType="CSSPDBModel.MWQMSubsector" />
           <EntitySet Name="PolSourceObservationIssues" EntityType="CSSPDBModel.PolSourceObservationIssue" />
           <EntitySet Name="PolSourceObservations" EntityType="CSSPDBModel.PolSourceObservation" />
+          <EntitySet Name="PolSourceSiteEffects" EntityType="CSSPDBModel.PolSourceSiteEffect" />
+          <EntitySet Name="PolSourceSiteEffectTerms" EntityType="CSSPDBModel.PolSourceSiteEffectTerm" />
           <EntitySet Name="PolSourceSites" EntityType="CSSPDBModel.PolSourceSite" />
+          <EntitySet Name="RainExceedanceClimateSites" EntityType="CSSPDBModel.RainExceedanceClimateSite" />
           <EntitySet Name="RainExceedances" EntityType="CSSPDBModel.RainExceedance" />
           <EntitySet Name="RatingCurves" EntityType="CSSPDBModel.RatingCurve" />
           <EntitySet Name="RatingCurveValues" EntityType="CSSPDBModel.RatingCurveValue" />
@@ -3485,6 +3735,14 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="DocTemplate" EntitySet="DocTemplates" />
           </AssociationSet>
+          <AssociationSet Name="FK_DrogueRunPositions_DrogueRuns" Association="CSSPDBModel.FK_DrogueRunPositions_DrogueRuns">
+            <End Role="DrogueRun" EntitySet="DrogueRuns" />
+            <End Role="DrogueRunPosition" EntitySet="DrogueRunPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrogueRuns_TVItems" Association="CSSPDBModel.FK_DrogueRuns_TVItems">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="DrogueRun" EntitySet="DrogueRuns" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts" Association="CSSPDBModel.FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
             <End Role="EmailDistributionListContact" EntitySet="EmailDistributionListContacts" />
             <End Role="EmailDistributionListContactLanguage" EntitySet="EmailDistributionListContactLanguages" />
@@ -3500,6 +3758,14 @@
           <AssociationSet Name="FK_EmailDistributionLists_TVItems" Association="CSSPDBModel.FK_EmailDistributionLists_TVItems">
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="EmailDistributionList" EntitySet="EmailDistributionLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedances_OnlyStaffEmailDistributionLists1" Association="CSSPDBModel.FK_RainExceedances_OnlyStaffEmailDistributionLists1">
+            <End Role="EmailDistributionList" EntitySet="EmailDistributionLists" />
+            <End Role="RainExceedance" EntitySet="RainExceedances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedances_StakeholdersEmailDistributionLists" Association="CSSPDBModel.FK_RainExceedances_StakeholdersEmailDistributionLists">
+            <End Role="EmailDistributionList" EntitySet="EmailDistributionLists" />
+            <End Role="RainExceedance" EntitySet="RainExceedances" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailTVItemID_TVItems" Association="CSSPDBModel.FK_EmailTVItemID_TVItems">
             <End Role="TVItem" EntitySet="TVItems" />
@@ -3581,6 +3847,10 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="MikeBoundaryCondition" EntitySet="MikeBoundaryConditions" />
           </AssociationSet>
+          <AssociationSet Name="FK_MikeScenarioResults_TVItems" Association="CSSPDBModel.FK_MikeScenarioResults_TVItems">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="MikeScenarioResult" EntitySet="MikeScenarioResults" />
+          </AssociationSet>
           <AssociationSet Name="FK_MikeScenarios_MikeScenarios" Association="CSSPDBModel.FK_MikeScenarios_MikeScenarios">
             <End Role="MikeScenario" EntitySet="MikeScenarios" />
             <End Role="MikeScenario1" EntitySet="MikeScenarios" />
@@ -3637,14 +3907,6 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="MWQMSample" EntitySet="MWQMSamples" />
           </AssociationSet>
-          <AssociationSet Name="FK_MWQMSitePolSourceSites_TVItems" Association="CSSPDBModel.FK_MWQMSitePolSourceSites_TVItems">
-            <End Role="TVItem" EntitySet="TVItems" />
-            <End Role="MWQMSitePolSourceSite" EntitySet="MWQMSitePolSourceSites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MWQMSitePolSourceSites_TVItems1" Association="CSSPDBModel.FK_MWQMSitePolSourceSites_TVItems1">
-            <End Role="TVItem" EntitySet="TVItems" />
-            <End Role="MWQMSitePolSourceSite" EntitySet="MWQMSitePolSourceSites" />
-          </AssociationSet>
           <AssociationSet Name="FK_MWQMSites_TVItems" Association="CSSPDBModel.FK_MWQMSites_TVItems">
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="MWQMSite" EntitySet="MWQMSites" />
@@ -3673,6 +3935,22 @@
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="PolSourceObservation" EntitySet="PolSourceObservations" />
           </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffects_AnalysisDocumentTVItemID" Association="CSSPDBModel.FK_PolSourceSiteEffects_AnalysisDocumentTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="PolSourceSiteEffect" EntitySet="PolSourceSiteEffects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffects_MWQMSiteTVItemID" Association="CSSPDBModel.FK_PolSourceSiteEffects_MWQMSiteTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="PolSourceSiteEffect" EntitySet="PolSourceSiteEffects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID" Association="CSSPDBModel.FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="PolSourceSiteEffect" EntitySet="PolSourceSiteEffects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms" Association="CSSPDBModel.FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms">
+            <End Role="PolSourceSiteEffectTerm" EntitySet="PolSourceSiteEffectTerms" />
+            <End Role="PolSourceSiteEffectTerm1" EntitySet="PolSourceSiteEffectTerms" />
+          </AssociationSet>
           <AssociationSet Name="FK_PolSourceSites_TVItems" Association="CSSPDBModel.FK_PolSourceSites_TVItems">
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="PolSourceSite" EntitySet="PolSourceSites" />
@@ -3680,6 +3958,18 @@
           <AssociationSet Name="FK_PolSourceSites_TVItems1" Association="CSSPDBModel.FK_PolSourceSites_TVItems1">
             <End Role="TVItem" EntitySet="TVItems" />
             <End Role="PolSourceSite" EntitySet="PolSourceSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedance_ClimateSiteTVItemID" Association="CSSPDBModel.FK_RainExceedance_ClimateSiteTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="RainExceedanceClimateSite" EntitySet="RainExceedanceClimateSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedance_RainExceedanceTVItemID" Association="CSSPDBModel.FK_RainExceedance_RainExceedanceTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="RainExceedanceClimateSite" EntitySet="RainExceedanceClimateSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RainExceedances_RainExceedanceTVItemID" Association="CSSPDBModel.FK_RainExceedances_RainExceedanceTVItemID">
+            <End Role="TVItem" EntitySet="TVItems" />
+            <End Role="RainExceedance" EntitySet="RainExceedances" />
           </AssociationSet>
           <AssociationSet Name="FK_RatingCurveValues_RatingCurves" Association="CSSPDBModel.FK_RatingCurveValues_RatingCurves">
             <End Role="RatingCurve" EntitySet="RatingCurves" />
@@ -4062,15 +4352,15 @@
           </Key>
           <Property Name="ClimateSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClimateSiteTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="ECDBID" Type="Int32" Nullable="false" />
+          <Property Name="ECDBID" Type="Int32" />
           <Property Name="ClimateSiteName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Province" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="Elevation_m" Type="Double" />
           <Property Name="ClimateID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="WMOID" Type="Int32" />
           <Property Name="TCID" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="IsProvincial" Type="Boolean" />
-          <Property Name="ProvSiteID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsQuebecSite" Type="Boolean" />
+          <Property Name="IsCoCoRaHS" Type="Boolean" />
           <Property Name="TimeOffset_hour" Type="Double" />
           <Property Name="File_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HourlyStartDate_Local" Type="DateTime" Precision="3" />
@@ -4149,6 +4439,37 @@
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_DocTemplates_TVItems" FromRole="DocTemplate" ToRole="TVItem" />
         </EntityType>
+        <EntityType Name="DrogueRunPosition">
+          <Key>
+            <PropertyRef Name="DrogueRunPositionID" />
+          </Key>
+          <Property Name="DrogueRunPositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DrogueRunID" Type="Int32" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="StepLat" Type="Double" Nullable="false" />
+          <Property Name="StepLng" Type="Double" Nullable="false" />
+          <Property Name="StepDateTime_Local" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CalculatedSpeed_m_s" Type="Double" Nullable="false" />
+          <Property Name="CalculatedDirection_deg" Type="Double" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DrogueRun" Relationship="CSSPDBModel.FK_DrogueRunPositions_DrogueRuns" FromRole="DrogueRunPosition" ToRole="DrogueRun" />
+        </EntityType>
+        <EntityType Name="DrogueRun">
+          <Key>
+            <PropertyRef Name="DrogueRunID" />
+          </Key>
+          <Property Name="DrogueRunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubsectorTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="DrogueNumber" Type="Int32" Nullable="false" />
+          <Property Name="DrogueType" Type="Int32" Nullable="false" />
+          <Property Name="RunStartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRisingTide" Type="Boolean" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DrogueRunPositions" Relationship="CSSPDBModel.FK_DrogueRunPositions_DrogueRuns" FromRole="DrogueRun" ToRole="DrogueRunPosition" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_DrogueRuns_TVItems" FromRole="DrogueRun" ToRole="TVItem" />
+        </EntityType>
         <EntityType Name="EmailDistributionListContactLanguage">
           <Key>
             <PropertyRef Name="EmailDistributionListContactLanguageID" />
@@ -4188,7 +4509,7 @@
           <Property Name="EmailDistributionListLanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmailDistributionListID" Type="Int32" Nullable="false" />
           <Property Name="Language" Type="Int32" Nullable="false" />
-          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailListName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TranslationStatus" Type="Int32" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
@@ -4199,13 +4520,15 @@
             <PropertyRef Name="EmailDistributionListID" />
           </Key>
           <Property Name="EmailDistributionListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CountryTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="ParentTVItemID" Type="Int32" Nullable="false" />
           <Property Name="Ordinal" Type="Int32" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmailDistributionListContacts" Relationship="CSSPDBModel.FK_EmailDistributionListContacts_EmailDistributionLists" FromRole="EmailDistributionList" ToRole="EmailDistributionListContact" />
           <NavigationProperty Name="EmailDistributionListLanguages" Relationship="CSSPDBModel.FK_EmailDistributionListLanguages_EmailDistributionLists" FromRole="EmailDistributionList" ToRole="EmailDistributionListLanguage" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_EmailDistributionLists_TVItems" FromRole="EmailDistributionList" ToRole="TVItem" />
+          <NavigationProperty Name="RainExceedances" Relationship="CSSPDBModel.FK_RainExceedances_OnlyStaffEmailDistributionLists1" FromRole="EmailDistributionList" ToRole="RainExceedance" />
+          <NavigationProperty Name="RainExceedances1" Relationship="CSSPDBModel.FK_RainExceedances_StakeholdersEmailDistributionLists" FromRole="EmailDistributionList" ToRole="RainExceedance" />
         </EntityType>
         <EntityType Name="Email">
           <Key>
@@ -4218,6 +4541,17 @@
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_EmailTVItemID_TVItems" FromRole="Email" ToRole="TVItem" />
+        </EntityType>
+        <EntityType Name="HelpDoc">
+          <Key>
+            <PropertyRef Name="HelpDocID" />
+          </Key>
+          <Property Name="HelpDocID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocKey" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="Int32" Nullable="false" />
+          <Property Name="DocHTMLText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="HydrometricDataValue">
           <Key>
@@ -4328,7 +4662,7 @@
           <Property Name="ReceivingWaterTemperature_C" Type="Double" />
           <Property Name="ReceivingWater_MPN_per_100ml" Type="Int32" />
           <Property Name="DistanceFromShore_m" Type="Double" />
-          <Property Name="SeeOtherTVItemID" Type="Int32" />
+          <Property Name="SeeOtherMunicipalityTVItemID" Type="Int32" />
           <Property Name="CivicAddressTVItemID" Type="Int32" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
@@ -4526,6 +4860,17 @@
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_MikeBoundaryConditions_TVItems" FromRole="MikeBoundaryCondition" ToRole="TVItem" />
+        </EntityType>
+        <EntityType Name="MikeScenarioResult">
+          <Key>
+            <PropertyRef Name="MikeScenarioResultID" />
+          </Key>
+          <Property Name="MikeScenarioResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MikeScenarioTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="MikeResultsJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_MikeScenarioResults_TVItems" FromRole="MikeScenarioResult" ToRole="TVItem" />
         </EntityType>
         <EntityType Name="MikeScenario">
           <Key>
@@ -4739,6 +5084,7 @@
           <Property Name="MWQMSiteTVItemID" Type="Int32" Nullable="false" />
           <Property Name="MWQMRunTVItemID" Type="Int32" Nullable="false" />
           <Property Name="SampleDateTime_Local" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeText" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="Depth_m" Type="Double" />
           <Property Name="FecCol_MPN_100ml" Type="Int32" Nullable="false" />
           <Property Name="Salinity_PPT" Type="Double" />
@@ -4756,20 +5102,6 @@
           <NavigationProperty Name="MWQMSampleLanguages" Relationship="CSSPDBModel.FK_MWQMSampleLanguages_MWQMSamples" FromRole="MWQMSample" ToRole="MWQMSampleLanguage" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_MWQMSamples_MWQMRunTVItemID" FromRole="MWQMSample" ToRole="TVItem" />
           <NavigationProperty Name="TVItem1" Relationship="CSSPDBModel.FK_MWQMSamples_MWQMSites" FromRole="MWQMSample" ToRole="TVItem" />
-        </EntityType>
-        <EntityType Name="MWQMSitePolSourceSite">
-          <Key>
-            <PropertyRef Name="MWQMSitePolSourceSiteID" />
-          </Key>
-          <Property Name="MWQMSitePolSourceSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MWQMSiteTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="PolSourceSiteTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="TVType" Type="Int32" Nullable="false" />
-          <Property Name="LinkReasons" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_MWQMSitePolSourceSites_TVItems" FromRole="MWQMSitePolSourceSite" ToRole="TVItem" />
-          <NavigationProperty Name="TVItem1" Relationship="CSSPDBModel.FK_MWQMSitePolSourceSites_TVItems1" FromRole="MWQMSitePolSourceSite" ToRole="TVItem" />
         </EntityType>
         <EntityType Name="MWQMSite">
           <Key>
@@ -4846,12 +5178,43 @@
           <Property Name="PolSourceSiteID" Type="Int32" Nullable="false" />
           <Property Name="ObservationDate_Local" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ContactTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="DesktopReviewed" Type="Boolean" Nullable="false" />
           <Property Name="Observation_ToBeDeleted" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PolSourceObservationIssues" Relationship="CSSPDBModel.FK_PolSourceObservationIssues_PolSourceObservations" FromRole="PolSourceObservation" ToRole="PolSourceObservationIssue" />
           <NavigationProperty Name="PolSourceSite" Relationship="CSSPDBModel.FK_PolSourceObservations_PolSourceSites" FromRole="PolSourceObservation" ToRole="PolSourceSite" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_PolSourceObservations_TVItemContact" FromRole="PolSourceObservation" ToRole="TVItem" />
+        </EntityType>
+        <EntityType Name="PolSourceSiteEffect">
+          <Key>
+            <PropertyRef Name="PolSourceSiteEffectID" />
+          </Key>
+          <Property Name="PolSourceSiteEffectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolSourceSiteOrInfrastructureTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="MWQMSiteTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="PolSourceSiteEffectTermIDs" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AnalysisDocumentTVItemID" Type="Int32" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_PolSourceSiteEffects_AnalysisDocumentTVItemID" FromRole="PolSourceSiteEffect" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem1" Relationship="CSSPDBModel.FK_PolSourceSiteEffects_MWQMSiteTVItemID" FromRole="PolSourceSiteEffect" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem2" Relationship="CSSPDBModel.FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID" FromRole="PolSourceSiteEffect" ToRole="TVItem" />
+        </EntityType>
+        <EntityType Name="PolSourceSiteEffectTerm">
+          <Key>
+            <PropertyRef Name="PolSourceSiteEffectTermID" />
+          </Key>
+          <Property Name="PolSourceSiteEffectTermID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsGroup" Type="Boolean" Nullable="false" />
+          <Property Name="UnderGroupID" Type="Int32" />
+          <Property Name="EffectTermEN" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EffectTermFR" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PolSourceSiteEffectTerms1" Relationship="CSSPDBModel.FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms" FromRole="PolSourceSiteEffectTerm" ToRole="PolSourceSiteEffectTerm1" />
+          <NavigationProperty Name="PolSourceSiteEffectTerm1" Relationship="CSSPDBModel.FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms" FromRole="PolSourceSiteEffectTerm1" ToRole="PolSourceSiteEffectTerm" />
         </EntityType>
         <EntityType Name="PolSourceSite">
           <Key>
@@ -4872,24 +5235,37 @@
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_PolSourceSites_TVItems" FromRole="PolSourceSite" ToRole="TVItem" />
           <NavigationProperty Name="TVItem1" Relationship="CSSPDBModel.FK_PolSourceSites_TVItems1" FromRole="PolSourceSite" ToRole="TVItem" />
         </EntityType>
+        <EntityType Name="RainExceedanceClimateSite">
+          <Key>
+            <PropertyRef Name="RainExceedanceClimateSiteID" />
+          </Key>
+          <Property Name="RainExceedanceClimateSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RainExceedanceTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="ClimateSiteTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_RainExceedance_ClimateSiteTVItemID" FromRole="RainExceedanceClimateSite" ToRole="TVItem" />
+          <NavigationProperty Name="TVItem1" Relationship="CSSPDBModel.FK_RainExceedance_RainExceedanceTVItemID" FromRole="RainExceedanceClimateSite" ToRole="TVItem" />
+        </EntityType>
         <EntityType Name="RainExceedance">
           <Key>
             <PropertyRef Name="RainExceedanceID" />
           </Key>
           <Property Name="RainExceedanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="YearRound" Type="Boolean" Nullable="false" />
-          <Property Name="StartDate_Local" Type="DateTime" Precision="3" />
-          <Property Name="EndDate_Local" Type="DateTime" Precision="3" />
-          <Property Name="RainMaximum_mm" Type="Double" />
-          <Property Name="RainExtreme_mm" Type="Double" />
-          <Property Name="DaysPriorToStart" Type="Int32" Nullable="false" />
-          <Property Name="RepeatEveryYear" Type="Boolean" Nullable="false" />
-          <Property Name="ProvinceTVItemIDs" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="SubsectorTVItemIDs" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ClimateSiteTVItemIDs" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="EmailDistributionListIDs" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RainExceedanceTVItemID" Type="Int32" Nullable="false" />
+          <Property Name="StartMonth" Type="Int32" Nullable="false" />
+          <Property Name="StartDay" Type="Int32" Nullable="false" />
+          <Property Name="EndMonth" Type="Int32" Nullable="false" />
+          <Property Name="EndDay" Type="Int32" Nullable="false" />
+          <Property Name="RainMaximum_mm" Type="Double" Nullable="false" />
+          <Property Name="StakeholdersEmailDistributionListID" Type="Int32" />
+          <Property Name="OnlyStaffEmailDistributionListID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EmailDistributionList" Relationship="CSSPDBModel.FK_RainExceedances_OnlyStaffEmailDistributionLists1" FromRole="RainExceedance" ToRole="EmailDistributionList" />
+          <NavigationProperty Name="EmailDistributionList1" Relationship="CSSPDBModel.FK_RainExceedances_StakeholdersEmailDistributionLists" FromRole="RainExceedance" ToRole="EmailDistributionList" />
+          <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_RainExceedances_RainExceedanceTVItemID" FromRole="RainExceedance" ToRole="TVItem" />
         </EntityType>
         <EntityType Name="RatingCurve">
           <Key>
@@ -5150,8 +5526,10 @@
           </Key>
           <Property Name="TideSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TideSiteTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="WebTideModel" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="WebTideDatum_m" Type="Double" Nullable="false" />
+          <Property Name="TideSiteName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Province" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="sid" Type="Int32" Nullable="false" />
+          <Property Name="Zone" Type="Int32" Nullable="false" />
           <Property Name="LastUpdateDate_UTC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateContactTVItemID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TVItem" Relationship="CSSPDBModel.FK_TideSites_TVItems" FromRole="TideSite" ToRole="TVItem" />
@@ -5252,6 +5630,7 @@
           <NavigationProperty Name="ClimateSites" Relationship="CSSPDBModel.FK_ClimateSites_TVItems" FromRole="TVItem" ToRole="ClimateSite" />
           <NavigationProperty Name="Contacts" Relationship="CSSPDBModel.FK_Contacts_TVItems" FromRole="TVItem" ToRole="Contact" />
           <NavigationProperty Name="DocTemplates" Relationship="CSSPDBModel.FK_DocTemplates_TVItems" FromRole="TVItem" ToRole="DocTemplate" />
+          <NavigationProperty Name="DrogueRuns" Relationship="CSSPDBModel.FK_DrogueRuns_TVItems" FromRole="TVItem" ToRole="DrogueRun" />
           <NavigationProperty Name="EmailDistributionLists" Relationship="CSSPDBModel.FK_EmailDistributionLists_TVItems" FromRole="TVItem" ToRole="EmailDistributionList" />
           <NavigationProperty Name="Emails" Relationship="CSSPDBModel.FK_EmailTVItemID_TVItems" FromRole="TVItem" ToRole="Email" />
           <NavigationProperty Name="HydrometricSites" Relationship="CSSPDBModel.FK_HydrometricSites_TVItems" FromRole="TVItem" ToRole="HydrometricSite" />
@@ -5265,6 +5644,7 @@
           <NavigationProperty Name="LabSheetTubeMPNDetails" Relationship="CSSPDBModel.FK_LabSheetTubeMPNDetails_TVItems" FromRole="TVItem" ToRole="LabSheetTubeMPNDetail" />
           <NavigationProperty Name="MapInfos" Relationship="CSSPDBModel.FK_MapInfos_TVItems" FromRole="TVItem" ToRole="MapInfo" />
           <NavigationProperty Name="MikeBoundaryConditions" Relationship="CSSPDBModel.FK_MikeBoundaryConditions_TVItems" FromRole="TVItem" ToRole="MikeBoundaryCondition" />
+          <NavigationProperty Name="MikeScenarioResults" Relationship="CSSPDBModel.FK_MikeScenarioResults_TVItems" FromRole="TVItem" ToRole="MikeScenarioResult" />
           <NavigationProperty Name="MikeScenarios" Relationship="CSSPDBModel.FK_MikeScenarios_TVItems" FromRole="TVItem" ToRole="MikeScenario" />
           <NavigationProperty Name="MikeSources" Relationship="CSSPDBModel.FK_MikeSources_HydrometricTVItemID" FromRole="TVItem" ToRole="MikeSource" />
           <NavigationProperty Name="MikeSources1" Relationship="CSSPDBModel.FK_MikeSources_TVItems" FromRole="TVItem" ToRole="MikeSource" />
@@ -5275,14 +5655,18 @@
           <NavigationProperty Name="MWQMRuns2" Relationship="CSSPDBModel.FK_MWQMRuns_ValidatorTVItemContacts" FromRole="TVItem" ToRole="MWQMRun" />
           <NavigationProperty Name="MWQMSamples" Relationship="CSSPDBModel.FK_MWQMSamples_MWQMRunTVItemID" FromRole="TVItem" ToRole="MWQMSample" />
           <NavigationProperty Name="MWQMSamples1" Relationship="CSSPDBModel.FK_MWQMSamples_MWQMSites" FromRole="TVItem" ToRole="MWQMSample" />
-          <NavigationProperty Name="MWQMSitePolSourceSites" Relationship="CSSPDBModel.FK_MWQMSitePolSourceSites_TVItems" FromRole="TVItem" ToRole="MWQMSitePolSourceSite" />
-          <NavigationProperty Name="MWQMSitePolSourceSites1" Relationship="CSSPDBModel.FK_MWQMSitePolSourceSites_TVItems1" FromRole="TVItem" ToRole="MWQMSitePolSourceSite" />
           <NavigationProperty Name="MWQMSites" Relationship="CSSPDBModel.FK_MWQMSites_TVItems" FromRole="TVItem" ToRole="MWQMSite" />
           <NavigationProperty Name="MWQMSiteStartEndDates" Relationship="CSSPDBModel.FK_MWQMSiteStartEndDates_TVItems" FromRole="TVItem" ToRole="MWQMSiteStartEndDate" />
           <NavigationProperty Name="MWQMSubsectors" Relationship="CSSPDBModel.FK_MWQMSubsectors_TVItems" FromRole="TVItem" ToRole="MWQMSubsector" />
           <NavigationProperty Name="PolSourceObservations" Relationship="CSSPDBModel.FK_PolSourceObservations_TVItemContact" FromRole="TVItem" ToRole="PolSourceObservation" />
+          <NavigationProperty Name="PolSourceSiteEffects" Relationship="CSSPDBModel.FK_PolSourceSiteEffects_AnalysisDocumentTVItemID" FromRole="TVItem" ToRole="PolSourceSiteEffect" />
+          <NavigationProperty Name="PolSourceSiteEffects1" Relationship="CSSPDBModel.FK_PolSourceSiteEffects_MWQMSiteTVItemID" FromRole="TVItem" ToRole="PolSourceSiteEffect" />
+          <NavigationProperty Name="PolSourceSiteEffects2" Relationship="CSSPDBModel.FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID" FromRole="TVItem" ToRole="PolSourceSiteEffect" />
           <NavigationProperty Name="PolSourceSites" Relationship="CSSPDBModel.FK_PolSourceSites_TVItems" FromRole="TVItem" ToRole="PolSourceSite" />
           <NavigationProperty Name="PolSourceSites1" Relationship="CSSPDBModel.FK_PolSourceSites_TVItems1" FromRole="TVItem" ToRole="PolSourceSite" />
+          <NavigationProperty Name="RainExceedanceClimateSites" Relationship="CSSPDBModel.FK_RainExceedance_ClimateSiteTVItemID" FromRole="TVItem" ToRole="RainExceedanceClimateSite" />
+          <NavigationProperty Name="RainExceedanceClimateSites1" Relationship="CSSPDBModel.FK_RainExceedance_RainExceedanceTVItemID" FromRole="TVItem" ToRole="RainExceedanceClimateSite" />
+          <NavigationProperty Name="RainExceedances" Relationship="CSSPDBModel.FK_RainExceedances_RainExceedanceTVItemID" FromRole="TVItem" ToRole="RainExceedance" />
           <NavigationProperty Name="ReportSections" Relationship="CSSPDBModel.FK_ReportSections_TVItems" FromRole="TVItem" ToRole="ReportSection" />
           <NavigationProperty Name="SamplingPlans" Relationship="CSSPDBModel.FK_SamplingPlans_CreatorTVItemID" FromRole="TVItem" ToRole="SamplingPlan" />
           <NavigationProperty Name="SamplingPlans1" Relationship="CSSPDBModel.FK_SamplingPlans_ProvinceTVItemID" FromRole="TVItem" ToRole="SamplingPlan" />
@@ -5355,7 +5739,7 @@
           <Property Name="UseOfSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SiteTVItemID" Type="Int32" Nullable="false" />
           <Property Name="SubsectorTVItemID" Type="Int32" Nullable="false" />
-          <Property Name="SiteType" Type="Int32" Nullable="false" />
+          <Property Name="TVType" Type="Int32" Nullable="false" />
           <Property Name="Ordinal" Type="Int32" Nullable="false" />
           <Property Name="StartYear" Type="Int32" Nullable="false" />
           <Property Name="EndYear" Type="Int32" />
@@ -5712,6 +6096,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DrogueRunPositions_DrogueRuns">
+          <End Type="CSSPDBModel.DrogueRun" Role="DrogueRun" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CSSPDBModel.DrogueRunPosition" Role="DrogueRunPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DrogueRun">
+              <PropertyRef Name="DrogueRunID" />
+            </Principal>
+            <Dependent Role="DrogueRunPosition">
+              <PropertyRef Name="DrogueRunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrogueRuns_TVItems">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPDBModel.DrogueRun" Role="DrogueRun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="DrogueRun">
+              <PropertyRef Name="SubsectorTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmailDistributionListContactLanguages_EmailDistributionListContacts">
           <End Type="CSSPDBModel.EmailDistributionListContact" Role="EmailDistributionListContact" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -5760,7 +6170,31 @@
               <PropertyRef Name="TVItemID" />
             </Principal>
             <Dependent Role="EmailDistributionList">
-              <PropertyRef Name="CountryTVItemID" />
+              <PropertyRef Name="ParentTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedances_OnlyStaffEmailDistributionLists1">
+          <End Type="CSSPDBModel.EmailDistributionList" Role="EmailDistributionList" Multiplicity="0..1" />
+          <End Type="CSSPDBModel.RainExceedance" Role="RainExceedance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionList">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Principal>
+            <Dependent Role="RainExceedance">
+              <PropertyRef Name="OnlyStaffEmailDistributionListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedances_StakeholdersEmailDistributionLists">
+          <End Type="CSSPDBModel.EmailDistributionList" Role="EmailDistributionList" Multiplicity="0..1" />
+          <End Type="CSSPDBModel.RainExceedance" Role="RainExceedance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailDistributionList">
+              <PropertyRef Name="EmailDistributionListID" />
+            </Principal>
+            <Dependent Role="RainExceedance">
+              <PropertyRef Name="StakeholdersEmailDistributionListID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5846,7 +6280,7 @@
               <PropertyRef Name="TVItemID" />
             </Principal>
             <Dependent Role="Infrastructure">
-              <PropertyRef Name="SeeOtherTVItemID" />
+              <PropertyRef Name="SeeOtherMunicipalityTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6009,6 +6443,18 @@
             </Principal>
             <Dependent Role="MikeBoundaryCondition">
               <PropertyRef Name="MikeBoundaryConditionTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MikeScenarioResults_TVItems">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPDBModel.MikeScenarioResult" Role="MikeScenarioResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="MikeScenarioResult">
+              <PropertyRef Name="MikeScenarioTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6188,30 +6634,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MWQMSitePolSourceSites_TVItems">
-          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
-          <End Type="CSSPDBModel.MWQMSitePolSourceSite" Role="MWQMSitePolSourceSite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TVItem">
-              <PropertyRef Name="TVItemID" />
-            </Principal>
-            <Dependent Role="MWQMSitePolSourceSite">
-              <PropertyRef Name="MWQMSiteTVItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MWQMSitePolSourceSites_TVItems1">
-          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
-          <End Type="CSSPDBModel.MWQMSitePolSourceSite" Role="MWQMSitePolSourceSite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TVItem">
-              <PropertyRef Name="TVItemID" />
-            </Principal>
-            <Dependent Role="MWQMSitePolSourceSite">
-              <PropertyRef Name="PolSourceSiteTVItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MWQMSites_TVItems">
           <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
           <End Type="CSSPDBModel.MWQMSite" Role="MWQMSite" Multiplicity="*" />
@@ -6302,6 +6724,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PolSourceSiteEffects_AnalysisDocumentTVItemID">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="0..1" />
+          <End Type="CSSPDBModel.PolSourceSiteEffect" Role="PolSourceSiteEffect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffect">
+              <PropertyRef Name="AnalysisDocumentTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolSourceSiteEffects_MWQMSiteTVItemID">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPDBModel.PolSourceSiteEffect" Role="PolSourceSiteEffect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffect">
+              <PropertyRef Name="MWQMSiteTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolSourceSiteEffects_PolSourceSiteOrInfrastructureTVItemID">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPDBModel.PolSourceSiteEffect" Role="PolSourceSiteEffect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffect">
+              <PropertyRef Name="PolSourceSiteOrInfrastructureTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolSourceSiteEffectTerms_PolSourceSiteEffectTerms">
+          <End Type="CSSPDBModel.PolSourceSiteEffectTerm" Role="PolSourceSiteEffectTerm" Multiplicity="0..1" />
+          <End Type="CSSPDBModel.PolSourceSiteEffectTerm" Role="PolSourceSiteEffectTerm1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolSourceSiteEffectTerm">
+              <PropertyRef Name="PolSourceSiteEffectTermID" />
+            </Principal>
+            <Dependent Role="PolSourceSiteEffectTerm1">
+              <PropertyRef Name="UnderGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PolSourceSites_TVItems">
           <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
           <End Type="CSSPDBModel.PolSourceSite" Role="PolSourceSite" Multiplicity="*" />
@@ -6323,6 +6793,44 @@
             </Principal>
             <Dependent Role="PolSourceSite">
               <PropertyRef Name="CivicAddressTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedance_ClimateSiteTVItemID">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPDBModel.RainExceedanceClimateSite" Role="RainExceedanceClimateSite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="RainExceedanceClimateSite">
+              <PropertyRef Name="ClimateSiteTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedance_RainExceedanceTVItemID">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CSSPDBModel.RainExceedanceClimateSite" Role="RainExceedanceClimateSite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="RainExceedanceClimateSite">
+              <PropertyRef Name="RainExceedanceTVItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RainExceedances_RainExceedanceTVItemID">
+          <End Type="CSSPDBModel.TVItem" Role="TVItem" Multiplicity="1" />
+          <End Type="CSSPDBModel.RainExceedance" Role="RainExceedance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TVItem">
+              <PropertyRef Name="TVItemID" />
+            </Principal>
+            <Dependent Role="RainExceedance">
+              <PropertyRef Name="RainExceedanceTVItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6814,7 +7322,7 @@
           <End Type="CSSPDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="CSSPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -7043,8 +7551,8 @@
                 <ScalarProperty Name="HourlyStartDate_Local" ColumnName="HourlyStartDate_Local" />
                 <ScalarProperty Name="File_desc" ColumnName="File_desc" />
                 <ScalarProperty Name="TimeOffset_hour" ColumnName="TimeOffset_hour" />
-                <ScalarProperty Name="ProvSiteID" ColumnName="ProvSiteID" />
-                <ScalarProperty Name="IsProvincial" ColumnName="IsProvincial" />
+                <ScalarProperty Name="IsCoCoRaHS" ColumnName="IsCoCoRaHS" />
+                <ScalarProperty Name="IsQuebecSite" ColumnName="IsQuebecSite" />
                 <ScalarProperty Name="TCID" ColumnName="TCID" />
                 <ScalarProperty Name="WMOID" ColumnName="WMOID" />
                 <ScalarProperty Name="ClimateID" ColumnName="ClimateID" />
@@ -7116,6 +7624,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DrogueRunPositions">
+            <EntityTypeMapping TypeName="CSSPDBModel.DrogueRunPosition">
+              <MappingFragment StoreEntitySet="DrogueRunPositions">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="CalculatedDirection_deg" ColumnName="CalculatedDirection_deg" />
+                <ScalarProperty Name="CalculatedSpeed_m_s" ColumnName="CalculatedSpeed_m_s" />
+                <ScalarProperty Name="StepDateTime_Local" ColumnName="StepDateTime_Local" />
+                <ScalarProperty Name="StepLng" ColumnName="StepLng" />
+                <ScalarProperty Name="StepLat" ColumnName="StepLat" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="DrogueRunID" ColumnName="DrogueRunID" />
+                <ScalarProperty Name="DrogueRunPositionID" ColumnName="DrogueRunPositionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrogueRuns">
+            <EntityTypeMapping TypeName="CSSPDBModel.DrogueRun">
+              <MappingFragment StoreEntitySet="DrogueRuns">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="IsRisingTide" ColumnName="IsRisingTide" />
+                <ScalarProperty Name="RunStartDateTime" ColumnName="RunStartDateTime" />
+                <ScalarProperty Name="DrogueType" ColumnName="DrogueType" />
+                <ScalarProperty Name="DrogueNumber" ColumnName="DrogueNumber" />
+                <ScalarProperty Name="SubsectorTVItemID" ColumnName="SubsectorTVItemID" />
+                <ScalarProperty Name="DrogueRunID" ColumnName="DrogueRunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EmailDistributionListContactLanguages">
             <EntityTypeMapping TypeName="CSSPDBModel.EmailDistributionListContactLanguage">
               <MappingFragment StoreEntitySet="EmailDistributionListContactLanguages">
@@ -7153,7 +7691,7 @@
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
                 <ScalarProperty Name="TranslationStatus" ColumnName="TranslationStatus" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="EmailListName" ColumnName="EmailListName" />
                 <ScalarProperty Name="Language" ColumnName="Language" />
                 <ScalarProperty Name="EmailDistributionListID" ColumnName="EmailDistributionListID" />
                 <ScalarProperty Name="EmailDistributionListLanguageID" ColumnName="EmailDistributionListLanguageID" />
@@ -7166,7 +7704,7 @@
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
                 <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
-                <ScalarProperty Name="CountryTVItemID" ColumnName="CountryTVItemID" />
+                <ScalarProperty Name="ParentTVItemID" ColumnName="ParentTVItemID" />
                 <ScalarProperty Name="EmailDistributionListID" ColumnName="EmailDistributionListID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7180,6 +7718,18 @@
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="EmailTVItemID" ColumnName="EmailTVItemID" />
                 <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HelpDocs">
+            <EntityTypeMapping TypeName="CSSPDBModel.HelpDoc">
+              <MappingFragment StoreEntitySet="HelpDocs">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="DocHTMLText" ColumnName="DocHTMLText" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="DocKey" ColumnName="DocKey" />
+                <ScalarProperty Name="HelpDocID" ColumnName="HelpDocID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7248,7 +7798,7 @@
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
                 <ScalarProperty Name="CivicAddressTVItemID" ColumnName="CivicAddressTVItemID" />
-                <ScalarProperty Name="SeeOtherTVItemID" ColumnName="SeeOtherTVItemID" />
+                <ScalarProperty Name="SeeOtherMunicipalityTVItemID" ColumnName="SeeOtherMunicipalityTVItemID" />
                 <ScalarProperty Name="DistanceFromShore_m" ColumnName="DistanceFromShore_m" />
                 <ScalarProperty Name="ReceivingWater_MPN_per_100ml" ColumnName="ReceivingWater_MPN_per_100ml" />
                 <ScalarProperty Name="ReceivingWaterTemperature_C" ColumnName="ReceivingWaterTemperature_C" />
@@ -7478,6 +8028,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MikeScenarioResults">
+            <EntityTypeMapping TypeName="CSSPDBModel.MikeScenarioResult">
+              <MappingFragment StoreEntitySet="MikeScenarioResults">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="MikeResultsJSON" ColumnName="MikeResultsJSON" />
+                <ScalarProperty Name="MikeScenarioTVItemID" ColumnName="MikeScenarioTVItemID" />
+                <ScalarProperty Name="MikeScenarioResultID" ColumnName="MikeScenarioResultID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MikeScenarios">
             <EntityTypeMapping TypeName="CSSPDBModel.MikeScenario">
               <MappingFragment StoreEntitySet="MikeScenarios">
@@ -7692,23 +8253,11 @@
                 <ScalarProperty Name="Salinity_PPT" ColumnName="Salinity_PPT" />
                 <ScalarProperty Name="FecCol_MPN_100ml" ColumnName="FecCol_MPN_100ml" />
                 <ScalarProperty Name="Depth_m" ColumnName="Depth_m" />
+                <ScalarProperty Name="TimeText" ColumnName="TimeText" />
                 <ScalarProperty Name="SampleDateTime_Local" ColumnName="SampleDateTime_Local" />
                 <ScalarProperty Name="MWQMRunTVItemID" ColumnName="MWQMRunTVItemID" />
                 <ScalarProperty Name="MWQMSiteTVItemID" ColumnName="MWQMSiteTVItemID" />
                 <ScalarProperty Name="MWQMSampleID" ColumnName="MWQMSampleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MWQMSitePolSourceSites">
-            <EntityTypeMapping TypeName="CSSPDBModel.MWQMSitePolSourceSite">
-              <MappingFragment StoreEntitySet="MWQMSitePolSourceSites">
-                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
-                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
-                <ScalarProperty Name="LinkReasons" ColumnName="LinkReasons" />
-                <ScalarProperty Name="TVType" ColumnName="TVType" />
-                <ScalarProperty Name="PolSourceSiteTVItemID" ColumnName="PolSourceSiteTVItemID" />
-                <ScalarProperty Name="MWQMSiteTVItemID" ColumnName="MWQMSiteTVItemID" />
-                <ScalarProperty Name="MWQMSitePolSourceSiteID" ColumnName="MWQMSitePolSourceSiteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7784,10 +8333,38 @@
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
                 <ScalarProperty Name="Observation_ToBeDeleted" ColumnName="Observation_ToBeDeleted" />
+                <ScalarProperty Name="DesktopReviewed" ColumnName="DesktopReviewed" />
                 <ScalarProperty Name="ContactTVItemID" ColumnName="ContactTVItemID" />
                 <ScalarProperty Name="ObservationDate_Local" ColumnName="ObservationDate_Local" />
                 <ScalarProperty Name="PolSourceSiteID" ColumnName="PolSourceSiteID" />
                 <ScalarProperty Name="PolSourceObservationID" ColumnName="PolSourceObservationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PolSourceSiteEffects">
+            <EntityTypeMapping TypeName="CSSPDBModel.PolSourceSiteEffect">
+              <MappingFragment StoreEntitySet="PolSourceSiteEffects">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="AnalysisDocumentTVItemID" ColumnName="AnalysisDocumentTVItemID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="PolSourceSiteEffectTermIDs" ColumnName="PolSourceSiteEffectTermIDs" />
+                <ScalarProperty Name="MWQMSiteTVItemID" ColumnName="MWQMSiteTVItemID" />
+                <ScalarProperty Name="PolSourceSiteOrInfrastructureTVItemID" ColumnName="PolSourceSiteOrInfrastructureTVItemID" />
+                <ScalarProperty Name="PolSourceSiteEffectID" ColumnName="PolSourceSiteEffectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PolSourceSiteEffectTerms">
+            <EntityTypeMapping TypeName="CSSPDBModel.PolSourceSiteEffectTerm">
+              <MappingFragment StoreEntitySet="PolSourceSiteEffectTerms">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="EffectTermFR" ColumnName="EffectTermFR" />
+                <ScalarProperty Name="EffectTermEN" ColumnName="EffectTermEN" />
+                <ScalarProperty Name="UnderGroupID" ColumnName="UnderGroupID" />
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+                <ScalarProperty Name="PolSourceSiteEffectTermID" ColumnName="PolSourceSiteEffectTermID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7808,22 +8385,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RainExceedanceClimateSites">
+            <EntityTypeMapping TypeName="CSSPDBModel.RainExceedanceClimateSite">
+              <MappingFragment StoreEntitySet="RainExceedanceClimateSites">
+                <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
+                <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
+                <ScalarProperty Name="ClimateSiteTVItemID" ColumnName="ClimateSiteTVItemID" />
+                <ScalarProperty Name="RainExceedanceTVItemID" ColumnName="RainExceedanceTVItemID" />
+                <ScalarProperty Name="RainExceedanceClimateSiteID" ColumnName="RainExceedanceClimateSiteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RainExceedances">
             <EntityTypeMapping TypeName="CSSPDBModel.RainExceedance">
               <MappingFragment StoreEntitySet="RainExceedances">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
-                <ScalarProperty Name="EmailDistributionListIDs" ColumnName="EmailDistributionListIDs" />
-                <ScalarProperty Name="ClimateSiteTVItemIDs" ColumnName="ClimateSiteTVItemIDs" />
-                <ScalarProperty Name="SubsectorTVItemIDs" ColumnName="SubsectorTVItemIDs" />
-                <ScalarProperty Name="ProvinceTVItemIDs" ColumnName="ProvinceTVItemIDs" />
-                <ScalarProperty Name="RepeatEveryYear" ColumnName="RepeatEveryYear" />
-                <ScalarProperty Name="DaysPriorToStart" ColumnName="DaysPriorToStart" />
-                <ScalarProperty Name="RainExtreme_mm" ColumnName="RainExtreme_mm" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="OnlyStaffEmailDistributionListID" ColumnName="OnlyStaffEmailDistributionListID" />
+                <ScalarProperty Name="StakeholdersEmailDistributionListID" ColumnName="StakeholdersEmailDistributionListID" />
                 <ScalarProperty Name="RainMaximum_mm" ColumnName="RainMaximum_mm" />
-                <ScalarProperty Name="EndDate_Local" ColumnName="EndDate_Local" />
-                <ScalarProperty Name="StartDate_Local" ColumnName="StartDate_Local" />
-                <ScalarProperty Name="YearRound" ColumnName="YearRound" />
+                <ScalarProperty Name="EndDay" ColumnName="EndDay" />
+                <ScalarProperty Name="EndMonth" ColumnName="EndMonth" />
+                <ScalarProperty Name="StartDay" ColumnName="StartDay" />
+                <ScalarProperty Name="StartMonth" ColumnName="StartMonth" />
+                <ScalarProperty Name="RainExceedanceTVItemID" ColumnName="RainExceedanceTVItemID" />
                 <ScalarProperty Name="RainExceedanceID" ColumnName="RainExceedanceID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -8069,8 +8655,10 @@
               <MappingFragment StoreEntitySet="TideSites">
                 <ScalarProperty Name="LastUpdateContactTVItemID" ColumnName="LastUpdateContactTVItemID" />
                 <ScalarProperty Name="LastUpdateDate_UTC" ColumnName="LastUpdateDate_UTC" />
-                <ScalarProperty Name="WebTideDatum_m" ColumnName="WebTideDatum_m" />
-                <ScalarProperty Name="WebTideModel" ColumnName="WebTideModel" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="TideSiteName" ColumnName="TideSiteName" />
                 <ScalarProperty Name="TideSiteTVItemID" ColumnName="TideSiteTVItemID" />
                 <ScalarProperty Name="TideSiteID" ColumnName="TideSiteID" />
               </MappingFragment>
@@ -8213,7 +8801,7 @@
                 <ScalarProperty Name="EndYear" ColumnName="EndYear" />
                 <ScalarProperty Name="StartYear" ColumnName="StartYear" />
                 <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
-                <ScalarProperty Name="SiteType" ColumnName="SiteType" />
+                <ScalarProperty Name="TVType" ColumnName="TVType" />
                 <ScalarProperty Name="SubsectorTVItemID" ColumnName="SubsectorTVItemID" />
                 <ScalarProperty Name="SiteTVItemID" ColumnName="SiteTVItemID" />
                 <ScalarProperty Name="UseOfSiteID" ColumnName="UseOfSiteID" />

@@ -12,17 +12,19 @@ namespace Updater
     using System;
     using System.Collections.Generic;
     
-    public partial class MWQMSitePolSourceSite
+    public partial class DrogueRunPosition
     {
-        public int MWQMSitePolSourceSiteID { get; set; }
-        public int MWQMSiteTVItemID { get; set; }
-        public int PolSourceSiteTVItemID { get; set; }
-        public int TVType { get; set; }
-        public string LinkReasons { get; set; }
+        public int DrogueRunPositionID { get; set; }
+        public int DrogueRunID { get; set; }
+        public int Ordinal { get; set; }
+        public double StepLat { get; set; }
+        public double StepLng { get; set; }
+        public System.DateTime StepDateTime_Local { get; set; }
+        public double CalculatedSpeed_m_s { get; set; }
+        public double CalculatedDirection_deg { get; set; }
         public System.DateTime LastUpdateDate_UTC { get; set; }
         public int LastUpdateContactTVItemID { get; set; }
     
-        public virtual TVItem TVItem { get; set; }
-        public virtual TVItem TVItem1 { get; set; }
+        public virtual DrogueRun DrogueRun { get; set; }
     }
 }

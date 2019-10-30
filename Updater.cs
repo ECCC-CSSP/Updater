@@ -233,38 +233,80 @@ namespace Updater
                 DoNext();
             }
         }
-        private string GetFileNameText(PFSFile pfsFile, string Path, string Keyword)
+        //private string GetFileNameText(PFSFile pfsFile, string Path, string Keyword)
+        //{
+        //    string FileName = "";
+
+        //    PFSSection pfsSectionFileName = pfsFile.GetSectionFromHandle(Path);
+
+        //    if (pfsSectionFileName != null)
+        //    {
+        //        PFSKeyword keyword = null;
+        //        try
+        //        {
+        //            keyword = pfsSectionFileName.GetKeyword(Keyword);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            UpdateTaskError(AppTaskID, "PFS GetKeyword. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]");
+        //            richTextBoxStatus.AppendText("PFS GetKeyword. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]\r\n");
+        //            return FileName;
+        //        }
+
+        //        if (keyword != null)
+        //        {
+        //            try
+        //            {
+        //                FileName = keyword.GetParameter(1).ToFileName();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                UpdateTaskError(AppTaskID, "PFS GetParameter. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]");
+        //                richTextBoxStatus.AppendText("PFS GetParameter. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]\r\n");
+        //                return FileName;
+        //            }
+        //        }
+        //    }
+
+        //    return FileName;
+        //}
+        private string GetParameterResultFileName(PFSFile pfsFile, string Path, string Keyword)
         {
+            //string NotUsed = "";
             string FileName = "";
 
-            PFSSection pfsSectionFileName = pfsFile.GetSectionFromHandle(Path);
+            PFSSection pfsSection = pfsFile.GetSectionFromHandle(Path);
 
-            if (pfsSectionFileName != null)
+            if (pfsSection == null)
             {
-                PFSKeyword keyword = null;
+                UpdateTaskError(AppTaskID, $"pfsSection not found for path {Path}");
+                richTextBoxStatus.AppendText($"pfsSection not found for path {Path}\r\n");
+                return FileName;
+            }
+
+            PFSKeyword keyword = null;
+            try
+            {
+                keyword = pfsSection.GetKeyword(Keyword);
+            }
+            catch (Exception ex)
+            {
+                UpdateTaskError(AppTaskID, "PFS GetKeyword. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]");
+                richTextBoxStatus.AppendText("PFS GetKeyword. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]\r\n");
+                return FileName;
+            }
+
+            if (keyword != null)
+            {
                 try
                 {
-                    keyword = pfsSectionFileName.GetKeyword(Keyword);
+                    FileName = keyword.GetParameter(1).ToResultFileName();
                 }
                 catch (Exception ex)
                 {
-                    UpdateTaskError(AppTaskID, "PFS GetKeyword. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]");
-                    richTextBoxStatus.AppendText("PFS GetKeyword. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]\r\n");
+                    UpdateTaskError(AppTaskID, "PFS GetParameter. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]");
+                    richTextBoxStatus.AppendText("PFS GetParameter. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]\r\n");
                     return FileName;
-                }
-
-                if (keyword != null)
-                {
-                    try
-                    {
-                        FileName = keyword.GetParameter(1).ToFileName();
-                    }
-                    catch (Exception ex)
-                    {
-                        UpdateTaskError(AppTaskID, "PFS GetParameter. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]");
-                        richTextBoxStatus.AppendText("PFS GetParameter. Error [" + ex.Message + (ex.InnerException != null ? " Inner: " + ex.InnerException.Message : "") + "]\r\n");
-                        return FileName;
-                    }
                 }
             }
 
@@ -494,7 +536,7 @@ namespace Updater
                 return retStr;
             }
 
-            HydroFileName = GetFileNameText(pfsFile, "FemEngineHD/HYDRODYNAMIC_MODULE/OUTPUTS/OUTPUT_1", "file_name");
+            HydroFileName = GetParameterResultFileName(pfsFile, "FemEngineHD/HYDRODYNAMIC_MODULE/OUTPUTS/OUTPUT_1", "file_name");
             if (string.IsNullOrWhiteSpace(HydroFileName))
             {
                 retStr = "HydroFileName could not be found";
@@ -516,7 +558,7 @@ namespace Updater
 
             lblHydroFileNameValue.Text = @"...\" + MikeScenarioTVItemID + @"\" + fileHydro.Name;
 
-            TransFileName = GetFileNameText(pfsFile, "FemEngineHD/TRANSPORT_MODULE/OUTPUTS/OUTPUT_1", "file_name");
+            TransFileName = GetParameterResultFileName(pfsFile, "FemEngineHD/TRANSPORT_MODULE/OUTPUTS/OUTPUT_1", "file_name");
             if (string.IsNullOrWhiteSpace(TransFileName))
             {
                 retStr = "TransFileName could not be found";
