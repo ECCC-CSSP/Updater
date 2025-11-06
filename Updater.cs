@@ -15,13 +15,14 @@ using Updater.Resources;
 using System.Net.Mail;
 using CSSPEnumsDLL.Enums;
 using DHI.PFS;
+using System.Configuration;
 
 namespace Updater
 {
     public partial class Updater : Form
     {
         #region Variables
-        private string FromEmail = "Charles.LeBlanc2@Canada.ca";
+        
         private int AppTaskID;
         private int MikeScenarioTVItemID;
         private string FileNameM21_3fm;
@@ -32,6 +33,8 @@ namespace Updater
         private long EstimatedTransFileSize;
         private int ContactTVItemID;
         private CSSPDBEntities db = new CSSPDBEntities();
+        private string BasePath = ConfigurationManager.AppSettings["base_file_path"];
+        private string FromEmail = ConfigurationManager.AppSettings["from_email"]; //"Charles.LeBlanc2@Canada.ca";
         #endregion Variables
 
         #region Properties
@@ -402,6 +405,7 @@ namespace Updater
             lblAppTaskIDValue.Text = "...";
             lblMikeScenarioIDValue.Text = "...";
 
+
             AppTask appTask = (from c in db.AppTasks
                                from t in db.TVItems
                                from m in db.MikeScenarios
@@ -416,6 +420,7 @@ namespace Updater
             if (appTask == null)
             {
                 this.Close();
+                return "";
             }
 
             AppTaskID = appTask.AppTaskID;
@@ -512,7 +517,9 @@ namespace Updater
                 richTextBoxStatus.AppendText(retStr + "\r\n");
                 return retStr;
             }
-            FileNameM21_3fm = tvFilem21_3fm.ServerFilePath + tvFilem21_3fm.ServerFileName;
+
+    
+            FileNameM21_3fm = BasePath + tvFilem21_3fm.ServerFilePath + tvFilem21_3fm.ServerFileName;
 
             FileInfo fim21_3fm = new FileInfo(FileNameM21_3fm);
             if (!fim21_3fm.Exists)
@@ -545,7 +552,7 @@ namespace Updater
                 return retStr;
             }
 
-            FileInfo fileHydro = new FileInfo(tvFilem21_3fm.ServerFilePath + HydroFileName);
+            FileInfo fileHydro = new FileInfo(BasePath + tvFilem21_3fm.ServerFilePath + HydroFileName);
             if (!fileHydro.Exists)
             {
                 retStr = "Error: Could not find file [" + fileHydro.FullName + "]";
@@ -567,7 +574,7 @@ namespace Updater
                 return retStr;
             }
 
-            FileInfo fileTrans = new FileInfo(tvFilem21_3fm.ServerFilePath + TransFileName);
+            FileInfo fileTrans = new FileInfo(BasePath + tvFilem21_3fm.ServerFilePath + TransFileName);
             if (!fileTrans.Exists)
             {
                 retStr = "Error: Could not find file [" + fileTrans.FullName + "]";
@@ -605,7 +612,7 @@ namespace Updater
                 return;
             }
 
-            FileInfo fiServer = new FileInfo(tvFilem21_3fm.ServerFilePath + tvFilem21_3fm.ServerFileName);
+            FileInfo fiServer = new FileInfo(BasePath + tvFilem21_3fm.ServerFilePath + tvFilem21_3fm.ServerFileName);
             if (!fiServer.Exists)
             {
                 UpdateTaskError(AppTaskID, "File [" + fiServer.FullName + "] could not be found on the server.");
@@ -613,7 +620,7 @@ namespace Updater
                 return;
             }
 
-            PFSFile pfsFile = new PFSFile(tvFilem21_3fm.ServerFilePath + tvFilem21_3fm.ServerFileName);
+            PFSFile pfsFile = new PFSFile(BasePath + tvFilem21_3fm.ServerFilePath + tvFilem21_3fm.ServerFileName);
 
             if (pfsFile == null)
             {
