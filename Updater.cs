@@ -366,7 +366,7 @@ namespace Updater
             processMike.StartInfo = pInfoMz;
             try
             {
-                pInfoMz.FileName = @"C:\Program Files (x86)\DHI\2016\bin\x64\MzLaunch.exe";
+                pInfoMz.FileName = ConfigurationManager.AppSettings["MIKE_executable"]; // @"C:\Program Files (x86)\DHI\2016\bin\x64\MzLaunch.exe";
                 processMike.Start();
             }
             catch (Exception ex)
@@ -430,11 +430,11 @@ namespace Updater
             lblAppTaskIDValue.Text = AppTaskID.ToString();
             lblMikeScenarioIDValue.Text = MikeScenarioTVItemID.ToString();
 
-            if (!DongleIsPlugged())
-            {
-                UpdateTaskError(AppTaskID, UpdaterRes.Mike21_3DongleNotFound);
-                return UpdaterRes.Mike21_3DongleNotFound;
-            }
+            //if (!DongleIsPlugged())
+            //{
+            //    UpdateTaskError(AppTaskID, UpdaterRes.Mike21_3DongleNotFound);
+            //    return UpdaterRes.Mike21_3DongleNotFound;
+            //}
 
             this.Text = "Mike Scenario Updater " + MikeScenarioTVItemID;
 
