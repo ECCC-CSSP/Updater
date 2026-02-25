@@ -420,7 +420,7 @@ namespace Updater
             if (appTask == null)
             {
                 this.Close();
-                return "";
+                return "No task left to process, closing";
             }
 
             AppTaskID = appTask.AppTaskID;
